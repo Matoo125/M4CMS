@@ -13,4 +13,9 @@ class Url
     return self::$url[$key];
   }
 
+  public static function getAll()
+  {
+    return self::$url;
+  }
+
 }

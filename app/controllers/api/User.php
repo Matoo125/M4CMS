@@ -11,7 +11,7 @@ namespace app\controllers\api;
  use app\config\Database;
  use app\core\Controller;
  use app\core\Session;
- use app\helpers\Redirect;
+ use app\helper\Redirect;
 
 class User extends Controller
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\helpers;
+namespace app\helper;
 
 use app\string\Url;
 

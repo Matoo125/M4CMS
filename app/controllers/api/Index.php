@@ -1,9 +1,9 @@
 <?php
 namespace app\controllers\api;
 
-use app\core;
+use app\core\Controller;
 
-class Index extends core\Controller
+class Index extends Controller
 {
 
     public function __construct()

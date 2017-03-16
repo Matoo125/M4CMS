@@ -2,7 +2,7 @@
 
 namespace app\core;
 
-use app\helpers\Redirect;
+use app\helper\Redirect;
 
 class App
 {

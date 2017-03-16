@@ -2,6 +2,9 @@
 
 namespace app\core;
 
+use app\string\Lang;
+use app\string\Url;
+
 class Controller {
 
     protected $model;
@@ -34,8 +37,8 @@ class Controller {
       $this->data['sessionclass'] = new Session;
 
       // pass lang and url arrays
-      $this->data['lang'] = \app\string\Lang::getAll();
-      $this->data['url']  = new \app\string\Url;
+      $this->data['lang'] = Lang::getAll();
+      $this->data['url']  = Url::getAll();
 
       // render twig template
       echo $twig->render($view.".twig", $this->data);
