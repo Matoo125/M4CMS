@@ -3,10 +3,9 @@
 class IndexController extends Controller
 {
 
-    public function __construct($view)
+    public function __construct()
     {
         $this->model = $this->model('Index');
-        $this->view  = $view; 
     }
 
     public function index($page = null, $post = null)
@@ -17,26 +16,17 @@ class IndexController extends Controller
            if ( $post != null ) {
                $this->data['post'] = $post;
            }
-       } 
+       }
     }
 
-    public function public_index() 
-    {
+    public function public_index() {}
 
-    }
+    public function api_index() {}
 
-    public function api_index()
-    {
-
-    }
-
-    public function admin_index()
-    {
-
-    }
+    public function admin_index() {}
 
     public function __destruct()
     {
-        $this->view($this->view, $this->data);
+
     }
 }

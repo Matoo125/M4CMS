@@ -1,5 +1,4 @@
 <?php
 
-require_once '../app/init.php';
+require_once '../app/config/init.php';
 $app = new App;
-

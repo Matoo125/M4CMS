@@ -1,0 +1,59 @@
+/* -- declarations -- */
+.bg-default, .list-group-item.active {
+  background-color: #00bf74; }
+
+.bg-dark {
+  background-color: #6e9680; }
+
+.font-white {
+  color: #fcfcfc; }
+
+/* -- styles -- */
+body {
+  background: #fcfcfc; }
+
+::selection {
+  color: #fcfcfc;
+  background: #00bf74; }
+
+.navbar {
+  min-height: 33px !important;
+  padding: 0; }
+  .navbar a {
+    color: #fcfcfc; }
+  .navbar .active a, .navbar a:hover {
+    background: #6e9680; }
+
+.navbar-brand {
+  padding: 0.25em 0;
+  margin-left: 1rem;
+  color: #fcfcfc; }
+
+.menu-image {
+  color: #fcfcfc;
+  padding: 0.25em 0; }
+
+header {
+  background-color: #6e9680;
+  color: #fcfcfc;
+  padding: 15px 0 10px 0; }
+  header .dropdown {
+    margin-top: 5px; }
+
+#breadcrumb {
+  margin-top: 15px; }
+
+.list-group-item.active {
+  border-color: #00bf74; }
+
+.fa-sidebar {
+  padding-right: 5px; }
+
+.badge {
+  margin-left: auto; }
+
+.card-header {
+  font-size: 1.5em;
+  font-weight: 600; }
+
+/*# sourceMappingURL=style.css.map */
