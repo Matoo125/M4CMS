@@ -1,5 +1,7 @@
 <?php
 
+namespace app\core;
+
 /*
  * Core Model
  * is extended by other models

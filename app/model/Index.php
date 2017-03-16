@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-class Index extends Model
+class Index extends app\core\Model
 {
-    
+
 }

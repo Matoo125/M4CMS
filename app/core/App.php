@@ -1,10 +1,12 @@
 <?php
 
+namespace app\core;
+
 class App
 {
-    protected $controller = 'IndexController';
+    protected $controller = 'Index';
     protected $method = 'index';
-    protected $method_prefix = 'public_';
+    protected $module = 'public';
     protected $params = [];
     protected $view;
 
@@ -18,36 +20,40 @@ class App
 
         // set admin prefix if exists
          if ($url[0] == 'admin'){
-            $this->method_prefix = 'admin_';
+            $this->module = 'admin';
             array_shift($url);
             if (! Session::get('user_id')) redirect(toURL("LOGIN"));
           }
 
         // set api prefix if exists
         if (isset($url[0]) && $url[0] == 'api') {
-            $this->method_prefix = "api_";
+            $this->module = "api";
             array_shift($url);
         }
 
         // set first folder for view
-        $this->view = substr($this->method_prefix, 0, -1) . "/";
+        $this->view = $this->module . "/";
 
-        // set controller if exists
-        if ($url && file_exists(APP . DS . 'controllers' . DS . ucfirst($url[0] . 'Controller') . '.php')) {
-            $this->controller = ucfirst($url[0]) . "Controller"; // set controller from URL
+        // set controller
+        if ($url && file_exists(APP . DS . 'controllers' . DS . $this->module . DS . ucfirst($url[0] . ucfirst($this->module) . 'Controller') . '.php')) {
+            $this->controller = ucfirst($url[0]); // set controller from URL
             array_shift($url);
         }
-
         // set second folder for view
-        $this->view .= lcfirst(substr($this->controller, 0, -10)) . "/";
+        $this->view .= lcfirst($this->controller) . "/";
+
+        // append module name and word controller
+        $this->controller .= ucfirst($this->module) . "Controller";
 
         // require controller file
-        require_once APP . DS . 'controllers' . DS . $this->controller . '.php';
+        require_once APP . DS . 'controllers' . DS . $this->module . DS . $this->controller . '.php';
 
+        // prepend namespace
         // create new instance of the controller
-        $this->controller = new $this->controller();
+        $controller = "app\controllers\\" . $this->module . "\\" . $this->controller;
+        $this->controller = new $controller();
 
-        if ( isset( $url[0] ) && method_exists( $this->controller, $this->method_prefix . $url[0] ) ) {
+        if ( isset( $url[0] ) && method_exists( $this->controller, $url[0] ) ) {
             $this->method = $url[0];
             array_shift($url);
         }
@@ -57,9 +63,8 @@ class App
         // set params if possible
         $this->params = $url ? $url : [];
 
-        // call method in controller and pass parameters
-        if ( method_exists( $this->controller, $this->method_prefix . $this->method) ) {
-          // call method
+        if ( method_exists( $this->controller, $this->method) ) {
+          // call controller's method with parameters
           call_user_func_array([$this->controller, $this->method], $this->params);
           // call view
           call_user_func_array([$this->controller, 'view'], [$this->view]);

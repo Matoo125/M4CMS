@@ -7,20 +7,15 @@
  * before release, please upgrade.
  */
 
-class UserController extends Controller {
+class UserApiController extends app\core\Controller 
+{
 
   public function __construct()
   {
     $this->model = $this->model("User");
   }
 
-    public function index(){}
-
-    public function public_index(){}
-
-    public function public_login() {}
-
-    public function login()
+  public function login()
     {
         if ($_POST) {
             $mEmail = $_POST['loginEmail'];
@@ -56,8 +51,6 @@ class UserController extends Controller {
       Session::destroy();
       redirect(toURL("LOGIN"));
     }
-
-    public function public_logout(){}
 
 
 }

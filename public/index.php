@@ -1,4 +1,4 @@
 <?php
 
 require_once '../app/config/init.php';
-$app = new App;
+$app = new app\core\App;

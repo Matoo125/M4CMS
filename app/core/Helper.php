@@ -1,5 +1,7 @@
 <?php
 
+namespace app\core;
+
 function redirect($url)
 {
     header("Location: " . $url);

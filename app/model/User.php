@@ -1,6 +1,6 @@
 <?php
 
-class User extends Model
+class User extends app\core\Model
 {
 
     public function getByEmail($email) {

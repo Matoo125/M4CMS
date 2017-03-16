@@ -1,5 +1,7 @@
 <?php
 
+namespace app\core;
+
 class Controller {
 
     protected $model;
@@ -16,16 +18,16 @@ class Controller {
     }
 
     public function view($view) {
-      $loader = new Twig_Loader_Filesystem(APP . DS . 'view');
-      $twig = new Twig_Environment( $loader, array(
+      $loader = new \Twig_Loader_Filesystem(APP . DS . 'view');
+      $twig = new \Twig_Environment( $loader, array(
         'debug' => true,
       ) );
-      $twig->addExtension(new Twig_Extension_Debug());
+      $twig->addExtension(new \Twig_Extension_Debug());
       // session acess
       $twig->addGlobal("session", $_SESSION);
 
       // pass slugify function
-      $slugifilter = new Twig_Filter('slugifilter', 'slugify');
+      $slugifilter = new \Twig_Filter('slugifilter', 'slugify');
       $twig->addFilter($slugifilter);
 
       // Session core class acess

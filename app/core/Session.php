@@ -1,5 +1,7 @@
 <?php
 
+namespace app\core;
+
 class Session {
 
     protected static $flash_message = null;

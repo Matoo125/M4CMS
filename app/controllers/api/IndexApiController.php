@@ -1,6 +1,9 @@
 <?php
+namespace app\controllers\api;
 
-class IndexController extends Controller
+use app\core;
+
+class IndexApiController extends core\Controller
 {
 
     public function __construct()
@@ -19,14 +22,5 @@ class IndexController extends Controller
        }
     }
 
-    public function public_index() {}
 
-    public function api_index() {}
-
-    public function admin_index() {}
-
-    public function __destruct()
-    {
-
-    }
 }
