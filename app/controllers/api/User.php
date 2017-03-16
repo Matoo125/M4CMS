@@ -1,4 +1,5 @@
 <?php
+namespace app\controllers\api;
 
 /**
  * Class Users Controller
@@ -7,7 +8,12 @@
  * before release, please upgrade.
  */
 
-class UserApiController extends app\core\Controller 
+ use app\config\Database;
+ use app\core\Controller;
+ use app\core\Session;
+ use app\helpers\Redirect;
+
+class User extends Controller
 {
 
   public function __construct()
@@ -17,6 +23,7 @@ class UserApiController extends app\core\Controller
 
   public function login()
     {
+      if (Session::get('user_id')) Redirect::to('/');
         if ($_POST) {
             $mEmail = $_POST['loginEmail'];
             $mPass = $_POST['loginPassword'];
@@ -30,12 +37,12 @@ class UserApiController extends app\core\Controller
                 //  echo 'false'; die;
                 }
 
-                $mPass = md5(Config::SALT . $mPass);
+                $mPass = md5(Database::SALT . $mPass);
 
                 if ($mPass == $user['password']) {
                     Session::set('user_id', $user['id']);
                     Session::setFlash("You are logged in.", "success");
-                    redirect('/admin');
+                    Redirect::to('/admin');
                 } else {
                     Session::setFlash("Credentials do not match.", "warning");
                 }
@@ -49,7 +56,8 @@ class UserApiController extends app\core\Controller
     public function logout()
     {
       Session::destroy();
-      redirect(toURL("LOGIN"));
+      Redirect::to("/user/login");
+      //Helper\redirect(toURL("LOGIN"));
     }
 
 

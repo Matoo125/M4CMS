@@ -1,6 +1,7 @@
 <?php
+namespace app\config;
 
-class Config
+class Database
 {
     const DB_HOST = 'localhost';
     const DB_NAME = 'm4cms';

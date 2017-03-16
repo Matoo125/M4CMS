@@ -3,7 +3,7 @@ namespace app\controllers\admin;
 
 require APP . DS . 'controllers/api/UserApiController.php';
 
-class UserPublicController extends UserAdminController
+class User extends UserAdminController
 {
 
 }

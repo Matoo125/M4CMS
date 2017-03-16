@@ -1,8 +1,16 @@
 <?php
+namespace app\string;
 
-$url = [
+class Url
+{
+  protected static $url = [
+    'LOGIN'           =>  "/user/login",
+    'LOGOUT'          =>  "/user/logout",
+  ];
 
-  'LOGIN'           =>  "/user/login",
-  'LOGOUT'          =>  "/user/logout",
+  public static function get($key)
+  {
+    return self::$url[$key];
+  }
 
-];
+}

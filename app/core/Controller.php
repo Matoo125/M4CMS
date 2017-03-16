@@ -34,8 +34,8 @@ class Controller {
       $this->data['sessionclass'] = new Session;
 
       // pass lang and url arrays
-      $this->data['lang'] = $GLOBALS['lang'];
-      $this->data['url']  = $GLOBALS['url'];
+      $this->data['lang'] = \app\string\Lang::getAll();
+      $this->data['url']  = new \app\string\Url;
 
       // render twig template
       echo $twig->render($view.".twig", $this->data);

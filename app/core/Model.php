@@ -7,6 +7,8 @@ namespace app\core;
  * is extended by other models
  */
 
+ use app\config\Database;
+
 abstract class Model
 {
     protected static function getDB()
@@ -15,9 +17,9 @@ abstract class Model
 
         if ($db === null) {
             try {
-                $dns = 'mysql:host=' . Config::DB_HOST . ';dbname=' . Config::DB_NAME . ';charset=utf8';
-                $db = new PDO($dns, Config::DB_USER, Config::DB_PASSWORD);
-                $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $dns = 'mysql:host=' . Database::DB_HOST . ';dbname=' . Database::DB_NAME . ';charset=utf8';
+                $db = new \PDO($dns, Database::DB_USER, Database::DB_PASSWORD);
+                $db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
                 return $db;
             } catch (\PDOException $e) {
                 echo $e->getMessage();

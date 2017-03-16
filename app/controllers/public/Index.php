@@ -1,10 +1,12 @@
 <?php
-namespace app\controllers\admin;
+
+namespace app\controllers\public;
 
 use app\controllers\api;
 
 require APP . DS . 'controllers/api/IndexApiController.php';
-class IndexAdminController extends api\IndexApiController
+
+class IndexPublicController extends IndexApiController
 {
 
 }

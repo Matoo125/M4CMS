@@ -3,7 +3,7 @@ namespace app\controllers\api;
 
 use app\core;
 
-class IndexApiController extends core\Controller
+class Index extends core\Controller
 {
 
     public function __construct()

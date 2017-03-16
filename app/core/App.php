@@ -2,11 +2,13 @@
 
 namespace app\core;
 
+use app\helpers\Redirect;
+
 class App
 {
     protected $controller = 'Index';
     protected $method = 'index';
-    protected $module = 'public';
+    protected $module = 'web';
     protected $params = [];
     protected $view;
 
@@ -22,7 +24,7 @@ class App
          if ($url[0] == 'admin'){
             $this->module = 'admin';
             array_shift($url);
-            if (! Session::get('user_id')) redirect(toURL("LOGIN"));
+            if (! Session::get('user_id')) Redirect::toURL("LOGIN"); // redirect(toURL("LOGIN"));
           }
 
         // set api prefix if exists
@@ -35,15 +37,12 @@ class App
         $this->view = $this->module . "/";
 
         // set controller
-        if ($url && file_exists(APP . DS . 'controllers' . DS . $this->module . DS . ucfirst($url[0] . ucfirst($this->module) . 'Controller') . '.php')) {
+        if ($url && file_exists(APP . DS . 'controllers' . DS . $this->module . DS . ucfirst($url[0] ) . '.php')) {
             $this->controller = ucfirst($url[0]); // set controller from URL
             array_shift($url);
         }
         // set second folder for view
         $this->view .= lcfirst($this->controller) . "/";
-
-        // append module name and word controller
-        $this->controller .= ucfirst($this->module) . "Controller";
 
         // require controller file
         require_once APP . DS . 'controllers' . DS . $this->module . DS . $this->controller . '.php';
