@@ -1,2 +1,3 @@
 /app/vendor
+/app/config/database.php
 /.idea

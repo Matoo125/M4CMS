@@ -3,11 +3,11 @@ namespace app\config;
 
 class Database
 {
-    const HOST = '';
-    const NAME = '';
-    const USER = '';
-    const PASSWORD = '';
+    const HOST = 'localhost';
+    const NAME = 'slovakvegan_new';
+    const USER = 'phpmyadmin';
+    const PASSWORD = '123456';
     const SHOW_ERRORS = true;
 
-    const SALT = '';
+    const SALT = 'asd57rgre574sdfs5gs658floinbc489sdg49';
 }
