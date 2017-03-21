@@ -1,3 +1,9 @@
+---
+currentMenu: app
+---
+
+# core/App.php
+
 App class is the base router. It parses URL string into an sanitized array.
 It takes care of prefixes (public, api, admin),
 sets controller (default IndexController),
