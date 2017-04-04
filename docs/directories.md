@@ -5,152 +5,59 @@ currentMenu: directories
 # Directory Structure
 
 ```
-M4CMS
-│   .couscous
-│   __install   
-│
-└───app
-│   │   file011.txt
-│   │   file012.txt
-│   │
-│   └───subfolder1
-│       │   file111.txt
-│       │   file112.txt
-│       │   ...
-│   
-└───public
-    │   css
-    │	  └─style.css
-    │   .htaccess.php
-```
-
-```
-├───.couscous
-│   └───generated
-│       ├───css
-│       └───fonts
-├───.idea
-│   ├───dataSources
-│   │   ├───446fd566-a1b0-4008-932b-e6928f1fb18e
-│   │   ├───67d82618-f28d-41e1-b532-1829d5ab3e33
-│   │   └───f289b6ca-207f-47a0-aeca-26315444fe85
-│   └───inspectionProfiles
-├───app
-│   ├───config
-│   ├───controllers
-│   │   ├───admin
-│   │   ├───api
-│   │   ├───public
-│   │   └───web
-│   ├───core
-│   ├───helper
-│   ├───model
-│   ├───string
-│   ├───vendor
-│   │   ├───composer
-│   │   ├───symfony
-│   │   │   └───polyfill-mbstring
-│   │   │       └───Resources
-│   │   │           └───unidata
-│   │   └───twig
-│   │       └───twig
-│   │           ├───doc
-│   │           │   ├───filters
-│   │           │   ├───functions
-│   │           │   ├───tags
-│   │           │   └───tests
-│   │           ├───lib
-│   │           │   └───Twig
-│   │           │       ├───Cache
-│   │           │       ├───Error
-│   │           │       ├───Extension
-│   │           │       ├───Loader
-│   │           │       ├───Node
-│   │           │       │   └───Expression
-│   │           │       │       ├───Binary
-│   │           │       │       ├───Filter
-│   │           │       │       ├───Test
-│   │           │       │       └───Unary
-│   │           │       ├───NodeVisitor
-│   │           │       ├───Profiler
-│   │           │       │   ├───Dumper
-│   │           │       │   ├───Node
-│   │           │       │   └───NodeVisitor
-│   │           │       ├───Sandbox
-│   │           │       ├───Test
-│   │           │       ├───TokenParser
-│   │           │       └───Util
-│   │           └───test
-│   │               └───Twig
-│   │                   └───Tests
-│   │                       ├───Cache
-│   │                       ├───Extension
-│   │                       ├───Fixtures
-│   │                       │   ├───autoescape
-│   │                       │   ├───errors
-│   │                       │   ├───exceptions
-│   │                       │   ├───expressions
-│   │                       │   ├───extensions
-│   │                       │   ├───filters
-│   │                       │   ├───functions
-│   │                       │   │   └───include
-│   │                       │   ├───macros
-│   │                       │   ├───regression
-│   │                       │   ├───tags
-│   │                       │   │   ├───autoescape
-│   │                       │   │   ├───block
-│   │                       │   │   ├───embed
-│   │                       │   │   ├───filter
-│   │                       │   │   ├───for
-│   │                       │   │   ├───if
-│   │                       │   │   ├───include
-│   │                       │   │   ├───inheritance
-│   │                       │   │   ├───macro
-│   │                       │   │   ├───sandbox
-│   │                       │   │   ├───set
-│   │                       │   │   ├───spaceless
-│   │                       │   │   ├───use
-│   │                       │   │   ├───verbatim
-│   │                       │   │   └───with
-│   │                       │   └───tests
-│   │                       ├───LegacyFixtures
-│   │                       │   ├───autoescape
-│   │                       │   └───functions
-│   │                       ├───Loader
-│   │                       │   └───Fixtures
-│   │                       │       ├───inheritance
-│   │                       │       ├───named
-│   │                       │       ├───named_bis
-│   │                       │       ├───named_final
-│   │                       │       ├───named_quater
-│   │                       │       ├───named_ter
-│   │                       │       ├───normal
-│   │                       │       ├───normal_bis
-│   │                       │       ├───normal_final
-│   │                       │       ├───normal_ter
-│   │                       │       ├───phar
-│   │                       │       └───themes
-│   │                       │           ├───theme1
-│   │                       │           └───theme2
-│   │                       ├───Node
-│   │                       │   └───Expression
-│   │                       │       ├───Binary
-│   │                       │       └───Unary
-│   │                       ├───NodeVisitor
-│   │                       ├───Profiler
-│   │                       │   └───Dumper
-│   │                       └───Util
-│   └───view
-│       ├───admin
-│       │   └───index
-│       ├───api
-│       │   └───index
-│       └───web
-│           ├───index
-│           └───user
-├───docs
-├───public
-│   └───css
-│       └───admin
-└───__install
+- app                        Application logic here
+  - config                   Configuration files
+    - bootstrap.php          Bootstrap file
+    - database.php           Database information
+  - controllers              Controllers folder
+    - admin                  Admin module
+      - Index.php            Default controller file
+      - ...                  Another controllers
+    - api                    Api Module
+      - Index.php            Default controller file
+      - ...                  Another controllers
+    - web                    Web Module
+      - Index.php            Default controller file
+      - ...                  Another controllers
+  - core                     Core folder
+    - App.php                Router
+    - Controller.php         Base controller
+    - Model.php              Base model
+    - Session.php            Session and message helper - move it!
+    - ...
+  - helper                   Helper folder
+    - Image.php              Image helper
+    - Redirect.php           Redirect helper
+    - Slug.php               Slug helper -> remake to string.php
+  - model                    Folder for models
+    - Index.php              Index model
+    - User.php               User model
+  - string
+    - local
+      - en.php
+      - sk.php
+    - Lang.php
+    - Url.php
+  - vendor
+  - view
+    - admin   
+      -
+    - api
+    - web
+  - composer.json
+  - composer.lock
+- db
+  - db.sql
+- docs
+- public
+ - bower_components
+ - css
+    - admin   
+    - web   
+  - js
+    - admin   
+    - web   
+- .gitignore
+- couscous.yml
+- README.md
 ```

@@ -3,9 +3,9 @@ namespace app\config;
 
 class Database
 {
-    const HOST = '';
-    const NAME = '';
-    const USER = '';
+    const HOST = 'localhost';
+    const NAME = 'm4cms';
+    const USER = 'root';
     const PASSWORD = '';
     const SHOW_ERRORS = true;
 

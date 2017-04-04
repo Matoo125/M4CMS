@@ -4,74 +4,111 @@ namespace app\core;
 
 use app\helper\Redirect;
 
+/**
+ * App class is the application headquarters.
+ * This is calling controllers and also view
+ * It is also router of the application.
+ */
 class App
 {
+    // Controller to be called.
+    // Default Index
+    // Later controller object
     protected $controller = 'Index';
+    // Method to be called
+    // default index
     protected $method = 'index';
+    // Module to be called
+    // default web
     protected $module = 'web';
+    // Params to be passed to controller
+    // default empty array
     protected $params = [];
-    protected $view;
+
 
     /**
      * App constructor.
+     * Everything important is happening here
      */
     public function __construct()
     {
         // create array from and clean the url
         $url = $this->parseURL();
 
-        // set admin prefix if exists
-         if ($url[0] == 'admin'){
-            $this->module = 'admin';
-            array_shift($url);
-            if (! Session::get('user_id')) Redirect::toURL("LOGIN"); // redirect(toURL("LOGIN"));
-          }
+        // set the module
+        $url = $this->setModule($url);
 
-        // set api prefix if exists
-        if (isset($url[0]) && $url[0] == 'api') {
-            $this->module = "api";
-            array_shift($url);
-        }
-
-        // set first folder for view
-        $this->view = $this->module . "/";
-
-        // set controller
+        // set controller if exists
+        // if not we'll call default controller
+        // which is already set
         if ($url && file_exists(APP . DS . 'controllers' . DS . $this->module . DS . ucfirst($url[0] ) . '.php')) {
             $this->controller = ucfirst($url[0]); // set controller from URL
             array_shift($url);
         }
-        // set second folder for view
-        $this->view .= lcfirst($this->controller) . "/";
-
-        // require controller file
-        require_once APP . DS . 'controllers' . DS . $this->module . DS . $this->controller . '.php';
 
         // prepend namespace
         // create new instance of the controller
         $controller = "app\controllers\\" . $this->module . "\\" . $this->controller;
         $this->controller = new $controller();
 
+        // set method
+        // if possible and necessary
+        // else we'll use default method: index
         if ( isset( $url[0] ) && method_exists( $this->controller, $url[0] ) ) {
             $this->method = $url[0];
             array_shift($url);
         }
-        // set file for view
-        $this->view .= $this->method;
 
         // set params if possible
+        // all the remaining arguments
+        // from url or empty []
         $this->params = $url ? $url : [];
 
         if ( method_exists( $this->controller, $this->method) ) {
+
           // call controller's method with parameters
           call_user_func_array([$this->controller, $this->method], $this->params);
+
           // call view
-          call_user_func_array([$this->controller, 'view'], [$this->view]);
+          // module/controller/method
+          $view = $this->module . DS . lcfirst(substr(strrchr(get_class($this->controller), '\\'), 1)) . DS . $this->method;
+          if (file_exists(APP . DS . 'view' . DS . $view . '.twig')) {
+            call_user_func_array([$this->controller, 'view'], [$view]);
+          }
+
         }
 
 
     }
 
+    /**
+    * setModule function
+    * takes 1 argument $url array
+    * return $url
+    */
+    public function setModule($url)
+    {
+        // set admin module if requested
+         if ($url[0] == 'admin'){
+            $this->module = 'admin';
+            array_shift($url);
+            if (! Session::get('user_id')) Redirect::toURL("LOGIN"); // redirect(toURL("LOGIN"));
+          }
+
+        // set api module if requested
+        else if (isset($url[0]) && $url[0] == 'api') {
+            $this->module = "api";
+            array_shift($url);
+        }
+
+        return $url;
+    }
+
+    /*
+    * parseURL no arguments
+    * returns url array
+    * or null
+    */
     public function parseURL()
     {
         if (isset($_GET['url'])) {

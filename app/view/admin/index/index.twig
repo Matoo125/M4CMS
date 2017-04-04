@@ -1,85 +1,171 @@
 {% extends 'admin/base.twig' %}
 
+
+{% block title %}Dashboard {% endblock %}
+
+{% block breadcrumbs %}Dashboard {% endblock %}
+
 {% block content %}
-<section id="main">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="list-group">
-                    <a href="" class="list-group-item list-group-item-action active"><i class="fa fa-sidebar fa-cog" aria-hidden="true"></i> Dashboard <span class="badge badge-default badge-pill badge-right">14</span></a>
-                    <li class="list-group-item list-group-item-action"><i class="fa fa-sidebar fa-newspaper-o" aria-hidden="true"></i>Posts <span class="badge badge-default badge-pill">14</span></li>
-                    <li class="list-group-item list-group-item-action"><i class="fa fa-sidebar fa-file-text-o" aria-hidden="true"></i>Pages <span class="badge badge-default badge-pill">14</span></li>
-                    <li class="list-group-item list-group-item-action "><i class="fa fa-sidebar fa-user-o " aria-hidden="true"></i>Users <span class="badge badge-default badge-pill ">14</span></li>
-                </div>
-                <br>
-                <div class="card">
-                    <div class="card-header">To Do</div>
-                    <ul class="list-group list-grpup-flush">
-                        <li class="list-group-item">Finish template</li>
-                        <li class="list-group-item">Do some backend</li>
-                        <li class="list-group-item">Publish</li>
-                    </ul>
-                </div>
 
+<!-- Top Statistics -->
+<div id="dashboard-statistics">
+    <div class="row">
+        <div class="col-6 col-md-4 col-lg-3 ">
+            <div class="card">
+                <div class="card-header">
+                    Users
+                </div>
+                <div class="card-block text-center">
+                    <i class="fa fa-users fa-5x" aria-hidden="true"></i>
+                </div>
+                <div class="card-footer">
+                    <h4 class=" value">125</h4>
+                </div>
             </div>
-            <div class="col-md-9 ">
-                <div class="card">
-                    <div class="card-header bg-dark font-white">
-                        <i class="fa fa-sidebar fa-star-o " aria-hidden="true"></i> Website Overview
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+            <div class="card">
+                <div class="card-header">
+                    Pages
+                </div>
+                <div class="card-block text-center">
+                    <i class="fa fa-file fa-5x" aria-hidden="true"></i>
+                </div>
+                <div class="card-footer">
+                    <h4 class="value">125</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-3">
+            <div class="card">
+                <div class="card-header">
+                    Posts
+                </div>
+                <div class="card-block text-center">
+                    <i class="fa fa-rss fa-5x" aria-hidden="true"></i>
+                </div>
+                <div class="card-footer">
+                    <h4 class="value">125</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-3">
+
+            <div class="card">
+                <div class="card-header">
+                    Comments
+                </div>
+                <div class="card-block text-center">
+                    <i class="fa fa-comments fa-5x" aria-hidden="true"></i>
+                </div>
+                <div class="card-footer">
+                    <h4 class="value">125</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" id="dashboard-third-row">
+    <!-- Chat -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Live Chat</div>
+            <div class="card-block" id="live-chat-body">
+
+                <div class="row" id="message-wrapper">
+                    <div class="col-3">
+                        <img class="img-fluid" src="http://placehold.it/150x150">
                     </div>
-                    <br>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="card bg-faded">
-                                    <div class="card-block">
-                                        <h3 class="card-title"><i class="fa fa-sidebar fa-bar-chart " aria-hidden="true"></i> 157</h3>
-                                        <p class="card-text">Visitors</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="card bg-faded">
-                                    <div class="card-block">
-                                        <h3 class="card-title"><i class="fa fa-sidebar fa-user-o " aria-hidden="true"></i> 157</h3>
-                                        <p class="card-text">Users</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="card bg-faded">
-                                    <div class="card-block">
-                                        <h3 class="card-title"><i class="fa fa-sidebar fa-file-text-o " aria-hidden="true"></i> 157</h3>
-                                        <p class="card-text">Pages</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="card bg-faded">
-                                    <div class="card-block">
-                                        <h3 class="card-title"><i class="fa fa-sidebar fa-newspaper-o " aria-hidden="true"></i> 157</h3>
-                                        <p class="card-text">Posts</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        hello from admin
+                    <div class="col-8">
+                        <p>hello from admin
                         {% if page %}
                         <p> This is {{ page }} page </p>
                         {% endif %}
                         {% if post %}
                         <p> And {{ post }} post </p>
                         {% endif %}
-
+!</p>
+                        <p class="text-muted">Matej Vrzala <span class="float-right">13.2 14:21</span></p>
                     </div>
-                    <br>
                 </div>
+                <hr>
+
+                <div class="row" id="message-wrapper">
+                    <div class="col-3">
+                        <img class="img-fluid" src="http://placehold.it/150x150">
+                    </div>
+                    <div class="col-8">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos culpa, eos quis facere dolor maxime, nesciunt, quod asperiores repellendus impedit aut, aliquam commodi! Vel laudantium ducimus debitis veniam, sapiente nam!</p>
+                        <p class="text-muted">Matej Vrzala <span class="float-right">13.2 14:21</span></p>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="row" id="message-wrapper">
+                    <div class="col-3">
+                        <img class="img-fluid" src="http://placehold.it/150x150">
+                    </div>
+                    <div class="col-8">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos culpa, eos quis facere dolor maxime, nesciunt, quod asperiores repellendus impedit aut, aliquam commodi! Vel laudantium ducimus debitis veniam, sapiente nam!</p>
+                        <p class="text-muted">Matej Vrzala <span class="float-right">13.2 14:21</span></p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card-footer">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Write message ...">
+                    <span class="input-group-btn">
+                        <button class="btn" type="button">Send</button>
+                    </span>
+                </div>
+
             </div>
         </div>
+
     </div>
-</section>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Tasks</div>
+            <div class="card-block">
+                <ul class="list-group" id="tasks">
+                    <li class="list-group-item justify-content-between" id="task">
+                       Cras justo odio
+                         <span><input type="checkbox"></span>
+                    </li>
+                    <li class="list-group-item justify-content-between">
+                        Dapibus ac facilisis in<span><input type="checkbox"></span>
+                    </li>
+                    <li class="list-group-item justify-content-between">
+                        Morbi leo risus<span><input type="checkbox"></span>
+                    </li>
+                    <li class="list-group-item justify-content-between">
+                        Porta ac consectetur ac<span><input type="checkbox"></span>
+                    </li>
+                    <li class="list-group-item justify-content-between">
+                        Vestibulum at eros<span><input type="checkbox"></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-secondary">Add</button>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+</div>
+
+
 {% endblock %}
+
+{% block scripts %} {% endblock %}

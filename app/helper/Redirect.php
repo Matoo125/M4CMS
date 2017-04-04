@@ -4,6 +4,11 @@ namespace app\helper;
 
 use app\string\Url;
 
+/*
+ *  Redirect helper class
+ *  handles redirect operations 
+ */
+
 class Redirect
 {
     public static function to($url)

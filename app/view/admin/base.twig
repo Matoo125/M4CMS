@@ -1,227 +1,93 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    {% block head %}
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Admin Area | {% block title %}{% endblock %}</title>
+    <title>{% block title %}{% endblock %} | Admin Area</title>
+
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
-        crossorigin="anonymous">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
-        crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/admin/style.css">
-    {% endblock %}
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/bower_components/animate.css/animate.min.css">
+    <link rel="stylesheet" href="/css/admin/style.min.css">
+    {% block css %}{% endblock %}
 </head>
 
 <body>
-    <nav class="navbar navbar-toggleable-md bg-default">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="fa fa-bars menu-image" aria-hidden="true"></span>
-  </button>
-        <div class="navbar-brand">AdminBoot</div>
+    <!-- TOP LEVEL NAVBAR -->
+    <nav class="navbar fixed-top navbar-toggleable-md navbar-inverse bg-primary nav-top">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#">M4Admin</a>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="index.html">Dashboard <span class="sr-only">(current)</span></a>
+
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url.PROFILE }}">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="pages.html">Pages</a>
+                    <a class="nav-link" href="{{ url.PUBLIC }}">Website</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="posts.html">Posts</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="users.html">Users</a>
-                </li>
-            </ul>
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Welcome, Matej <span class="sr-only">(current)</span></a>
-                </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url.LOGOUT }}">Logout</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">My Page</a>
-                </li>
+
             </ul>
         </div>
     </nav>
-    <header>
+
+    <!-- COLLAPSING SIDEBAR WITH MENU -->
+    <div id="sidebar" class="slideInLeft">
+        <nav class="nav flex-column">
+            <a class="nav-link active" href="/admin">
+                <i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard
+            </a>
+            <a class="nav-link" href="/admin{{ url.PAGES }}">
+                <i class="fa fa-file-text-o" aria-hidden="true"></i> Pages
+            </a>
+            <a class="nav-link" href="/admin{{ url.POSTS }}">
+                <i class="fa fa-newspaper-o" aria-hidden="true"></i> Posts
+            </a>
+            <a class="nav-link" href="/admin{{ url.USERS }}">
+                <i class="fa fa-user-o" aria-hidden="true"></i> Users
+            </a>
+            <a class="nav-link" href="/admin{{ url.SETTINGS }}">
+                <i class="fa fa-wrench" aria-hidden="true"></i> Settings
+            </a>
+        </nav>
+    </div>
+
+
+    <!-- PAGE CONTENT AREA -->
+    <div id="content">
+        <i class="fa fa-bars fa-2x" id="nav-toggle" aria-hidden="true"></i>
+        <ol class="breadcrumb">
+            {% block breadcrumbs %}{% endblock %}
+        </ol>
+
         <div class="container">
-            <div class="row">
-                <div class="col-md-10">
-                    <h1><i class="fa fa-cog" aria-hidden="true"></i> Dashboard <small>Manage Your Site</small></h1>
-                </div>
-                <div class="col-md-2">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">Create Content</button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <button class="dropdown-item" data-toggle="modal" data-target="#add-page">Add Page</button>
-                            <button class="dropdown-item" data-toggle="modal" data-target="#add-post">Add Post</button>
-                            <button class="dropdown-item" data-toggle="modal" data-target="#add-user">Add User</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          {% block content %}{% endblock %}
         </div>
-    </header>
 
-    <section id="breadcrumb">
-        <div class="container">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item active">Home</li>
-            </ol>
-        </div>
-    </section>
-
-{% block content %} {% endblock %}
-
-    <!-- Modals -->
-
-<!-- Modal -->
-<div class="modal fade" id="add-page" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Add Page</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-          </div>
-          <div class="form-group">
-            <label for="exampleSelect1">Example select</label>
-            <select class="form-control" id="exampleSelect1">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="exampleSelect2">Example multiple select</label>
-            <select multiple class="form-control" id="exampleSelect2">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="exampleTextarea">Example textarea</label>
-            <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputFile">File input</label>
-            <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
-            <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
-          </div>
-          <fieldset class="form-group">
-            <legend>Radio buttons</legend>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                Option one is this and that&mdash;be sure to include why it's great
-              </label>
-            </div>
-            <div class="form-check">
-            <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2">
-                Option two can be something else and selecting it will deselect option one
-              </label>
-            </div>
-            <div class="form-check disabled">
-            <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios3" value="option3" disabled>
-                Option three is disabled
-              </label>
-            </div>
-          </fieldset>
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="checkbox" class="form-check-input">
-              Check me out
-            </label>
-          </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-
-      </div>
     </div>
-  </div>
-</div>
-
-<div class="modal fade" id="add-post" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Add Post</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="add-user" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Add User</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js " integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n "
-        crossorigin="anonymous "></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js " integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb "
-        crossorigin="anonymous "></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js " integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn "
-        crossorigin="anonymous "></script>
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/tether/dist/js/tether.min.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/bower_components/chart.js/dist/Chart.bundle.min.js"></script>
+    <script src="/bower_components/jquery.nicescroll/dist/jquery.nicescroll.min.js"></script>
+    <script src="/bower_components/Sortable/Sortable.min.js"></script>
+
+    <script src="/js/admin/script.js"></script>
+
+    {% block scripts %}{% endblock %}
+
 </body>
 
 </html>

@@ -1,0 +1,59 @@
+{% extends 'admin/base.twig' %}
+
+
+{% block title %}Show all pages {% endblock %}
+
+{% block breadcrumbs %}
+<li class="breadcrumb-item active">Page</li>
+{% endblock %}
+
+{% block content %}
+
+<a href="/admin{{ url.NEW_PAGE }}"><div id="action-button" class="btn-primary">+</div></a>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+        <div class="card-header">
+            Pages
+        </div>
+        <div class="card-block">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Title</th>
+                  <th>Image</th>
+                  <th>Status</th>
+                  <th>Last Update</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>Larry</td>
+                  <td>the Bird</td>
+                  <td>@twitter</td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %} {% endblock %}

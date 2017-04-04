@@ -3,18 +3,24 @@
 namespace app\core;
 
 /*
- * Core Model
- * is extended by other models
+ * Abstract Core Class Model
+ * is extended by all the other models.
+ * Talks with MySQL Database
  */
 
- use app\config\Database;
+use app\config\Database;
 
 abstract class Model
 {
+    // Database connection
+    // used by every sql request
+    // @return $db connection
     protected static function getDB()
     {
         static $db = null;
-
+        // create connection
+        // only if there is not
+        // already
         if ($db === null) {
             try {
                 $dns = 'mysql:host=' . Database::HOST . ';dbname=' . Database::NAME . ';charset=utf8';
@@ -30,6 +36,13 @@ abstract class Model
         return $db;
     }
 
+
+    /*
+     * Count rows in table
+     * @param $where adds where clause to query
+     * @param $like adds like clause to query
+     * @return number of rows 
+     */
     public function countTable($table, $where = null, $like = null) {
 
         $db = self::getDB();

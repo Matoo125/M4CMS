@@ -1,0 +1,72 @@
+{% extends 'admin/base.twig' %}
+
+{% block css %}
+<link rel="stylesheet" href="/bower_components/trumbowyg/dist/ui/trumbowyg.min.css">
+{% endblock %}
+
+{% block title %}Show all pages {% endblock %}
+
+{% block breadcrumbs %}
+<li class="breadcrumb-item"><a href="/admin{{ url.PAGES }}">Page</a></li>
+<li class="breadcrumb-item active">New</li>
+
+{% endblock %}
+
+{% block content %}
+
+<!-- ADD Article form -->
+<div class="new-article-form">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">Add New Page</div>
+                <div class="card-block">
+                    <form>
+                        <div class="form-group">
+                            <label for="inputTitle">Title</label>
+                            <input type="email" class="form-control" id="inputTitle" placeholder="Title">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="textareaArticleBody">Content</label>
+                            <textarea class="form-control" id="textareaArticleBody"></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="custom-file">
+                                    <input type="file" class="custom-file-input" id="exampleInputFile" aria-describedby="fileHelp">
+                                    <span class="custom-file-control form-control-file "></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                 <div class="form-check">
+                                    <label class="form-check-label">
+                                      <input type="checkbox" class="form-check-input">
+                                      Publish
+                                    </label>
+                                  </div>
+                            </div>
+                        </div>
+
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="/bower_components/trumbowyg/dist/trumbowyg.min.js"></script>
+
+<script>
+  $('#textareaArticleBody').trumbowyg({
+    autogrow: true
+  });
+</script>
+{% endblock %}
