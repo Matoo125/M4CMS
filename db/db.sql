@@ -78,4 +78,4 @@ CREATE TABLE page_data (
 );
 
 -- insert data
-INSERT INTO `users` (`id`, `username`, `password`, `first_name`, `last_name`, `about_me`, `email`,`role`, `image`, `created_at`, `updated_at`) VALUES (1, 'M4', 'de537dda0e0af3714687ab40f0684247', 'Matej', 'Vrzala', 'developer', 'vrzala.matej@gmail.com', 'admin', 'default.jpg', '2017-02-11 09:00:21', '2017-02-11 09:00:21')
+INSERT INTO `users` (`id`, `username`, `password`, `first_name`, `last_name`, `about_me`, `email`,`role`, `image`, `created_at`, `updated_at`) VALUES (1, 'M4', '$2y$10$ZdHYo1dv/RXS.Zj68oF3Je4IDC6O.oUwyOaLlO8uish9pXjCwPlbG', 'Matej', 'Vrzala', 'developer', 'vrzala.matej@gmail.com', 'admin', 'default.jpg', '2017-02-11 09:00:21', '2017-02-11 09:00:21')
