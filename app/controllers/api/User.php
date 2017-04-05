@@ -3,14 +3,13 @@ namespace app\controllers\api;
 
 /**
  * Class Users Controller
- * login logic
- * insecure, but enough for working purposes
- * before release, please upgrade.
+ * handles user API
+ * sha256
  */
 
  use app\config\Database;
  use app\core\Controller;
- use app\core\Session;
+ use app\helper\Session;
  use app\helper\Redirect;
 
 class User extends Controller
@@ -22,42 +21,30 @@ class User extends Controller
   }
 
   public function login()
-    {
-      if (Session::get('user_id')) Redirect::to('/');
-        if ($_POST) {
-            $mEmail = $_POST['loginEmail'];
-            $mPass = $_POST['loginPassword'];
+  {
+    if (Session::get('user_id')) Redirect::to('/');
+    if (!$_POST || !$_POST['loginEmail'] || !$_POST['loginPassword']) return;
 
-            if ($mEmail && $mPass) {
-
-                if (!$user = $this->model->getByEmail($mEmail)) {
-                    Session::setFlash("User not found.", "danger");
-                    return;
-                } else {
-                //  echo 'false'; die;
-                }
-
-                $mPass = md5(Database::SALT . $mPass);
-
-                if ($mPass == $user['password']) {
-                    Session::set('user_id', $user['id']);
-                    Session::setFlash("You are logged in.", "success");
-                    Redirect::to('/admin');
-                } else {
-                    Session::setFlash("Credentials do not match.", "warning");
-                }
-            } else {
-                Session::setFlash("No input received", "info");
-            }
-        }
-
+    if (!$user = $this->model->getByEmail($_POST['loginEmail'])) {
+        Session::setFlash("User not found.", "danger");
+        return;
     }
+
+    if (password_verify($_POST['loginPassword'], $user['password'])) {
+        Session::set('user_id', $user['id']);
+        Session::setFlash("You are logged in.", "success");
+        Redirect::to('/admin');
+    } else {
+        Session::setFlash("Credentials do not match.", "warning");
+    }
+
+
+  }
 
     public function logout()
     {
       Session::destroy();
       Redirect::to("/user/login");
-      //Helper\redirect(toURL("LOGIN"));
     }
 
 

@@ -27,14 +27,14 @@
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url.PROFILE }}">Profile</a>
+                    <a class="nav-link" href="{{ url.PROFILE }}">{{ lang.PROFILE }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url.PUBLIC }}">Website</a>
+                    <a class="nav-link" href="{{ url.PUBLIC }}">{{ lang.WEBSITE }}</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url.LOGOUT }}">Logout</a>
+                    <a class="nav-link" href="{{ url.LOGOUT }}">{{ lang.LOGOUT }}</a>
                 </li>
 
             </ul>
@@ -45,19 +45,19 @@
     <div id="sidebar" class="slideInLeft">
         <nav class="nav flex-column">
             <a class="nav-link active" href="/admin">
-                <i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard
+                <i class="fa fa-tachometer" aria-hidden="true"></i> {{ lang.DASHBOARD }}
             </a>
             <a class="nav-link" href="/admin{{ url.PAGES }}">
-                <i class="fa fa-file-text-o" aria-hidden="true"></i> Pages
+                <i class="fa fa-file-text-o" aria-hidden="true"></i> {{ lang.PAGES }}
             </a>
             <a class="nav-link" href="/admin{{ url.POSTS }}">
-                <i class="fa fa-newspaper-o" aria-hidden="true"></i> Posts
+                <i class="fa fa-newspaper-o" aria-hidden="true"></i> {{ lang.POSTS }}
             </a>
             <a class="nav-link" href="/admin{{ url.USERS }}">
-                <i class="fa fa-user-o" aria-hidden="true"></i> Users
+                <i class="fa fa-user-o" aria-hidden="true"></i> {{ lang.USERS }}
             </a>
             <a class="nav-link" href="/admin{{ url.SETTINGS }}">
-                <i class="fa fa-wrench" aria-hidden="true"></i> Settings
+                <i class="fa fa-wrench" aria-hidden="true"></i> {{ lang.SETTINGS }}
             </a>
         </nav>
     </div>

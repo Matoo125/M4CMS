@@ -2,8 +2,11 @@
 
 namespace app\core;
 
-use app\string\Lang;
-use app\string\Url;
+//use app\string\Lang;
+//use app\string\Url;
+
+use app\helper\Session;
+use app\helper\Strings;
 
 /*
  * Abstract Controller core class
@@ -58,8 +61,9 @@ abstract class Controller {
       $this->data['sessionclass'] = new Session;
 
       // pass lang and url arrays
-      $this->data['lang'] = Lang::getAll();
-      $this->data['url']  = Url::getAll();
+      $this->data['lang'] = Strings::getLang();
+      $this->data['url']  = Strings::getUrl();
+
 
       ///////////////// RENDER TWIG TEMPLATE /////////////////
       echo $twig->render($view.".twig", $this->data);

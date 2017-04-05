@@ -2,11 +2,11 @@
 
 namespace app\helper;
 
-use app\string\Url;
+use app\helper\Strings;
 
 /*
  *  Redirect helper class
- *  handles redirect operations 
+ *  handles redirect operations
  */
 
 class Redirect
@@ -19,6 +19,6 @@ class Redirect
 
     public static function toURL($key)
     {
-      return self::to(Url::get($key));
+      return self::to(Strings::getUrl($key));
     }
 }

@@ -3,6 +3,8 @@
 namespace app\core;
 
 use app\helper\Redirect;
+use app\helper\Session;
+
 
 /**
  * App class is the application headquarters.
@@ -116,6 +118,15 @@ class App
         }
 
         return null;
+    }
+
+
+    public function __destruct()
+    {
+      /*
+      $time =  microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"];
+      echo "<script>alert(".$time.")</script>";
+      */
     }
 
 }

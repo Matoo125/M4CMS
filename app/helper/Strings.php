@@ -2,9 +2,46 @@
 
 namespace app\helper;
 
-class Slug
+class Strings
 {
-  public static function create()
+
+  public static $url;
+  public static $lang;
+
+  public static function getUrl($key = null)
+  {
+    if (empty(self::$url)){
+      $string = file_get_contents(APP . DS . "string" . DS . "url.json");
+      self::$url = json_decode($string);
+
+    }
+
+    if ($key) {
+      return self::$url->$key;
+    }
+
+    return self::$url;
+  }
+
+
+  public static function getLang($key = null)
+  {
+    if (empty(self::$lang)){
+      $string = file_get_contents(APP . DS . "string" . DS . "lang" . DS . "en.json");
+      self::$lang = json_decode($string);
+
+    }
+
+    if ($key) {
+      return self::$url->$key;
+    }
+
+    
+
+    return self::$lang;
+  }
+
+  public static function slugify()
   {
     // replace non letter or digits by -
     $text = preg_replace('~[^\pL\d]+~u', '-', $text);

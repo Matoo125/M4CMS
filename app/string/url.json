@@ -1,0 +1,15 @@
+{
+  "PUBLIC":     "/",
+
+  "LOGIN" :     "/user/login",
+  "LOGOUT":     "/user/logout",
+  "PROFILE":    "/user/profile",
+  "USERS":      "/user/all",
+
+  "PAGES":      "/pages",
+  "NEW_PAGE":   "/pages/new",
+
+  "POSTS":      "/posts",
+  "SETTINGS":   "/settings"
+
+}

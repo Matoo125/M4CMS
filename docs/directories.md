@@ -23,12 +23,12 @@ currentMenu: directories
     - App.php                Router
     - Controller.php         Base controller
     - Model.php              Base model
-    - Session.php            Session and message helper - move it!
     - ...
   - helper                   Helper folder
     - Image.php              Image helper
     - Redirect.php           Redirect helper
-    - Slug.php               Slug helper -> remake to string.php
+    - String.php             String helper
+    - Session.php            Session and message helper
   - model                    Folder for models
     - Index.php              Index model
     - User.php               User model
