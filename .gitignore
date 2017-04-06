@@ -2,3 +2,4 @@
 /app/config/database.php
 /.idea
 /.couscous
+/uploads/*
