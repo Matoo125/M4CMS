@@ -21,21 +21,30 @@
             <div class="card">
                 <div class="card-header">Add New Page</div>
                 <div class="card-block">
-                    <form>
+                    <form method="post" action="" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="inputTitle">Title</label>
-                            <input type="email" class="form-control" id="inputTitle" placeholder="Title">
+                            <input type="text" class="form-control" id="inputTitle" name="title" placeholder="Title" required>
                         </div>
+
+
+                        <div class="form-group">
+                          <label for="description">Description</label>
+                          <textarea class="form-control" name="description" id="description"></textarea>
+                      </div>
 
                         <div class="form-group">
                             <label for="textareaArticleBody">Content</label>
-                            <textarea class="form-control" id="textareaArticleBody"></textarea>
+                            <textarea class="form-control" name="content" id="textareaArticleBody"></textarea>
                         </div>
+
+
+
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
                                     <label class="custom-file">
-                                    <input type="file" class="custom-file-input" id="exampleInputFile" aria-describedby="fileHelp">
+                                    <input type="file" class="custom-file-input" id="image" name="image" aria-describedby="fileHelp">
                                     <span class="custom-file-control form-control-file "></span>
                                     </label>
                                 </div>
@@ -43,7 +52,7 @@
                             <div class="col-6">
                                  <div class="form-check">
                                     <label class="form-check-label">
-                                      <input type="checkbox" class="form-check-input">
+                                      <input type="checkbox" name="publish" class="form-check-input">
                                       Publish
                                     </label>
                                   </div>

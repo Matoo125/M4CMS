@@ -1,6 +1,7 @@
 {
     "require": {
-        "twig/twig": "^2.0"
+        "twig/twig": "^2.0",
+        "intervention/image": "^2.3"
     },
 
     "autoload": {
