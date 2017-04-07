@@ -36,12 +36,54 @@ abstract class Model
         return $db;
     }
 
+    public function insert($query, $params)
+    {
+
+    }
+
+    public function update($query, $params)
+    {
+      return self::runQuery($query, $params, 3);
+    }
+
+    public function fetch($query, $params)
+    {
+      return self::runQuery($query, $params, 1);
+    }
+
+    public function fetchAll($query, $params)
+    {
+      return self::runQuery($query, $params, 2);
+    }
+
+    public static function runQuery($query, $params, $type)
+    {
+      $stmt = self::getDb()->prepare($query);
+      $stmt->execute($params);
+
+      switch ($type) {
+        case 2:
+          if ($results = $stmt->fetchAll()) {
+             return $results;
+          }
+          break;
+        case 1:
+          if ($result = $stmt->fetch()) {
+            return $result;
+          }
+          break;
+        case 3:
+          return $stmt->rowCount() ? true : false;
+          break;
+      }
+    }
+
 
     /*
      * Count rows in table
      * @param $where adds where clause to query
      * @param $like adds like clause to query
-     * @return number of rows 
+     * @return number of rows
      */
     public function countTable($table, $where = null, $like = null) {
 

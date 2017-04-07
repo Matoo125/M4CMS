@@ -56,9 +56,28 @@ class Image
       mkdir(dirname($path2), 0777, true);
     }
 
-    // create thumbnail
-    $manager = new ImageManager();
-    $image = $manager->make($path)->fit(300, 200)->save($path2);
+
+    if (!extension_loaded('imagick')) {
+        $manager = new ImageManager();
+    }
+    else {
+        $manager = new ImageManager(array('driver' => 'imagick'));
+    }
+
+    // to resize image and add whitespace
+    // to fill new aspect ratio
+    $image = $manager->make($path)->resize($width, $height, function ($c) {
+      $c->aspectRatio();
+      $c->upsize();
+    })->resizeCanvas($width, $height, 'center', false, array(255, 255, 255, 1))->save($path2);
+
+
+     // To resize image
+     // and make it fit
+    $image = $manager->make($path)->fit($width, $height, function($constrain) {
+      $constrain->upsize();
+    })->save($path2);
+
 
   }
 

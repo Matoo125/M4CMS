@@ -1,8 +1,15 @@
 <?php
 namespace app\controllers\admin;
 
+
+/*
+ * Pages controller.
+ */
+
 use app\core\Controller;
 use app\helper\Image;
+
+
 
 class Pages extends Controller
 {
