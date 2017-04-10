@@ -19,7 +19,7 @@ class Image
   public static function upload($image, $folder)
   {
     // set upload location
-    $location = ROOT . DS . "uploads" . DS . "images" . DS . $folder;
+    $location = ROOT . DS ."public" . DS . "uploads" . DS . "images" . DS . $folder;
 
     // create directory if not exists
     if (!file_exists($location)) {
@@ -43,7 +43,9 @@ class Image
       return false;
     }
     self::generateThumbnail($location, 150, 150);
-    return $name;
+
+    $image['name'] = $name;
+    return $image;
   }
 
   public static function generateThumbnail($path, $width, $height)

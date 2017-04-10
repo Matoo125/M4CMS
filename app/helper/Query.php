@@ -19,6 +19,7 @@ class Query
     private $table;
     private $where;
     private $limit;
+    private $join;
 
     public function select()
     {
@@ -27,10 +28,9 @@ class Query
         return $this;
     }
 
-    public function insert($columns, $values)
+    public function insert()
     {
-      $this->columns = $columns;
-      $this->values = $values;
+      $this->columns = func_get_args();
       $this->action = 2;
       return $this;
     }
@@ -75,11 +75,20 @@ class Query
       return $this;
     }
 
-
-
-    public function set()
+    public function join($type, $table, $on)
     {
-      $this->set = func_get_args();
+      $this->join = strtoupper($type) . " JOIN " . $table . " ON " . $on;
+      return $this;
+    }
+
+
+
+    public function set($to_set)
+    {
+      foreach($to_set as $s) {
+        $this->set[] = $s . " = :" . $s;
+      }
+
       return $this;
     }
 
@@ -103,6 +112,10 @@ class Query
 
           $query .= "FROM " . $this->table . " ";
 
+          if (!empty($this->join)) {
+            $query .= $this->join . " ";
+          }
+
           if (!empty($this->where)) {
             $query .= "WHERE ";
             $query .= $this->where;
@@ -121,7 +134,7 @@ class Query
         case 2:
           $query = "INSERT INTO " . $this->table . " ";
           $query .= "(" . implode(', ', $this->columns) . ") ";
-          $query .= "VALUES (:" . implode(', :', $this->values) . ") ";
+          $query .= "VALUES (:" . implode(', :', $this->columns) . ") ";
           return $query;
 
         // update
@@ -135,6 +148,9 @@ class Query
 
         // delete
         case 4:
+          $query = "DELETE FROM " . $this->table . " ";
+          $query .= "WHERE " . $this->where;
+          return $query;
 
         // error
         default:

@@ -1,0 +1,109 @@
+{% extends 'admin/base.twig' %}
+
+{% block css %}
+<link rel="stylesheet" href="/bower_components/trumbowyg/dist/ui/trumbowyg.min.css">
+{% endblock %}
+
+{% block title %}Edit page {% endblock %}
+
+{% block breadcrumbs %}
+<li class="breadcrumb-item"><a href="/admin{{ url.PAGES }}">Page</a></li>
+<li class="breadcrumb-item active">Edit</li>
+
+{% endblock %}
+
+{% block content %}
+
+<!-- ADD Article form -->
+<div class="new-article-form">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">Edit Page</div>
+                <div class="card-block">
+                    <form method="post" action="" enctype="multipart/form-data">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group">
+                                  <label for="inputTitle">Title</label>
+                                  <input type="text" class="form-control" id="inputTitle" name="title" placeholder="Title" value="{{ title }}" required>
+                              </div>
+
+
+                              <div class="form-group">
+                                <label for="description">Description</label>
+                                <textarea class="form-control" name="description" id="description">{{ description }}</textarea>
+                            </div>
+                          </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="textareaArticleBody">Content</label>
+                            <textarea class="form-control" name="content" id="textareaArticleBody">{{ content }}</textarea>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-6">
+                              <div class="row">
+                                  <div class="col-10">
+                                    <div class="form-group">
+                                        <label class="custom-file">
+                                        <input type="file" class="custom-file-input" id="image" name="image" aria-describedby="fileHelp">
+                                        <span class="custom-file-control form-control-file "></span>
+                                        </label>
+                                    </div>
+                                  </div>
+                                  <div class="col-2">
+
+                                <img src="/uploads/thumbs/150x150/{{ image }}" alt="" class="pull-right">
+
+                                  </div>
+                              </div>
+
+
+                            </div>
+                            <div class="col-md-3 offset-md-1">
+
+                                <p>Created at: {{ created_at|date("m/d/Y") }}</p>
+                                <p>Last update: {{ updated_at|date("F jS \\a\\t g:ia") }}</p>
+                                <div class="form-check">
+                                     <label class="form-check-label">
+                                       <input type="checkbox" name="publish" class="form-check-input" {{ is_published ? 'checked' }}>
+                                       Publish
+                                     </label>
+                                 </div>
+
+                            </div>
+                        </div>
+
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="/bower_components/trumbowyg/dist/trumbowyg.min.js"></script>
+
+<script>
+  $('#textareaArticleBody').trumbowyg({
+    autogrow: true
+  });
+
+  var input = $("#image").change(function(){
+    var filename = this.value.split("\\").pop();
+    $(this).next('.form-control-file').addClass("selected").html(filename);
+
+  })
+
+</script>
+{% endblock %}
