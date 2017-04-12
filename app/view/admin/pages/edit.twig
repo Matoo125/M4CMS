@@ -14,10 +14,10 @@
 
 {% block content %}
 
-<!-- ADD Article form -->
+<!-- ADD Page form -->
 <div class="new-article-form">
     <div class="row">
-        <div class="col">
+        <div class="col-md-9">
             <div class="card">
                 <div class="card-header">Edit Page</div>
                 <div class="card-block">
@@ -47,9 +47,9 @@
 
 
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-8">
                               <div class="row">
-                                  <div class="col-10">
+                                  <div class="col-8">
                                     <div class="form-group">
                                         <label class="custom-file">
                                         <input type="file" class="custom-file-input" id="image" name="image" aria-describedby="fileHelp">
@@ -57,7 +57,7 @@
                                         </label>
                                     </div>
                                   </div>
-                                  <div class="col-2">
+                                  <div class="col-4">
 
                                 <img src="/uploads/thumbs/150x150/{{ image }}" alt="" class="pull-right">
 
@@ -66,7 +66,7 @@
 
 
                             </div>
-                            <div class="col-md-3 offset-md-1">
+                            <div class="col-md-4">
 
                                 <p>Created at: {{ created_at|date("m/d/Y") }}</p>
                                 <p>Last update: {{ updated_at|date("F jS \\a\\t g:ia") }}</p>
@@ -81,29 +81,56 @@
                         </div>
 
 
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
                     </form>
                 </div>
             </div>
         </div>
+        <div class="col-md-3">
+          <div class="card">
+            <div class="card-header">Categories</div>
+            <div class="card-block">
+              <div class="list-group" id="categories">
+              {% if categories %}
+                  {% for category in categories %}
+                    <button data-id="{{ category.id }}" class="list-group-item list-group-item-action category">{{ category.title }}</button>
+                  {% endfor %}
+
+              {% else %}
+              <p class="card-text">No categories found. Please add some.</p>
+              {% endif %}
+              </div>
+            </div>
+            <div class="card-footer">
+              <button data-toggle="modal" data-target="#addCategoryModal" class="btn btn-outline-primary">Create New</button>
+            </div>
+          </div>
+        </div>
     </div>
 </div>
+
+{% include 'modals/addCategory.twig' %}
+{% include 'modals/editCategory.twig' %}
+
 
 {% endblock %}
 
 {% block scripts %}
 <script src="/bower_components/trumbowyg/dist/trumbowyg.min.js"></script>
+<script src="/bower_components/trumbowyg/dist/plugins/noembed/trumbowyg.noembed.min.js"></script>
+<script src="/bower_components/trumbowyg/dist/plugins/upload/trumbowyg.upload.min.js"></script>
+
+<script src="/js/admin/editorSettings.js"></script>
+<script src="/js/admin/addCategoryAjax.js"></script>
+<script src="/js/admin/editCategoryAjax.js"></script>
 
 <script>
-  $('#textareaArticleBody').trumbowyg({
-    autogrow: true
-  });
+  // replace select page
+  // from categories modal
+  $("#addCategoryModal #page_id").parent().replaceWith('<input type="hidden" name="page_id" value="{{ id }}">')
+  $("#editCategoryModal #page_id").parent().replaceWith('<input type="hidden" name="page_id" value="{{ id }}">')
 
-  var input = $("#image").change(function(){
-    var filename = this.value.split("\\").pop();
-    $(this).next('.form-control-file').addClass("selected").html(filename);
-
-  })
+  // async request
 
 </script>
 {% endblock %}

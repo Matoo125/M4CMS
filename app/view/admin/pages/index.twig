@@ -4,7 +4,7 @@
 {% block title %}Show all pages {% endblock %}
 
 {% block breadcrumbs %}
-<li class="breadcrumb-item active">Page</li>
+<li class="breadcrumb-item active">Pages</li>
 {% endblock %}
 
 {% block content %}
@@ -15,7 +15,7 @@
   <div class="col-12">
     <div class="card">
         <div class="card-header">
-            Pages
+            List of Pages
         </div>
         <div class="card-block">
             <table class="table table-striped">
@@ -23,30 +23,21 @@
                 <tr>
                   <th>#</th>
                   <th>Title</th>
+                  <th>Description</th>
                   <th>Image</th>
-                  <th>Status</th>
-                  <th>Last Update</th>
+                  <th>Published</th>
                 </tr>
               </thead>
               <tbody>
+                {% for page in pages %}
                 <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
+                  <th scope="row"><a href="/admin/pages/edit/{{ page.id }}">{{ page.id }}</a></th>
+                  <td>{{ page.title }}</td>
+                  <td>{{ page.description[:35] }}</td>
+                  <td>{{ page.image }}</td>
+                  <td>{{ page.is_published }}</td>
                 </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>@twitter</td>
-                </tr>
+                {% endfor %}
               </tbody>
             </table>
         </div>

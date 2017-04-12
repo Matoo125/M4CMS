@@ -20,6 +20,7 @@ class Query
     private $where;
     private $limit;
     private $join;
+    private $groupBy;
 
     public function select()
     {
@@ -77,7 +78,7 @@ class Query
 
     public function join($type, $table, $on)
     {
-      $this->join = strtoupper($type) . " JOIN " . $table . " ON " . $on;
+      $this->join .= strtoupper($type) . " JOIN " . $table . " ON " . $on . " ";
       return $this;
     }
 
@@ -89,6 +90,12 @@ class Query
         $this->set[] = $s . " = :" . $s;
       }
 
+      return $this;
+    }
+
+    public function groupBy($by)
+    {
+      $this->groupBy = $by;
       return $this;
     }
 
@@ -114,17 +121,26 @@ class Query
 
           if (!empty($this->join)) {
             $query .= $this->join . " ";
+            $this->join = null;
           }
 
           if (!empty($this->where)) {
             $query .= "WHERE ";
             $query .= $this->where;
             $query .= " ";
+            $this->where = null;
           }
 
           if (!empty($this->limit)) {
             $query .= "LIMIT ";
             $query .= $this->limit;
+            $this->limit = null;
+          }
+
+          if (!empty($this->groupBy)) {
+            $query .= " GROUP BY ";
+            $query .= $this->groupBy;
+            $this->groupBy = null;
           }
 
           return $query;

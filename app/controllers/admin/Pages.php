@@ -6,22 +6,23 @@ namespace app\controllers\admin;
  * Pages controller.
  */
 
-use app\core\Controller;
 use app\helper\Image;
 use app\helper\Redirect;
 
+use app\controllers\api\Pages as PagesApi;
 
 
-class Pages extends Controller
+class Pages extends PagesApi
 {
 
-    public function __construct()
-    {
-        $this->model = $this->model('Page');
+    public function index(){
+      $this->list();
     }
 
-    public function index(){}
-    public function list(){}
+    public function list(){
+      $this->data['pages'] = $this->model->getAll();
+
+    }
 
     public function new(){
 
@@ -30,13 +31,8 @@ class Pages extends Controller
       $data['title'] = $_POST['title'];
       $data['description'] = $_POST['description'];
       $data['content'] = $_POST['content'];
-      $data['publish'] = isset($_POST['publish']) ? 1 : NULL;
+      $data['publish'] = isset($_POST['publish']) ? 1 : 0;
       $data['image'] = isset($_FILES['image'])? $_FILES['image'] : NULL;
-
-      // upload image
-      if ($data['image']) {
-        Image::upload($data['image'], 'pages');
-      }
 
       // send data to model
       if ($id = $this->model->insert($data)) {
@@ -48,43 +44,62 @@ class Pages extends Controller
 
 
     }
+
+    public function editAjax()
+    {
+
+    }
+
     public function edit($id)
     {
 
       // get data for the current post
       $this->data = $this->model->get($id);
 
+      $this->data['categories'] = $this->model->getCategories($id);
+
+
       if ($_POST) {
         // update only changed data
         $data = [];
+
 
         if ($this->data['title'] != $_POST['title']) {
           $data['title'] = $_POST['title'];
         }
 
+        // check for description change
         if ($this->data['description'] != $_POST['description']) {
           $data['description'] = $_POST['description'];
         }
 
+        // check for content change
         if ($this->data['content'] != $_POST['content']) {
           $data['content'] = $_POST['content'];
         }
 
+        // check for is_published change
         if ($this->data['is_published'] == 1  AND !isset($_POST['publish']) OR $this->data['is_published'] == 0 AND isset($_POST['publish'] )) {
           $data['is_published'] = isset($_POST['publish']) ? 1 : 0;
         }
 
+        // check if file was selected
         if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
-          $data['image'] = Image::upload($_FILES['image'], 'pages');
+          $data['image'] = $_FILES['image'];
         }
-      //  var_dump($data); die;
 
+        // do the update
         if ($this->model->update($id, $data)) {
+          // inject updated data to view
           $this->data = array_merge($this->data, $data);
+
+          // inject new image to view if necessary
           if (isset($this->data['image']['name'])) {
             $this->data['image'] = "pages" . DS . $this->data['image']['name'];
           }
+
         }
+
       }
 
 

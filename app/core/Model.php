@@ -13,6 +13,7 @@ namespace app\core;
 
 use app\config\Database;
 use app\helper\Query;
+use app\helper\Image;
 
 abstract class Model
 {
@@ -117,19 +118,20 @@ abstract class Model
     // Insert image
     // to the images table
     // return id
-    public function image($image)
+    public function image($image, $folder)
     {
+      if ($image && Image::upload($image, $folder)) {
+        $query = $this->query->insert('folder', 'name', 'type', 'size')->into('images')->build();
+        $params = [
+          'folder'  =>  static::$table,
+          'name'    =>  $image['name'],
+          'type'    =>  $image['type'],
+          'size'    =>  $image['size']
+        ];
 
-      $query = $this->query->insert('folder', 'name', 'type', 'size')->into('images')->build();
-      $params = [
-        'folder'  =>  static::$table,
-        'name'    =>  $image['name'],
-        'type'    =>  $image['type'],
-        'size'    =>  $image['size']
-      ];
-
-      return $this->save($query, $params, 1);
-
+        return $this->save($query, $params, 1);
+      }
+      return null;
     }
 
 

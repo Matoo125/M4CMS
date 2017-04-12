@@ -9,6 +9,9 @@
   "PAGES":      "/pages",
   "NEW_PAGE":   "/pages/new",
 
+  "CATEGORIES": "/categories",
+  "NEW_CATEGORY": "/categories/new",
+
   "POSTS":      "/posts",
   "SETTINGS":   "/settings"
 

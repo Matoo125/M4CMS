@@ -1,0 +1,74 @@
+{% extends 'admin/base.twig' %}
+
+
+{% block title %}Show all pages {% endblock %}
+
+{% block breadcrumbs %}
+<li class="breadcrumb-item active">Categories</li>
+{% endblock %}
+
+{% block content %}
+<div id="action-button" data-toggle="modal" data-target="#addCategoryModal" class="btn-primary">+</div>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+        <div class="card-header">
+            List of Categories
+        </div>
+        <div class="card-block">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Title</th>
+                  <th>Page</th>
+                  <th>Posts</th>
+                  <th>Created at</th>
+                </tr>
+              </thead>
+              <tbody id="categories">
+                {% for category in categories %}
+                <tr class="category" data-id="{{ category.id }}">
+                  <th scope="row">{{ category.id }}</th>
+                  <td id="title">{{ category.title }}</td>
+                  <td id="page">{{ category.page }}</td>
+                  <td id="posts">{{ category.posts }}</td>
+                  <td id="created_at">{{ category.created_at }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+        </div>
+    </div>
+  </div>
+</div>
+
+{% include 'modals/addCategory.twig' %}
+{% include 'modals/editCategory.twig' %}
+
+{% endblock %}
+
+{% block scripts %}
+<script src="/js/admin/addCategoryAjax.js"></script>
+<script src="/js/admin/editCategoryAjax.js"></script>
+<script type="text/javascript">
+
+var pages = {{ pages|json_encode|raw }};
+
+addCategoryAppendData = function (obj) {
+  console.log(pages)
+  obj.page = $.grep(pages, function(e){ return e.id == obj.page_id; })[0].title;
+  return '<tr><th><a href="#">'+obj.id+'</a></th><td>'+obj.title+'</td><td>'+obj.page+'</td><td>0</td><td>'+obj.created_at+'</td></tr>';
+
+}
+
+editCategoryAppendData = function (obj) {
+  $(".category[data-id='" + categoryId +"'] #title").text(obj.title)
+
+  obj.page = $.grep(pages, function(e){ return e.id == obj.page_id; })[0].title;
+  $(".category[data-id='" + categoryId +"'] #page").text(obj.page)
+}
+
+</script>
+{% endblock %}

@@ -16,13 +16,14 @@ class Page extends Model
       $query = $this->query->insert('title', 'slug', 'description', 'content', 'is_published', 'image_id')
                            ->into(self::$table)
                            ->build();
+
       $params = [
         'title'         => $data['title'],
         'slug'          => Strings::slugify($data['title']),
         'description'   => $data['description'],
         'content'       => $data['content'],
         'is_published'  => $data['publish'],
-        'image_id'      => $this->image($data['image'])
+        'image_id'      => $data['image']['error'] === 0 ? $this->image($data['image'], self::$table) : NULL
       ];
       return $this->save($query, $params, 1);
 
@@ -30,7 +31,7 @@ class Page extends Model
 
     public function get($id)
     {
-      $query = $this->query->select('p.title', 'p.slug', 'p.description', 'p.content', 'p.is_published', 'CONCAT(i.folder, "/", i.name) AS image', 'p.created_at', 'p.updated_at')
+      $query = $this->query->select('p.id', 'p.title', 'p.slug', 'p.description', 'p.content', 'p.is_published', 'CONCAT(i.folder, "/", i.name) AS image', 'p.created_at', 'p.updated_at')
                             ->from(self::$table . " AS p")
                             ->join('left', 'images AS i', 'i.id = p.image_id')
                             ->where("p.id = :id")
@@ -38,6 +39,15 @@ class Page extends Model
       //var_dump($query);die;
       $params = ['id' => $id];
       return $this->fetch($query, $params);
+    }
+
+    public function getAll()
+    {
+      $query = $this->query->select('p.id', 'p.title', 'p.slug', 'p.description', 'p.content', 'p.is_published', 'CONCAT(i.folder, "/", i.name) AS image', 'p.created_at', 'p.updated_at')
+                           ->from(self::$table . " AS p")
+                           ->join('inner', 'images as i', 'i.id = p.image_id')
+                           ->build();
+      return $this->fetchAll($query, []);
     }
 
     public function update($id, $data)
@@ -49,7 +59,7 @@ class Page extends Model
 
 
       if (isset($data['image'])) {
-        $data['image_id'] = $this->image($data['image']);
+        $data['image_id'] = $this->image($data['image'], self::$table);
         unset($data['image']);
       }
 
@@ -68,6 +78,16 @@ class Page extends Model
 
     echo $query; die;
 
+    }
+
+    public function getCategories($id)
+    {
+      $query = $this->query->select('title', 'id')
+                            ->from("categories")
+                            ->where("page_id = :id")
+                            ->build();
+      $params = ['id' => $id];
+      return $this->fetchAll($query, $params);
     }
 
 

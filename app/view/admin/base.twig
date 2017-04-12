@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/bower_components/animate.css/animate.min.css">
+    <link rel="stylesheet" href="/bower_components/toastr/toastr.min.css">
     <link rel="stylesheet" href="/css/admin/style.min.css">
     {% block css %}{% endblock %}
 </head>
@@ -50,6 +51,9 @@
             <a class="nav-link" href="/admin{{ url.PAGES }}">
                 <i class="fa fa-file-text-o" aria-hidden="true"></i> {{ lang.PAGES }}
             </a>
+            <a class="nav-link" href="/admin{{ url.CATEGORIES }}">
+                <i class="fa fa-file-text-o" aria-hidden="true"></i> {{ lang.CATEGORIES }}
+            </a>
             <a class="nav-link" href="/admin{{ url.POSTS }}">
                 <i class="fa fa-newspaper-o" aria-hidden="true"></i> {{ lang.POSTS }}
             </a>
@@ -83,6 +87,10 @@
     <script src="/bower_components/chart.js/dist/Chart.bundle.min.js"></script>
     <script src="/bower_components/jquery.nicescroll/dist/jquery.nicescroll.min.js"></script>
     <script src="/bower_components/Sortable/Sortable.min.js"></script>
+    <script src="/bower_components/toastr/toastr.min.js"></script>
+    <script type="text/javascript">
+      toastr.options.positionClass = 'toast-bottom-right';
+    </script>
 
     <script src="/js/admin/script.js"></script>
 

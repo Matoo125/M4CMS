@@ -10,6 +10,7 @@ Categories are used for separation of posts. Every page has it's own categories.
 |:------------- |:------------- |:---------            |:------------
 | id            | int           | AUTO_INCREMENT       |  PRIMARY KEY
 | title         | varchar(128)  |   NOT NULL           | ---
+| slug          | varchar(128)  |   NOT NULL           | ---
 | description   | TEXT          |    NULL              | ---
 | image_id      | TEXT          |    NULL              | ---
 | page_id       | TEXT          |    NULL              | ---
