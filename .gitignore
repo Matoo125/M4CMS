@@ -2,4 +2,4 @@
 /app/config/database.php
 /.idea
 /.couscous
-/uploads/*
+/public/uploads/*
