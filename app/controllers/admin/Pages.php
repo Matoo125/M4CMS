@@ -41,8 +41,6 @@ class Pages extends PagesApi
         echo 'records has not been inserted';
       }
 
-
-
     }
 
     public function editAjax()

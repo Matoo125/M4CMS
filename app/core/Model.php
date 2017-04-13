@@ -96,7 +96,7 @@ abstract class Model
 
       switch ($type) {
         case 2:
-          if ($results = $stmt->fetchAll()) {
+          if ($results = $stmt->fetchAll(\PDO::FETCH_ASSOC)) {
              return $results;
           }
           break;

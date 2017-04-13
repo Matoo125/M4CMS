@@ -47,5 +47,10 @@ class User extends Controller
       Redirect::to("/user/login");
     }
 
+    public function profile()
+    {
+      
+    }
+
 
 }

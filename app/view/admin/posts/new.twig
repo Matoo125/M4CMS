@@ -1,0 +1,138 @@
+{% extends 'admin/base.twig' %}
+
+{% block css %}
+<link rel="stylesheet" href="/bower_components/trumbowyg/dist/ui/trumbowyg.min.css">
+<link rel="stylesheet" href="/bower_components/jquery.tagsinput/dist/jquery.tagsinput.min.css">
+{% endblock %}
+
+{% block title %}Create new Post {% endblock %}
+
+{% block breadcrumbs %}
+<li class="breadcrumb-item"><a href="/admin{{ url.POSTS }}">Posts</a></li>
+<li class="breadcrumb-item active">New</li>
+
+{% endblock %}
+
+{% block content %}
+
+<!-- ADD Page form -->
+<div class="new-article-form">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">Add New Post</div>
+                <div class="card-block">
+                    <form method="post" action="" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="inputTitle">Title</label>
+                            <input type="text" class="form-control" id="inputTitle" name="title" placeholder="Title" required>
+                        </div>
+
+
+                        <div class="form-group">
+                          <label for="description">Description</label>
+                          <textarea class="form-control" name="description" id="description"></textarea>
+                      </div>
+
+
+                        <div class="form-group">
+                            <label for="inputTags">Tags</label>
+                            <input type="text" class="form-control" id="inputTags" name="tags" placeholder="Tags" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="textareaArticleBody">Content</label>
+                            <textarea class="form-control" name="content" id="textareaArticleBody"></textarea>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="custom-file">
+                                    <input type="file" class="custom-file-input" id="image" name="image" aria-describedby="fileHelp">
+                                    <span class="custom-file-control form-control-file "></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                              <div class="form-group">
+                                <select id="page" name="page_id" class="custom-select">
+                                  <option value="0">Please select a Page</option>
+                                  {% for page in pages %}
+                                      <option value="{{ page.id }}">{{ page.title }}</option>
+                                  {% endfor %}
+                                </select>
+                              </div>
+
+                              <div class="form-group">
+                                <select id="category" name="category_id" class="custom-select invisible">
+                                  <option value="0">Please select a Category</option>
+
+                                </select>
+                                <span class="loader pull-left"><img src="/images/loader.svg" width="40"></span>
+
+                              </div>
+
+                            </div>
+
+                            <div class="col-2">
+                                 <div class="form-check">
+                                    <label class="form-check-label">
+                                      <input type="checkbox" name="publish" class="form-check-input">
+                                      Publish
+                                    </label>
+                                  </div>
+                            </div>
+
+                        </div>
+
+
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="/bower_components/trumbowyg/dist/trumbowyg.min.js"></script>
+<script src="/bower_components/trumbowyg/dist/plugins/noembed/trumbowyg.noembed.min.js"></script>
+<script src="/bower_components/trumbowyg/dist/plugins/upload/trumbowyg.upload.min.js"></script>
+<script src="/bower_components/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+<script src="/js/admin/editorSettings.js"></script>
+
+<script type="text/javascript">
+$(".loader").hide();
+
+$(document).ready(function(){
+  $("select#page").change(function(){
+      $("select#category").addClass("invisible")
+      $(".loader").show();
+      var selectedPage = $("#page option:selected").val();
+      $.ajax({
+          type: "POST",
+          url: "/admin/posts/getCategoriesAjax",
+          data: { page_id : selectedPage }
+      }).done(function(data){
+        $("select#category").removeClass("invisible").html('<option value="0">Please select a Category</option>')
+        $(".loader").hide();
+
+        $.each(JSON.parse(data), function(key, value) {
+          $("select#category").append("<option value='"+value.id+"'>"+value.title+"</option>");
+
+        })
+      });
+  });
+
+  $('#inputTags').tagsInput({
+         'height':'auto',
+          'width':'auto',
+  });
+
+});
+</script>
+{% endblock %}

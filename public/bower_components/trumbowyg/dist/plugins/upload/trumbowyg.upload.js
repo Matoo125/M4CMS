@@ -15,13 +15,13 @@
     'use strict';
 
     var defaultOptions = {
-        serverPath: '/upload.php',
+        serverPath: './src/plugins/upload/trumbowyg.upload.php',
         fileFieldName: 'fileToUpload',
         data: [],                       // Additional data for ajax [{name: 'key', value: 'value'}]
         headers: {},                    // Additional headers
         xhrFields: {},                  // Additional fields
         urlPropertyName: 'file',        // How to get url from the json response (for instance 'url' for {url: ....})
-        statusPropertyName: 'success',  // How to get status from the json response
+        statusPropertyName: 'success',  // How to get status from the json response 
         success: undefined,             // Success callback: function (data, trumbowyg, $modal, values) {}
         error: undefined                // Error callback: function () {}
     };

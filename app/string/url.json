@@ -13,6 +13,8 @@
   "NEW_CATEGORY": "/categories/new",
 
   "POSTS":      "/posts",
+  "NEW_POST":   "/posts/new",
+
   "SETTINGS":   "/settings"
 
 }

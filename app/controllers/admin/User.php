@@ -1,9 +1,14 @@
 <?php
 namespace app\controllers\admin;
 
-//require APP . DS . 'controllers/api/UserApiController.php';
+use app\controllers\api\User as UserApi;
 
-class User extends UserAdminController
+class User extends UserApi
 {
+  public function index()
+  {
 
+  }
+
+  
 }

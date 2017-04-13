@@ -1,0 +1,167 @@
+{% extends 'admin/base.twig' %}
+
+{% block css %}
+<link rel="stylesheet" href="/bower_components/trumbowyg/dist/ui/trumbowyg.min.css">
+<link rel="stylesheet" href="/bower_components/jquery.tagsinput/dist/jquery.tagsinput.min.css">
+{% endblock %}
+
+{% block title %}Edit {{ post.title }} {% endblock %}
+
+{% block breadcrumbs %}
+<li class="breadcrumb-item"><a href="/admin{{ url.POSTS }}">Posts</a></li>
+<li class="breadcrumb-item active">Edit</li>
+
+{% endblock %}
+
+{% block content %}
+
+<!-- ADD Page form -->
+<div class="new-article-form">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-header">Edit Post</div>
+                <div class="card-block">
+                    <form method="post" action="" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="inputTitle">Title</label>
+                            <input type="text" class="form-control" id="inputTitle" name="title" placeholder="Title" value="{{ post.title }}" required>
+                        </div>
+
+
+                        <div class="form-group">
+                          <label for="description">Description</label>
+                          <textarea class="form-control" name="description" id="description">{{ post.description }}</textarea>
+                      </div>
+
+
+                        <div class="form-group">
+                            <label for="inputTags">Tags</label>
+                            <input type="text" class="form-control" id="inputTags" name="tags" placeholder="Tags" value="{{ post.tags }}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="textareaArticleBody">Content</label>
+                            <textarea class="form-control" name="content" id="textareaArticleBody">{{ post.content }}</textarea>
+                        </div>
+
+
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+
+          <div class="card">
+            <div class="card-header">Image</div>
+            <div class="card-block">
+              <img id="currentImage" src="/uploads/thumbs/150x150/{{ post.image }}">
+                <input type="file" class="upload" id="image" style="opacity: 0; position: absolute; top: 0; left:0; right:0 ;bottom:0" />
+            </div>
+            <!--   <div class="card-footer">
+          <div class="fileUpload btn btn-primary" style="display: inherit">
+                  <span>Upload</span>
+                  <input type="file" class="upload" style="opacity: 0; position: absolute; top: 0; left:0; right:0 ;bottom:0" />
+              </div>
+            </div> -->
+          </div>
+
+          <div class="card">
+            <div class="card-header">Other Information</div>
+            <div class="card-block" style="padding: 0">
+              <table class="table" style="margin: 0">
+                <tbody>
+                  <tr>
+                    <td>Page</td>
+                    <td>{{ post.page }}</td>
+                  </tr>
+                  <tr>
+                    <td>Category</td>
+                    <td>{{ post.category }}</td>
+                  </tr>
+                  <tr>
+                    <td>Published</td>
+                    <td>{{ post.is_published ? 'Yes' : 'No' }}</td>
+                  </tr>
+                  <tr>
+                    <td>Author</td>
+                    <td>{{ post.author }}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="/bower_components/trumbowyg/dist/trumbowyg.min.js"></script>
+<script src="/bower_components/trumbowyg/dist/plugins/noembed/trumbowyg.noembed.min.js"></script>
+<script src="/bower_components/trumbowyg/dist/plugins/upload/trumbowyg.upload.min.js"></script>
+<script src="/bower_components/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+<script src="/js/admin/editorSettings.js"></script>
+
+<script type="text/javascript">
+$(".loader").hide();
+
+$(document).ready(function(){
+
+  // change image ajax
+  input = $("#image").change(function(event) {
+    var file = event.target.files;
+    if (file) {
+      //console.log(file[0]);
+      // set loader
+      $("#currentImage").replaceWith("<img class='loader' src='/images/loader.svg'>")
+
+      var formData = new FormData();
+      formData.append('image', file[0]);
+      formData.append('id', {{ post.id }});
+      $.ajax({
+          type: "POST",
+          url: "/admin/posts/changeImageAjax",
+          data: formData,
+          processData: false,
+          contentType: false
+      }).done(function(data){
+        console.log(data)
+        // replace loader with image
+        $(".loader").replaceWith('<img id="currentImage" src="/uploads/thumbs/150x150/posts/'+ data +'">')
+      });
+    }
+  });
+
+  $("select#page").change(function(){
+      $("select#category").addClass("invisible")
+      $(".loader").show();
+      var selectedPage = $("#page option:selected").val();
+      $.ajax({
+          type: "POST",
+          url: "/admin/posts/getCategoriesAjax",
+          data: { page_id : selectedPage }
+      }).done(function(data){
+        $("select#category").removeClass("invisible").html('<option value="0">Please select a Category</option>')
+        $(".loader").hide();
+
+        $.each(JSON.parse(data), function(key, value) {
+          $("select#category").append("<option value='"+value.id+"'>"+value.title+"</option>");
+
+        })
+      });
+  });
+
+  $('#inputTags').tagsInput({
+         'height':'auto',
+          'width':'auto',
+  });
+
+});
+</script>
+{% endblock %}
