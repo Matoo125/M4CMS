@@ -18,10 +18,32 @@ class Posts extends PostsApi
   //  var_dump($this->data['page']);
   }
 
+  public function editAjax()
+  {
+    if (!$_POST) return false;
+
+
+  }
+
   public function changeImageAjax()
   {
     $this->model->update($_POST['id'], $_FILES);
     print_r($_FILES['image']['name']);
+  }
+
+  public function changeCategoryAjax()
+  {
+    $this->model->update($_POST);
+  }
+
+  public function changeAuthorAjax()
+  {
+
+  }
+
+  public function switchPublishedAjax()
+  {
+
   }
 
   public function new()

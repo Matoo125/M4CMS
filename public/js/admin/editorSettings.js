@@ -30,7 +30,7 @@ $('#textareaArticleBody').trumbowyg({
       }
   }
 
-});
+}).on('tbwchange', function(){ $("#textareaArticleBody").addClass('changed')});
 
 // to update image path
 // after image is selected
