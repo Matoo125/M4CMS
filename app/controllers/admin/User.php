@@ -7,8 +7,13 @@ class User extends UserApi
 {
   public function index()
   {
-
+    $this->data['users'] = $this->model->getAll();
   }
 
-  
+  public function getAuthorsAjax()
+  {
+    echo json_encode( $this->model->getAuthors() );
+  }
+
+
 }

@@ -44,7 +44,7 @@ $(function () {
 
 
 
-    // jquery.Nicescroll    
+    // jquery.Nicescroll
     $("#live-chat-body").niceScroll({
         horizrailenabled: false
     });
@@ -55,5 +55,9 @@ $(function () {
         cursorborder: "none",
         zindex: 3
     });
+
+
+    toastr.options.preventDuplicates = true;
+
 
 })

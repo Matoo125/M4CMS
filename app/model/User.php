@@ -18,4 +18,19 @@ class User extends Model
         return null;
     }
 
+    public function getAll()
+    {
+      $query = $this->query->select('username', 'id', 'first_name', 'last_name', 'role')
+                           ->from('users')
+                           ->build();
+      return $this->fetchAll($query, []);    }
+
+    public function getAuthors()
+    {
+        $query = $this->query->select('username', 'id')
+                             ->from('users')
+                             ->build();
+        return $this->fetchAll($query, []);
+    }
+
 }

@@ -21,7 +21,15 @@ class Posts extends PostsApi
   public function editAjax()
   {
     if (!$_POST) return false;
-
+    if (count($_POST) < 2) {
+       echo 'error';
+    } else {
+      $id = $_POST['id'];
+      array_shift($_POST);
+      if ($this->model->update($id, $_POST)) {
+        echo 'success';
+      }
+    }
 
   }
 
@@ -36,15 +44,6 @@ class Posts extends PostsApi
     $this->model->update($_POST);
   }
 
-  public function changeAuthorAjax()
-  {
-
-  }
-
-  public function switchPublishedAjax()
-  {
-
-  }
 
   public function new()
   {
@@ -73,6 +72,11 @@ class Posts extends PostsApi
   public function getCategoriesAjax ()
   {
     echo json_encode( $this->model->getCategories($_POST['page_id']) );
+  }
+
+  public function getPagesAjax ()
+  {
+    echo json_encode( $this->model->getPages() );
   }
 
 
