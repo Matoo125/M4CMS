@@ -1,5 +1,5 @@
 /app/vendor
 /app/config/database.php
 /.idea
-/.couscous
+/docs/.couscous
 /public/uploads/*
