@@ -1,7 +1,3 @@
----
-currentMenu: users
----
-
 # Users
 
 There are multiple type of users on this page.

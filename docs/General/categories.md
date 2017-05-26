@@ -1,19 +1,14 @@
----
-currentMenu: admin_tasklist
----
+# Categories
 
-# Admin Tasklist
-
-This is example plugin, which is also integrated in the application
-
-
-It allows user to create complete and delete tasks in admin area
+Categories are used for separation of posts. Every page has it's own categories. There have to be page to create category.
 
 | COLUMN        | TYPE           | DEFAULT             | EXTRA |
 |:------------- |:------------- |:---------            |:------------
 | id            | int           | AUTO_INCREMENT       |  PRIMARY KEY
-| task          | varchar(128)  |   NOT NULL           | ---
+| title         | varchar(128)  |   NOT NULL           | ---
+| slug          | varchar(128)  |   NOT NULL           | ---
 | description   | TEXT          |    NULL              | ---
-| state         | TEXT          |    NULL              | ---
+| image_id      | TEXT          |    NULL              | ---
+| page_id       | TEXT          |    NULL              | ---
 | created_at    | TIMESTAMP     |    CURRENT_TIMESTAMP | ---
 | updated_at    | TIMESTAMP     |    CURRENT_TIMESTAMP |  ON UPDATE CURRENT_TIMESTAMP

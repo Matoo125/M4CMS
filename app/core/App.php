@@ -90,19 +90,11 @@ class App
     */
     public function setModule($url)
     {
-        // set admin module if requested
-         if ($url[0] == 'admin'){
-            $this->module = 'admin';
-            array_shift($url);
-            if (! Session::get('user_id')) Redirect::toURL("LOGIN"); // redirect(toURL("LOGIN"));
-          }
-
-        // set api module if requested
-        else if (isset($url[0]) && $url[0] == 'api') {
-            $this->module = "api";
+        $modules = array_diff(scandir(APP.DS.'controllers'), ['.', '..', 'web']);
+        if (in_array($url[0], $modules)) {
+            $this->module = $modules[array_search($url[0], $modules)];
             array_shift($url);
         }
-
         return $url;
     }
 

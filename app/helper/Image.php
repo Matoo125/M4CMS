@@ -19,7 +19,7 @@ class Image
   public static function upload($image, $folder)
   {
     // set upload location
-    $location = ROOT . DS ."public" . DS . "uploads" . DS . "images" . DS . $folder;
+    $location = UPLOADS . DS . "images" . DS . $folder;
 
     // create directory if not exists
     if (!file_exists($location)) {
@@ -39,10 +39,18 @@ class Image
 
     // append filename to the location
     $location .= DS . $name;
+
+    // upload file
     if(!move_uploaded_file($image['tmp_name'], $location)){
       return false;
     }
-    self::generateThumbnail($location, 150, 150);
+
+    // Generate Thumbnails
+    global $config;
+    foreach ($config['THUMBNAILS'] as $dimensions) {
+      $dimensions = explode(' ', $dimensions);
+      self::generateThumbnail($location, $dimensions[0], $dimensions[1]);
+    }
 
     $image['name'] = $name;
     return $image;

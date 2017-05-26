@@ -11,7 +11,6 @@ namespace app\core;
  * Last update: 10.4.2017
  */
 
-use app\config\Database;
 use app\helper\Query;
 use app\helper\Image;
 
@@ -38,8 +37,9 @@ abstract class Model
         // already
         if ($db === null) {
             try {
-                $dns = 'mysql:host=' . Database::HOST . ';dbname=' . Database::NAME . ';charset=utf8';
-                $db = new \PDO($dns, Database::USER, Database::PASSWORD);
+                global $config;
+                $dns = 'mysql:host=' . $config['DB_HOST'] . ';dbname=' . $config['DB_NAME'] . ';charset=utf8';
+                $db = new \PDO($dns, $config['DB_USER'], $config['DB_PASSWORD']);
                 $db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
                 return $db;
             } catch (\PDOException $e) {
@@ -54,9 +54,9 @@ abstract class Model
     // To insert or update record
     // retuns boolean
     // return lastinserted id if type is 1
-    public function save($query, $params, $type = null)
+    public function save($query, $params, $lastInsertedId = null)
     {
-      if ($type == 1) {
+      if ($lastInsertedId == 1) {
         return self::runQuery($query, $params, 4);
       }
       return self::runQuery($query, $params, 3);

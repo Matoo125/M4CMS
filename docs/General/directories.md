@@ -1,7 +1,3 @@
----
-currentMenu: directories
----
-
 # Directory Structure
 
 ```
