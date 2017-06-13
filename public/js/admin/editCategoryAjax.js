@@ -11,7 +11,7 @@ $("#categories").on('click', '.category', function() {
     type: "GET",
     success: function (data) {
       console.log(data)
-      data = JSON.parse(data);
+      data = data.data;
       // open modal and append data
       $("#eTitle").val(data.title);
       $("#eDescription").val(data.description);

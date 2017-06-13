@@ -1,7 +1,8 @@
 <?php
-namespace app\controllers\admin;
+namespace m4\m4cms\controllers\admin;
 
-use app\controllers\api\Categories as CategoriesApiController;
+use m4\m4cms\controllers\api\Categories as CategoriesApiController;
+use m4\m4mvc\helper\Response;
 
 class Categories extends CategoriesApiController
 {
@@ -22,7 +23,7 @@ class Categories extends CategoriesApiController
     $data['id'] = $this->model->insert($data);
     $data['created_at'] = date("Y-m-d H:i:s");
 
-    echo json_encode($data);
+    Response::create($data);
   }
 
   public function editAjax($id)
@@ -57,7 +58,7 @@ class Categories extends CategoriesApiController
 
     }
 
-    echo json_encode($data);
+    Response::success('Category has been updated', ['data' => $data]);
 
   }
 

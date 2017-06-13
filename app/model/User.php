@@ -1,8 +1,8 @@
 <?php
 
-namespace app\model;
+namespace m4\m4cms\model;
 
-use app\core\Model;
+use m4\m4mvc\core\Model;
 
 class User extends Model
 {

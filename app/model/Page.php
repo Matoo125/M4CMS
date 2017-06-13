@@ -1,10 +1,10 @@
 <?php
 
-namespace app\model;
+namespace m4\m4cms\model;
 
-use app\core\Model;
-use app\helper\Query;
-use app\helper\Strings;
+use m4\m4mvc\core\Model;
+use m4\m4mvc\helper\Query;
+use m4\m4mvc\helper\Str;
 
 class Page extends Model
 {
@@ -19,7 +19,7 @@ class Page extends Model
 
       $params = [
         'title'         => $data['title'],
-        'slug'          => Strings::slugify($data['title']),
+        'slug'          => Str::slugify($data['title']),
         'description'   => $data['description'],
         'content'       => $data['content'],
         'is_published'  => $data['publish'],

@@ -1,8 +1,8 @@
 <?php
-namespace app\controllers\admin;
+namespace m4\m4cms\controllers\admin;
 
-use app\controllers\api\Posts as PostsApi;
-use app\helper\Redirect;
+use m4\m4cms\controllers\api\Posts as PostsApi;
+use m4\m4mvc\helper\Redirect;
 
 class Posts extends PostsApi
 {

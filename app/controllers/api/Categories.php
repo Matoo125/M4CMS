@@ -1,14 +1,14 @@
 <?php
-namespace app\controllers\api;
+namespace m4\m4cms\controllers\api;
 
-use app\core\Controller;
+use m4\m4mvc\core\Controller;
 
 class Categories extends Controller
 {
 
     public function __construct()
     {
-        $this->model = $this->model('Category');
+        $this->model = $this->getModel('Category');
     }
 
 

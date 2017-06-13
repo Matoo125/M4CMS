@@ -1,9 +1,9 @@
 <?php
 
-namespace app\model;
+namespace m4\m4cms\model;
 
-use app\core\Model;
-use app\helper\Strings;
+use m4\m4mvc\core\Model;
+use m4\m4mvc\helper\Str;
 
 class Category extends Model
 {
@@ -17,7 +17,7 @@ class Category extends Model
                          ->build();
     $params = [
       'title'         => $data['title'],
-      'slug'          => Strings::slugify($data['title']),
+      'slug'          => Str::slugify($data['title']),
       'description'   => $data['description'],
       'page_id'       => $data['page_id'],
       'image_id'      => $this->image($data['image'], self::$table)

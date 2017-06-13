@@ -1,7 +1,7 @@
 <?php
-namespace app\controllers\admin;
+namespace m4\m4cms\controllers\admin;
 
-use app\core\Controller;
+use m4\m4mvc\core\Controller;
 
 class Settings extends Controller
 {

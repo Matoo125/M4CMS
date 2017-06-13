@@ -1,14 +1,14 @@
 <?php
-namespace app\controllers\api;
+namespace m4\m4cms\controllers\api;
 
-use app\core\Controller;
+use m4\m4mvc\core\Controller;
 
 class Posts extends Controller
 {
 
     public function __construct()
     {
-        $this->model = $this->model('Post');
+        $this->model = $this->getModel('Post');
     }
 
 

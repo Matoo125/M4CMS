@@ -1,7 +1,7 @@
 <?php
-namespace app\controllers\admin;
+namespace m4\m4cms\controllers\admin;
 
-use app\controllers\api\User as UserApi;
+use m4\m4cms\controllers\api\User as UserApi;
 
 class User extends UserApi
 {

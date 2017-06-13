@@ -1,15 +1,15 @@
 <?php
-namespace app\controllers\admin;
+namespace m4\m4cms\controllers\admin;
 
 
 /*
  * Pages controller.
  */
 
-use app\helper\Image;
-use app\helper\Redirect;
+use m4\m4mvc\helper\Image;
+use m4\m4mvc\helper\Redirect;
 
-use app\controllers\api\Pages as PagesApi;
+use m4\m4cms\controllers\api\Pages as PagesApi;
 
 
 class Pages extends PagesApi

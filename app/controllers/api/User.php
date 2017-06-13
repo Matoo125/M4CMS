@@ -1,5 +1,5 @@
 <?php
-namespace app\controllers\api;
+namespace m4\m4cms\controllers\api;
 
 /**
  * Class Users Controller
@@ -7,17 +7,17 @@ namespace app\controllers\api;
  * sha256
  */
 
- use app\config\Database;
- use app\core\Controller;
- use app\helper\Session;
- use app\helper\Redirect;
+ use m4\m4mvc\config\Database;
+ use m4\m4mvc\core\Controller;
+ use m4\m4mvc\helper\Session;
+ use m4\m4mvc\helper\Redirect;
 
 class User extends Controller
 {
 
   public function __construct()
   {
-    $this->model = $this->model("User");
+    $this->model = $this->getModel("User");
   }
 
   public function login()

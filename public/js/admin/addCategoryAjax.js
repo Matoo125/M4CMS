@@ -12,7 +12,7 @@ $("#addNewCategory").submit(function(event) {
     success : function (data) {
       //alert(data)
       console.log(data)
-      obj = JSON.parse(data)
+      obj = data.data
       $("#addCategoryModal").modal('hide');
       toastr.success('You have created new category!', 'Success')
       // remove paragraph if first category

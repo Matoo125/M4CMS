@@ -1,10 +1,10 @@
 <?php
 
-namespace app\model;
+namespace m4\m4cms\model;
 
-use app\core\Model;
-use app\helper\Strings;
-use app\helper\Session;
+use m4\m4mvc\core\Model;
+use m4\m4mvc\helper\Str;
+use m4\m4mvc\helper\Session;
 
 class Post extends Model
 {
@@ -19,7 +19,7 @@ class Post extends Model
 
     $params = [
       'title'         => $data['title'],
-      'slug'          => Strings::slugify($data['title']),
+      'slug'          => Str::slugify($data['title']),
       'description'   => $data['description'],
       'content'       => $data['content'],
       'tags'          => $data['tags'],

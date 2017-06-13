@@ -1,7 +1,7 @@
 <?php
-namespace app\controllers\web;
+namespace m4\m4cms\controllers\web;
 
-use app\controllers\api\User as UserApiController;
+use m4\m4cms\controllers\api\User as UserApiController;
 
 
 class User extends UserApiController

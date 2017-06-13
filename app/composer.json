@@ -1,12 +1,13 @@
 {
     "require": {
         "twig/twig": "^2.0",
-        "intervention/image": "^2.3"
+        "intervention/image": "^2.3",
+        "m4/m4mvc": "dev-master"
     },
 
     "autoload": {
       "psr-4": {
-        "app\\":""
+        "m4\\m4cms\\":""
       }
     }
 
