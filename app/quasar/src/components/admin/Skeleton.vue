@@ -20,12 +20,12 @@
   </div>
     <q-drawer ref="drawer">
     <div class="list platform-delimiter">
-      <q-drawer-link icon="dashboard" to="/account">Dashboard</q-drawer-link>
-      <q-drawer-link icon="tab" to="/alarms">Pages</q-drawer-link>
-      <q-drawer-link icon="folder" to="/alarms">Categories</q-drawer-link>
-      <q-drawer-link icon="subject" to="/alarms">Posts</q-drawer-link>
-      <q-drawer-link icon="accessibility" to="/alarms">Users</q-drawer-link>
-      <q-drawer-link icon="settings" to="/alarms">Settings</q-drawer-link>
+      <q-drawer-link icon="dashboard" to="/admin">Dashboard</q-drawer-link>
+      <q-drawer-link icon="tab" to="/admin/pages">Pages</q-drawer-link>
+      <q-drawer-link icon="folder" to="/admin/categories">Categories</q-drawer-link>
+      <q-drawer-link icon="subject" to="/admin/posts">Posts</q-drawer-link>
+      <q-drawer-link icon="accessibility" to="/admin/users">Users</q-drawer-link>
+      <q-drawer-link icon="settings" to="/admin/settings">Settings</q-drawer-link>
     </div>
   </q-drawer>
   <router-view class="layout-view" ></router-view>

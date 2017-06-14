@@ -28,6 +28,34 @@ export default new VueRouter({
         {
           path: '',
           component: load('admin/Home')
+        },
+        {
+          path: 'pages',
+          component: load('admin/pages/List')
+        },
+        {
+          path: 'categories',
+          component: load('admin/categories/List')
+        },
+        {
+          path: 'posts',
+          component: load('admin/posts/List')
+        },
+        {
+          path: 'users',
+          component: load('admin/Users')
+        },
+        {
+          path: 'settings',
+          component: load('admin/Settings')
+        },
+        {
+          path: 'page/create',
+          component: load('admin/pages/Add')
+        },
+        {
+          path: 'page/:id',
+          component: load('admin/pages/Update')
         }
       ]
     },

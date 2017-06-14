@@ -3,63 +3,26 @@ namespace m4\m4cms\controllers\admin;
 
 use m4\m4cms\controllers\api\Categories as CategoriesApiController;
 use m4\m4mvc\helper\Response;
+use m4\m4mvc\helper\Request;
 
 class Categories extends CategoriesApiController
 {
-  public function index()
+  public function create () 
   {
-    $this->data['categories'] = $this->model->getAll();
-    $this->data['pages'] = $this->model->getPages();
+    Request::forceMethod('post');
+    Request::required('title', 'description', 'page_id');
+    $data = Request::select('title', 'description', 'page_id');
+
+    $this->model->insert($data) ? Response::success('Category has been created. ') : Response::error('Category has not created. ');
   }
 
-
-  public function newAjax()
+  public function update ()
   {
-    $data['title'] = $_POST['title'];
-    $data['description'] = $_POST['description'] ?: '';
-    $data['page_id'] = $_POST['page_id'];
-    $data['image'] = isset($_FILES['image'])? $_FILES['image'] : NULL;
+    Request::forceMethod('post');
+    Request::required('id');
+    Request::select('id', 'description', 'title');
 
-    $data['id'] = $this->model->insert($data);
-    $data['created_at'] = date("Y-m-d H:i:s");
-
-    Response::create($data);
-  }
-
-  public function editAjax($id)
-  {
-    $dbData = $this->get($id);
-
-    $data = [];
-
-    if ($dbData['title'] != $_POST['title']) {
-      $data['title'] = $_POST['title'];
-    }
-    if ($dbData['description'] != $_POST['description']) {
-      $data['description'] = $_POST['description'];
-    }
-    if ($dbData['page_id'] != $_POST['page_id']) {
-      $data['page_id'] = $_POST['page_id'];
-    }
-
-  //  echo json_encode($_POST);die;
-
-    // check if file was selected
-    if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
-      $data['image'] = $_FILES['image'];
-    }
-
-    if ($this->model->update($id, $data)) {
-      $data = array_merge($dbData, $data);
-
-      if (isset($data['image']['name'])) {
-        $data['image'] = "categories" . DS . $data['image']['name'];
-      }
-
-    }
-
-    Response::success('Category has been updated', ['data' => $data]);
-
+    $this->model->update($data) ? Response::success('Category has been updated. ') : Response::error('Category has not been updated. ');
   }
 
   public function get($id)

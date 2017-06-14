@@ -12,35 +12,18 @@ class Category extends Model
 
   public function insert($data)
   {
-    $query = $this->query->insert('title', 'slug', 'description', 'page_id', 'image_id')
+    $data['slug'] = Str::slugify($data['title']);
+
+    $query = $this->query->insert(...array_keys($data))
                          ->into(self::$table)
                          ->build();
-    $params = [
-      'title'         => $data['title'],
-      'slug'          => Str::slugify($data['title']),
-      'description'   => $data['description'],
-      'page_id'       => $data['page_id'],
-      'image_id'      => $this->image($data['image'], self::$table)
-    ];
-    return $this->save($query, $params, 1);
+
+    return $this->save($query, $data, 1);
 
   }
 
-  public function update($id, $data)
+  public function update($data)
   {
-    if (empty($data)) return;
-
-    $params['id'] = $id;
-
-    if (isset($data['image'])) {
-      $data['image_id'] = $this->image($data['image'], self::$table);
-      unset($data['image']);
-    }
-
-    foreach($data as $key => $value){
-      $params[$key] = $value;
-    }
-
     $query = $this->query->update(self::$table)
                          ->set(array_keys($data))
                          ->where('id = :id')
@@ -50,7 +33,7 @@ class Category extends Model
 
   }
 
-  public function getById($id)
+  public function get($id)
   {
     $query = $this->query->select('c.id', 'c.title', 'c.slug', 'c.page_id', 'c.description', 'CONCAT(i.folder, "/", i.name) AS image', 'c.created_at', 'c.updated_at')
                           ->from(self::$table . " AS c")

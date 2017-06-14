@@ -12,60 +12,60 @@ class Page extends Model
 
     public function insert($data)
     {
+      $data['slug'] = Str::slugify($data['title']); // create slug from title
+      $data['is_published'] = $data['is_published'] ? 1 : 0; // convert boolean to tinyint
 
-      $query = $this->query->insert('title', 'slug', 'description', 'content', 'is_published', 'image_id')
+      $query = $this->query->insert(...array_keys($data))
                            ->into(self::$table)
                            ->build();
 
-      $params = [
-        'title'         => $data['title'],
-        'slug'          => Str::slugify($data['title']),
-        'description'   => $data['description'],
-        'content'       => $data['content'],
-        'is_published'  => $data['publish'],
-        'image_id'      => $data['image']['error'] === 0 ? $this->image($data['image'], self::$table) : NULL
-      ];
-      return $this->save($query, $params, 1);
+      return $this->save($query, $data, 1);
 
     }
 
     public function get($id)
     {
-      $query = $this->query->select('p.id', 'p.title', 'p.slug', 'p.description', 'p.content', 'p.is_published', 'CONCAT(i.folder, "/", i.name) AS image', 'p.created_at', 'p.updated_at')
+      $query = $this->query->select('p.id', 
+                                    'p.title', 
+                                    'p.slug', 
+                                    'p.description', 
+                                    'p.content', 
+                                    'p.is_published', 
+                                    'IF(p.image_id IS NOT NULL, CONCAT(i.folder, "/", i.name), false) AS image', 
+                                    'p.created_at', 
+                                    'p.updated_at')
                             ->from(self::$table . " AS p")
                             ->join('left', 'images AS i', 'i.id = p.image_id')
                             ->where("p.id = :id")
                             ->build();
-      //var_dump($query);die;
-      $params = ['id' => $id];
-      return $this->fetch($query, $params);
+
+      $data = $this->fetch($query, ['id' => $id]);
+      $data['is_published'] = $data['is_published'] == 1 ? true : false;
+      return $data;
     }
 
     public function getAll()
     {
-      $query = $this->query->select('p.id', 'p.title', 'p.slug', 'p.description', 'p.content', 'p.is_published', 'CONCAT(i.folder, "/", i.name) AS image', 'p.created_at', 'p.updated_at')
+      $query = $this->query->select('p.id', 
+                                    'p.title', 
+                                    'p.slug', 
+                                    'p.description', 
+                                    'p.content', 
+                                    'p.is_published', 
+                                    'IF(p.image_id IS NOT NULL, CONCAT(i.folder, "/", i.name), false) AS image', 
+                                    'p.created_at', 
+                                    'p.updated_at')
                            ->from(self::$table . " AS p")
-                           ->join('inner', 'images as i', 'i.id = p.image_id')
+                           ->join('left', 'images as i', 'i.id = p.image_id')
                            ->build();
       return $this->fetchAll($query, []);
     }
 
-    public function update($id, $data)
+    public function update($data)
     {
-      if (empty($data)) return;
-
-      $params = [];
-      $params['id'] = $id;
-
-
       if (isset($data['image'])) {
         $data['image_id'] = $this->image($data['image'], self::$table);
         unset($data['image']);
-      }
-
-
-      foreach($data as $key => $value){
-        $params[$key] = $value;
       }
 
 
@@ -74,10 +74,7 @@ class Page extends Model
                            ->where('id = :id')
                            ->build();
 
-    return $this->save($query, $params);
-
-    echo $query; die;
-
+      return $this->save($query, $data);
     }
 
     public function getCategories($id)

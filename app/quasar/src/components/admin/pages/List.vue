@@ -1,0 +1,55 @@
+<template>
+  <div class="row">
+  <table class="q-table loose striped-odd bordered cell-delimiter highlight">
+    <thead>
+      <tr>
+        <th class="text-left">Title</th>
+        <th class="text-right">Description</th>
+        <th class="text-right">Published</th>
+        <th class="text-right">Last update</th>
+      </tr>
+    </thead>
+    <tbody>
+      <router-link tag="tr" :to="'/admin/page/' + page.id" v-for="page in pages" :key="page.id">
+        <td class="text-left">{{ page.title }}</td>
+        <td class="text-right">{{ page.description }}</td>
+        <td class="text-right">{{ page.is_published }}</td>
+        <td class="text-right">{{ page.updated_at }}</td>
+      </router-link>
+    </tbody>
+  </table>
+  </div>
+</template>
+
+<script>
+import axios from 'axios'
+export default {
+  mounted () {
+    this.fetchPagesListData()
+  },
+  data () {
+    return {
+      pages: {}
+    }
+  },
+  methods: {
+    fetchPagesListData () {
+      axios.get('http://m4cms.dev/admin/pages/list')
+      .then(response => {
+        console.log(response)
+        this.pages = response.data
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    }
+  }
+
+}
+</script>
+
+<style scoped>
+  tbody, tbody > tr > td {
+    cursor: pointer;
+  }
+</style>
