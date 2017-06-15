@@ -35,7 +35,7 @@
         </div>
 
         <div>
-          <button class="primary">Update</button>
+          <button class="primary" @click="updateIt()">Update</button>
           <button class="red">Delete</button>
         </div>
         
@@ -47,6 +47,7 @@
 
 <script>
 import axios from 'axios'
+import { Toast } from 'quasar'
 export default {
   data () {
     return {
@@ -66,12 +67,26 @@ export default {
       .catch(error => {
         console.log(error)
       })
+    },
+    updateIt () {
+      axios({
+        method: 'post',
+        url: 'http://m4cms.dev/admin/pages/update',
+        data: this.page
+      })
+      .then(response => {
+        console.log(response)
+        if (response.data.status === 'ERROR') {
+          Toast.create.negative({html: response.data.message})
+        }
+        else {
+          Toast.create.positive({html: response.data.message})
+        }
+      })
+      .catch(error => {
+        console.log(error)
+      })
     }
-  },
-  update () {
-    axios({
-      url: 'http://m4cms.dev/admin/pages/update'
-    })
   }
 }
 </script>

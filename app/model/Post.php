@@ -73,7 +73,7 @@ class Post extends Model
                                   'post.title', 
                                   'page.title as page', 
                                   'cat.title as category', 
-                                  'post.content', 
+                                  'post.description', 
                                   'post.is_published',
                                   'auth.username as author' ,
                                   'CONCAT(img.folder, "/", img.name) AS image', 

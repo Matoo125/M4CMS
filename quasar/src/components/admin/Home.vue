@@ -1,7 +1,7 @@
 <template>
   <div class="layout-view">
 
-    <div class="row">
+    <div class="row" v-if="statistics">
       <div class="card">
         <div class="card-title bg-primary text-white">
           Number of Pages
@@ -46,7 +46,8 @@ import axios from 'axios'
 export default{
   data () {
     return {
-      statistics: {}
+      statistics: null,
+      loading: false
     }
   },
   mounted () {
@@ -54,10 +55,12 @@ export default{
   },
   methods: {
     fetchDashboardData () {
+      this.loading = true
       axios.get('http://m4cms.dev/admin/')
       .then(response => {
         console.log(response)
         this.statistics = response.data
+        this.loading = false
       })
       .catch(error => {
         console.log(error)

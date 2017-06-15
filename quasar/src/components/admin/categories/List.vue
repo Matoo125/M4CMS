@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="row" v-if="categories">
   <table class="q-table loose striped-odd bordered cell-delimiter highlight">
     <thead>
       <tr>
@@ -27,7 +27,7 @@ export default {
   },
   data () {
     return {
-      categories: {}
+      categories: null
     }
   },
   methods: {

@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="row" v-if="pages">
   <table class="q-table loose striped-odd bordered cell-delimiter highlight">
     <thead>
       <tr>
@@ -18,6 +18,12 @@
       </router-link>
     </tbody>
   </table>
+  <router-link
+    tag="button"
+    class="primary circular absolute-bottom-right"
+    style="right: 18px; bottom: 18px; font-size: 2em"
+    to="page/create"
+  >+</router-link>
   </div>
 </template>
 
@@ -29,7 +35,7 @@ export default {
   },
   data () {
     return {
-      pages: {}
+      pages: null
     }
   },
   methods: {
@@ -42,6 +48,9 @@ export default {
       .catch(error => {
         console.log(error)
       })
+    },
+    create () {
+      this.$router.push({ path: 'page/create' })
     }
   }
 

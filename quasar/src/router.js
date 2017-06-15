@@ -50,6 +50,7 @@ export default new VueRouter({
           component: load('admin/Settings')
         },
         {
+          name: 'createPage',
           path: 'page/create',
           component: load('admin/pages/Add')
         },
