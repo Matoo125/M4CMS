@@ -6,19 +6,24 @@ use m4\m4mvc\core\Controller;
 class Pages extends Controller
 {
 
-    public function __construct()
+    public function __construct ()
     {
         $this->model = $this->getModel('Page');
     }
 
-    public function list()
+    public function list ()
     {
-      $this->data = $this->model->getAll() ?: [];
+        $this->data = $this->model->getAll() ?: [];
+    }
+
+    public function listBasic ()
+    {
+        $this->data = $this->model->getAllBasic() ?: [];
     }
 
     public function id ($id)
     {
-      $this->data = $this->model->get($id) ?: [];
+        $this->data = $this->model->get($id) ?: [];
     }
 
 }

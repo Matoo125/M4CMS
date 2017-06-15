@@ -1,83 +1,45 @@
 <?php
 namespace m4\m4cms\controllers\admin;
 
-use m4\m4cms\controllers\api\Posts as PostsApi;
-use m4\m4mvc\helper\Redirect;
+use m4\m4cms\interfaces\Crud;
 
-class Posts extends PostsApi
+use m4\m4cms\controllers\api\Posts as Controller;
+
+use m4\m4mvc\helper\Request;
+use m4\m4mvc\helper\Response;
+
+
+class Posts extends Controller implements Crud 
 {
-  public function index()
-  {
-    $this->data['posts'] = $this->model->getAll();
-  }
+    public static $fields = ['title', 'description', 'content', 'tags', 'page_id', 'category_id', 'is_published', 'author_id', 'image_id'];
 
-  public function edit($id)
-  {
-    $this->data['post'] = $this->model->get($id);
-
-  //  var_dump($this->data['page']);
-  }
-
-  public function editAjax()
-  {
-    if (!$_POST) return false;
-    if (count($_POST) < 2) {
-       echo 'error';
-    } else {
-      $id = $_POST['id'];
-      array_shift($_POST);
-      if ($this->model->update($id, $_POST)) {
-        echo 'success';
-      }
+    public function save ()
+    {
+      isset($_POST['id']) ? $this->update() : $this->create();
     }
 
-  }
+    public function create ()
+    {
+        Request::forceMethod('post');
+        Request::required('title', 'description', 'content', 'is_published');
+        $data = Request::select(...self::$fields);
 
-  public function changeImageAjax()
-  {
-    $this->model->update($_POST['id'], $_FILES);
-    print_r($_FILES['image']['name']);
-  }
-
-  public function changeCategoryAjax()
-  {
-    $this->model->update($_POST);
-  }
-
-
-  public function new()
-  {
-    $this->data['pages'] = $this->model->getPages();
-
-    if (!$_POST) return;
-
-    $data['title'] = $_POST['title'];
-    $data['description'] = $_POST['description'];
-    $data['content'] = $_POST['content'];
-    $data['tags'] = $_POST['tags'];
-    $data['category_id'] = $_POST['category_id'];
-    $data['publish'] = isset($_POST['publish']) ? 1 : 0;
-    $data['image'] = isset($_FILES['image'])? $_FILES['image'] : NULL;
-
-    // send data to model
-    if ($id = $this->model->insert($data)) {
-      Redirect::to('/admin/posts/edit/' . $id);
-    } else {
-      echo 'records has not been inserted';
+        $this->model->insert($data) ? 
+        Response::success('Post was created ') : 
+        Response::error('Post was not created. ');
     }
 
+    public function update ()
+    {
+        Request::forceMethod('post');
+        Request::required('id');
+        $data = Request::select(...self::$fields);
+        $data['id'] = $_POST['id'];
 
-  }
+        $this->model->update($data) ? 
+        Response::success('Post was updated ') : 
+        Response::error('Post was not updated. ');
+    }
 
-  public function getCategoriesAjax ()
-  {
-    echo json_encode( $this->model->getCategories($_POST['page_id']) );
-  }
-
-  public function getPagesAjax ()
-  {
-    echo json_encode( $this->model->getPages() );
-  }
-
-
+    public function delete () {}
 }

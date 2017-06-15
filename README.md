@@ -1,15 +1,13 @@
 # M4CMS
 work is progress ..
+## TODO:
+1. ADD vue-html5-editor
 
 
-[READ THE DOCUMENTATION](https://matoo125.github.io/M4CMS/#/)
-
-INCLUDED PARTS:
-1. [M4Admin](https://github.com/Matoo125/M4Admin) (admin template) 
-2. M4MVC (core framework) 
+[OUT OF DATE DOCS](https://matoo125.github.io/M4CMS/#/)
 
 COMPOSER DEPENDENCIES:
-1. [Twig](https://twig.sensiolabs.org/) (Template Engine)
+1. [m4mvc](https://github.com/Matoo125/M4Admin) (M4MVC Framework)
 2. [Image intervention](http://image.intervention.io/) (Image Manipulation)
 
 

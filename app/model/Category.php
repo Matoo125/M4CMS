@@ -10,7 +10,7 @@ class Category extends Model
 
   protected static $table = "categories";
 
-  public function insert($data)
+  public function insert ($data)
   {
     $data['slug'] = Str::slugify($data['title']);
 
@@ -22,20 +22,32 @@ class Category extends Model
 
   }
 
-  public function update($data)
+  public function update ($data)
   {
+    if (isset($data['title'])) {
+      $data['slug'] = Str::slugify($data['title']);
+    }
+
     $query = $this->query->update(self::$table)
                          ->set(array_keys($data))
                          ->where('id = :id')
                          ->build();
 
-    return $this->save($query, $params);
+    return $this->save($query, $data);
 
   }
 
-  public function get($id)
+  public function get ($id)
   {
-    $query = $this->query->select('c.id', 'c.title', 'c.slug', 'c.page_id', 'c.description', 'CONCAT(i.folder, "/", i.name) AS image', 'c.created_at', 'c.updated_at')
+    $query = $this->query->select('c.id', 
+                                  'c.title', 
+                                  'c.slug', 
+                                  'c.page_id', 
+                                  'c.description', 
+                                  'CONCAT(i.folder, "/", i.name) AS image', 
+                                  'c.created_at', 
+                                  'c.updated_at'
+                            )
                           ->from(self::$table . " AS c")
                           ->join('left', 'images AS i', 'i.id = c.image_id')
                           ->where("c.id = :id")
@@ -44,25 +56,34 @@ class Category extends Model
     return $this->fetch($query, $params);
   }
 
-  public function getAll()
+  public function getAll ()
   {
-    $query = $this->query->select('c.id', 'c.title', 'c.slug', 'p.title AS page', 'COUNT(DISTINCT po.id) posts' , 'c.description', 'CONCAT(i.folder, "/", i.name) AS image', 'c.created_at', 'c.updated_at')
+    $query = $this->query->select('c.id', 
+                                  'c.title', 
+                                  'c.slug', 
+                                  'p.title AS page', 
+                                  'COUNT(DISTINCT po.id) posts' , 
+                                  'c.description', 
+                                  'CONCAT(i.folder, "/", i.name) AS image', 
+                                  'c.created_at', 
+                                  'c.updated_at'
+                            )
                           ->from(self::$table . " AS c")
                           ->join('left', 'images AS i', 'i.id = c.image_id')
                           ->join('left', 'posts AS po', 'po.category_id = c.id')
-                          ->join('inner', 'pages AS p ', 'p.id = c.page_id')
+                          ->join('left', 'pages AS p ', 'p.id = c.page_id')
                           ->groupBy('c.id')
                           ->build();
     return $this->fetchAll($query, []);
   }
 
-  public function getPages()
+  public function getForPage ($id)
   {
     $query = $this->query->select('title', 'id')
-                          ->from("pages")
-                          ->where("is_published = 1")
-                          ->build();
-    return $this->fetchAll($query, []);
+                         ->from(self::$table)
+                         ->where('page_id = :id')
+                         ->build();
+    return $this->fetchAll($query, ['id' => $id]);
   }
 
 }

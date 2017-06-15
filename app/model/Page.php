@@ -10,7 +10,7 @@ class Page extends Model
 {
     protected static $table = "pages";
 
-    public function insert($data)
+    public function insert ($data)
     {
       $data['slug'] = Str::slugify($data['title']); // create slug from title
       $data['is_published'] = $data['is_published'] ? 1 : 0; // convert boolean to tinyint
@@ -23,7 +23,19 @@ class Page extends Model
 
     }
 
-    public function get($id)
+    public function update ($data)
+    {
+      if (isset($data['title'])) { $data['slug'] = Str::slugify($data['title']); }
+      
+      $query = $this->query->update(self::$table)
+                           ->set(array_keys($data))
+                           ->where('id = :id')
+                           ->build();
+
+      return $this->save($query, $data);
+    }
+
+    public function get ($id)
     {
       $query = $this->query->select('p.id', 
                                     'p.title', 
@@ -44,7 +56,7 @@ class Page extends Model
       return $data;
     }
 
-    public function getAll()
+    public function getAll ()
     {
       $query = $this->query->select('p.id', 
                                     'p.title', 
@@ -61,33 +73,12 @@ class Page extends Model
       return $this->fetchAll($query, []);
     }
 
-    public function update($data)
+    public function getAllBasic ()
     {
-      if (isset($data['image'])) {
-        $data['image_id'] = $this->image($data['image'], self::$table);
-        unset($data['image']);
-      }
-
-
-      $query = $this->query->update(self::$table)
-                           ->set(array_keys($data))
-                           ->where('id = :id')
+      $query = $this->query->select('id', 'title')
+                           ->from(self::$table)
                            ->build();
-
-      return $this->save($query, $data);
+      return $this->fetchAll($query);
     }
-
-    public function getCategories($id)
-    {
-      $query = $this->query->select('title', 'id')
-                            ->from("categories")
-                            ->where("page_id = :id")
-                            ->build();
-      $params = ['id' => $id];
-      return $this->fetchAll($query, $params);
-    }
-
-
-
 
 }

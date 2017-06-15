@@ -8,10 +8,10 @@ class Home extends IndexApiController
 {
   public function index($page = null, $post = null)
   {
-    $this->data['numberOfUsers'] = $this->model->numberOfUsers()['count(*)'];
-    $this->data['numberOfPages'] = $this->model->numberOfPages()['count(*)'];
-    $this->data['numberOfPosts'] = $this->model->numberOfPosts()['count(*)'];
-    $this->data['numberOfCategories'] = $this->model->numberOfCategories()['count(*)'];
+    $this->data['numberOfUsers'] = $this->model->countTable('users');
+    $this->data['numberOfPages'] = $this->model->countTable('pages');
+    $this->data['numberOfPosts'] = $this->model->countTable('posts');
+    $this->data['numberOfCategories'] = $this->model->countTable('categories');
 
     Response::success('Response from home arrived', $this->data);
 

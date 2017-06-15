@@ -11,14 +11,19 @@ class Categories extends Controller
         $this->model = $this->getModel('Category');
     }
 
-    public function list ()
+    public function list ($pageId = null)
     {
-      $this->data = $this->model->getAll() ?: [];
+        $pageId ? $this->forPage($pageId) : ($this->data = $this->model->getAll() ?: []);
     }
 
     public function id ($id)
     {
       $this->data[] = $this->model->get($id);
+    }
+
+    public function forPage ($pageId)
+    {
+      $this->data = $this->model->getForPage($pageId) ?: [];
     }
 
 }
