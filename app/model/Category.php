@@ -79,7 +79,7 @@ class Category extends Model
 
   public function getForPage ($id)
   {
-    $query = $this->query->select('title', 'id')
+    $query = $this->query->select('title as label', 'id as value')
                          ->from(self::$table)
                          ->where('page_id = :id')
                          ->build();

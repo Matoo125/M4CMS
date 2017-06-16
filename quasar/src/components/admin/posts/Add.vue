@@ -1,11 +1,11 @@
 <template>
   <div class="card">
     <div class="card-title">
-      Post Editor
+      Create Post
     </div>
     <div class="card-content generic-margin">
       <div class="form-input">
-        <div class="floating-label">
+        <div class="stacked-label">
           <input required class="full-width" v-model="post.title">
           <label>Title</label>
         </div>
@@ -18,8 +18,12 @@
         </div>
       </div>
 
-      <q-chips v-model="tags"></q-chips>
-
+      <div class="form-input">
+        <div class="stacked-label">
+          <q-chips v-model="tags"></q-chips>
+          <label>Tags</label>
+        </div>
+      </div>
 
       <div class="form-input">
         <div class="stacked-label">
@@ -28,58 +32,50 @@
         </div>
       </div>
       <br>
-      
+      <trix-vue></trix-vue>
+      <br>
       <div class="row justify-between">
         <div class="list no-border">
           <div class="item"><div class="item-content">
-            Published:   <q-toggle v-model="post.is_published"></q-toggle></div></div>
-          <div class="item"><div class="item-content">Created at: {{ post.created_at }}</div></div>
-          <div class="item"><div class="item-content">Updated at: {{ post.updated_at }}</div></div>
+            Publish:   <q-toggle v-model="post.is_published"></q-toggle></div></div>
         </div>
 
         <div class="list no-border">
-          <div class="item">
+          <div class="item" v-if="categories">
             <div class="item-content">
               Category: 
               <q-select
-                v-if="categories"
                 type="radio"
                 v-model="post.category_id"
                 :options="categories"
               ></q-select>
-              <button @click="fetchCategoriesList()" v-else>{{ post.category }}</button>
             </div>
           </div>
-          <div class="item">
+          <div class="item" v-if="pages">
             <div class="item-content">
               Page: 
               <q-select
-                v-if="pages"
                 type="radio"
                 v-model="post.page_id"
                 :options="pages"
                 @input="fetchCategoriesList()"
               ></q-select>
-              <button @click="fetchPagesList()" v-else>{{ post.page }}</button>
             </div>
           </div>
-          <div class="item">
+          <div class="item" v-if="authors">
             <div class="item-content">
               Author: 
               <q-select
-                v-if="authors"
                 type="radio"
                 v-model="post.author_id"
                 :options="authors"
               ></q-select>
-              <button @click="fetchAuthorsList()" v-else>{{ post.author }}</button>
             </div>
           </div>
         </div>
 
         <div>
-          <button class="primary" @click="updateIt()">Update</button>
-          <button class="red">Delete</button>
+          <button class="primary" @click="create()">Create</button>
         </div>
         
       </div>
@@ -91,18 +87,25 @@
 <script>
 import axios from 'axios'
 import { Toast } from 'quasar'
+import { TrixVue } from 'trix-vue2'
+
 export default {
+  name: 'AddPost',
   data () {
     return {
       categories: null,
       pages: null,
       authors: null,
       post: {
-        is_published: false,
-        tags: ''
+        is_published: true,
+        tags: null,
+        category_id: null,
+        page_id: null,
+        author_id: null
       }
     }
   },
+  components: { TrixVue },
   computed: {
     tags: {
       get () {
@@ -114,7 +117,8 @@ export default {
     }
   },
   created () {
-    this.fetchPostData()
+    this.fetchAuthorsList()
+    this.fetchPagesList()
   },
   methods: {
     fetchCategoriesList () {
@@ -135,20 +139,10 @@ export default {
         console.log(response.data)
       }).catch(error => { console.log(error) })
     },
-    fetchPostData () {
-      axios.get(process.env.API + 'posts/id/' + this.$route.params.id)
-      .then(response => {
-        console.log(response)
-        this.post = response.data
-      })
-      .catch(error => {
-        console.log(error)
-      })
-    },
-    updateIt () {
+    create () {
       axios({
         method: 'post',
-        url: 'http://m4cms.dev/admin/posts/update',
+        url: 'http://m4cms.dev/admin/posts/create',
         data: this.post
       })
       .then(response => {
@@ -158,6 +152,7 @@ export default {
         }
         else {
           Toast.create.positive({html: response.data.message})
+          this.$router.push(response.data.id)
         }
       })
       .catch(error => {

@@ -25,11 +25,12 @@
     </tbody>
   </table>
 
-  <q-fab
-    class="absolute-bottom-right"
-    classNames="primary"
-    style="right: 18px; bottom: 18px;"
-  ></q-fab>
+  <router-link
+    tag="button"
+    class="primary circular absolute-bottom-right"
+    style="right: 18px; bottom: 18px; font-size: 2em"
+    to="post/create"
+  >+</router-link>
 
   </div>
 </template>

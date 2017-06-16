@@ -18,10 +18,10 @@ class Categories extends Controller
 
     public function id ($id)
     {
-      $this->data[] = $this->model->get($id);
+      $this->data = $this->model->get($id) ?: [];
     }
 
-    public function forPage ($pageId)
+    public function listBasic ($pageId)
     {
       $this->data = $this->model->getForPage($pageId) ?: [];
     }

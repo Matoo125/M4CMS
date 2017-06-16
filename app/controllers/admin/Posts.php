@@ -24,8 +24,9 @@ class Posts extends Controller implements Crud
         Request::required('title', 'description', 'content', 'is_published');
         $data = Request::select(...self::$fields);
 
-        $this->model->insert($data) ? 
-        Response::success('Post was created ') : 
+        $id = $this->model->insert($data);
+        $id ? 
+        Response::success('Post was created ', ['id' => $id]) : 
         Response::error('Post was not created. ');
     }
 

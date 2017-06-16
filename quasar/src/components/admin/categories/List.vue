@@ -16,6 +16,14 @@
       </router-link>
     </tbody>
   </table>
+
+  <router-link
+    tag="button"
+    class="primary circular absolute-bottom-right"
+    style="right: 18px; bottom: 18px; font-size: 2em"
+    to="category/create"
+  >+</router-link>
+
   </div>
 </template>
 

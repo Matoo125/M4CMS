@@ -26,7 +26,8 @@ class Page extends Model
     public function update ($data)
     {
       if (isset($data['title'])) { $data['slug'] = Str::slugify($data['title']); }
-      
+      $data['is_published'] = $data['is_published'] ? 1 : 0; // convert boolean to tinyint
+
       $query = $this->query->update(self::$table)
                            ->set(array_keys($data))
                            ->where('id = :id')
@@ -75,7 +76,7 @@ class Page extends Model
 
     public function getAllBasic ()
     {
-      $query = $this->query->select('id', 'title')
+      $query = $this->query->select('id as value', 'title as label')
                            ->from(self::$table)
                            ->build();
       return $this->fetchAll($query);

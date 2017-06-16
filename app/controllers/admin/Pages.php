@@ -27,8 +27,9 @@ class Pages extends PagesApi implements Crud
       Request::required('title', 'description', 'content', 'is_published');
       $data = Request::select('title', 'description', 'content', 'is_published');
 
-      $this->model->insert($data) ? 
-      Response::success('Page was created ') : 
+      $id = $this->model->insert($data); 
+      $id ? 
+      Response::success('Page was created ', ['id' => $id]) : 
       Response::error('Page was not created. ');
     }
 

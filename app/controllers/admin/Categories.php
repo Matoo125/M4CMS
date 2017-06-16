@@ -20,8 +20,9 @@ class Categories extends Controller implements Crud
     Request::required('title', 'description', 'page_id');
     $data = Request::select('title', 'description', 'page_id');
 
-    $this->model->insert($data) ? 
-    Response::success('Category has been created. ') : 
+    $id = $this->model->insert($data);
+    $id ? 
+    Response::success('Category has been created. ', ['id' => $id]) : 
     Response::error('Category has not created. ');
   }
 
