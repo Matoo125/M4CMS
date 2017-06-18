@@ -22,7 +22,6 @@ export default new VueRouter({
 
   routes: [
     {
-      name: 'Admin',
       path: '/admin',
       component: load('admin/Skeleton'),
       children: [

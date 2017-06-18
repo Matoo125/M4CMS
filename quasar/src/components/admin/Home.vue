@@ -56,7 +56,7 @@ export default{
   methods: {
     fetchDashboardData () {
       this.loading = true
-      axios.get('http://m4cms.dev/admin/')
+      axios.get(process.env.API)
       .then(response => {
         console.log(response)
         this.statistics = response.data

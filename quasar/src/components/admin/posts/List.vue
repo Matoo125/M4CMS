@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     fetchpostsListData () {
-      axios.get('http://m4cms.dev/admin/posts/list')
+      axios.get(process.env.API + 'posts/list')
       .then(response => {
         console.log(response)
         this.posts = response.data

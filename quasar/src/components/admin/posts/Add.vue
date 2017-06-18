@@ -6,14 +6,14 @@
     <div class="card-content generic-margin">
       <div class="form-input">
         <div class="stacked-label">
-          <input required class="full-width" v-model="post.title">
+          <input class="full-width" v-model="post.title">
           <label>Title</label>
         </div>
       </div>
       
       <div class="form-input">
         <div class="stacked-label">
-          <textarea required class="full-width" v-model="post.description"></textarea>
+          <textarea class="full-width" v-model="post.description"></textarea>
           <label>Description</label>
         </div>
       </div>
@@ -27,7 +27,7 @@
 
       <div class="form-input">
         <div class="stacked-label">
-          <textarea required class="full-width" v-model="post.content"></textarea>
+          <textarea class="full-width" v-model="post.content"></textarea>
           <label>Content</label>
         </div>
       </div>
@@ -105,7 +105,7 @@ export default {
       }
     }
   },
-  components: { TrixVue },
+  components: { trixVue: TrixVue },
   computed: {
     tags: {
       get () {
@@ -142,7 +142,7 @@ export default {
     create () {
       axios({
         method: 'post',
-        url: 'http://m4cms.dev/admin/posts/create',
+        url: process.env.API + 'posts/create',
         data: this.post
       })
       .then(response => {

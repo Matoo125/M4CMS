@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     fetchCategoriesListData () {
-      axios.get('http://m4cms.dev/admin/categories/list')
+      axios.get(process.env.API + 'categories/list')
       .then(response => {
         console.log(response)
         this.categories = response.data

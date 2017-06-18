@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     fetchPagesList () {
-      axios.get('http://m4cms.dev/admin/pages/listbasic')
+      axios.get(process.env.API + 'pages/listbasic')
       .then(response => {
         this.pages = response.data
       })
@@ -70,7 +70,7 @@ export default {
       })
     },
     fetchCategoryData () {
-      axios.get('http://m4cms.dev/admin/categories/id/' + this.$route.params.id)
+      axios.get(process.env.API + 'categories/id/' + this.$route.params.id)
       .then(response => {
         console.log(response)
         this.category = response.data
@@ -82,7 +82,7 @@ export default {
     updateIt () {
       axios({
         method: 'post',
-        url: 'http://m4cms.dev/admin/categories/update',
+        url: process.env.API + 'categories/update',
         data: this.category
       })
       .then(response => {

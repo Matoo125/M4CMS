@@ -61,7 +61,7 @@ export default {
     create () {
       axios({
         method: 'post',
-        url: 'http://m4cms.dev/admin/pages/create',
+        url: process.env.api + 'pages/create',
         data: this.page
       })
       .then(response => {

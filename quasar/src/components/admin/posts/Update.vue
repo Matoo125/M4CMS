@@ -148,7 +148,7 @@ export default {
     updateIt () {
       axios({
         method: 'post',
-        url: 'http://m4cms.dev/admin/posts/update',
+        url: process.env.API + 'posts/update',
         data: this.post
       })
       .then(response => {

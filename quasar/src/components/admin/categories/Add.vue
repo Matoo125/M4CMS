@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     fetchPagesList () {
-      axios.get('http://m4cms.dev/admin/pages/listbasic')
+      axios.get(process.env.API + 'pages/listbasic')
       .then(response => {
         this.pages = response.data
       })
@@ -70,7 +70,7 @@ export default {
     create () {
       axios({
         method: 'post',
-        url: 'http://m4cms.dev/admin/categories/create',
+        url: process.env.API + 'categories/create',
         data: this.category
       })
       .then(response => {

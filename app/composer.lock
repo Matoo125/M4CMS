@@ -139,12 +139,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Matoo125/m4mvc.git",
-                "reference": "6d7460652591d6966ba178707349ff6bba575f99"
+                "reference": "32370019c162b58dcc6059120eb4a6a5692fe56d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Matoo125/m4mvc/zipball/6d7460652591d6966ba178707349ff6bba575f99",
-                "reference": "6d7460652591d6966ba178707349ff6bba575f99",
+                "url": "https://api.github.com/repos/Matoo125/m4mvc/zipball/32370019c162b58dcc6059120eb4a6a5692fe56d",
+                "reference": "32370019c162b58dcc6059120eb4a6a5692fe56d",
                 "shasum": ""
             },
             "require": {
@@ -167,7 +167,7 @@
                 }
             ],
             "description": "Simple php framework",
-            "time": "2017-06-12 13:36:45"
+            "time": "2017-06-16 13:28:09"
         },
         {
             "name": "psr/http-message",

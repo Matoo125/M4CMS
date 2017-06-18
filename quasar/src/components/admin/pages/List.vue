@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     fetchPagesListData () {
-      axios.get('http://m4cms.dev/admin/pages/list')
+      axios.get(process.env.api + 'pages/list')
       .then(response => {
         console.log(response)
         this.pages = response.data
