@@ -47,7 +47,7 @@
 
 <script>
 import axios from 'axios'
-import { Toast } from 'quasar'
+import { Toast, Loading } from 'quasar'
 export default {
   data () {
     return {
@@ -59,6 +59,7 @@ export default {
   },
   methods: {
     fetchPageData () {
+      Loading.show()
       axios.get(process.env.API + 'pages/id/' + this.$route.params.id)
       .then(response => {
         console.log(response)
@@ -67,8 +68,10 @@ export default {
       .catch(error => {
         console.log(error)
       })
+      Loading.hide()
     },
     updateIt () {
+      Loading.show()
       axios({
         method: 'post',
         url: process.env.API + 'pages/update',
@@ -86,6 +89,7 @@ export default {
       .catch(error => {
         console.log(error)
       })
+      Loading.hide()
     }
   }
 }

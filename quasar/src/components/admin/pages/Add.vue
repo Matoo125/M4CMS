@@ -44,7 +44,7 @@
 
 <script>
 import axios from 'axios'
-import { Toast } from 'quasar'
+import { Toast, Loading } from 'quasar'
 
 export default {
   data () {
@@ -59,9 +59,10 @@ export default {
   },
   methods: {
     create () {
+      Loading.show()
       axios({
         method: 'post',
-        url: process.env.api + 'pages/create',
+        url: process.env.API + 'pages/create',
         data: this.page
       })
       .then(response => {
@@ -77,6 +78,7 @@ export default {
       .catch(error => {
         console.log(error)
       })
+      Loading.hide()
     }
   }
 }

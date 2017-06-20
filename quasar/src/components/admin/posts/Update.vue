@@ -90,7 +90,7 @@
 
 <script>
 import axios from 'axios'
-import { Toast } from 'quasar'
+import { Toast, Loading } from 'quasar'
 export default {
   data () {
     return {
@@ -118,24 +118,31 @@ export default {
   },
   methods: {
     fetchCategoriesList () {
+      Loading.show()
       axios.get(process.env.API + 'categories/ListBasic/' + this.post.page_id).then(response => {
         this.categories = response.data
         console.log(response.data)
       }).catch(error => { console.log(error) })
+      Loading.hide()
     },
     fetchPagesList () {
       axios.get(process.env.API + 'pages/ListBasic').then(response => {
+        Loading.show()
         this.pages = response.data
         console.log(response.data)
       }).catch(error => { console.log(error) })
+      Loading.hide()
     },
     fetchAuthorsList () {
       axios.get(process.env.API + 'users/ListBasic').then(response => {
+        Loading.show()
         this.authors = response.data
         console.log(response.data)
       }).catch(error => { console.log(error) })
+      Loading.hide()
     },
     fetchPostData () {
+      Loading.show()
       axios.get(process.env.API + 'posts/id/' + this.$route.params.id)
       .then(response => {
         console.log(response)
@@ -144,8 +151,10 @@ export default {
       .catch(error => {
         console.log(error)
       })
+      Loading.hide()
     },
     updateIt () {
+      Loading.show()
       axios({
         method: 'post',
         url: process.env.API + 'posts/update',
@@ -163,6 +172,7 @@ export default {
       .catch(error => {
         console.log(error)
       })
+      Loading.hide()
     }
   }
 }

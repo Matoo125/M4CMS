@@ -37,6 +37,7 @@
 
 <script>
 import axios from 'axios'
+import { Loading } from 'quasar'
 export default {
   mounted () {
     this.fetchpostsListData()
@@ -48,6 +49,7 @@ export default {
   },
   methods: {
     fetchpostsListData () {
+      Loading.show()
       axios.get(process.env.API + 'posts/list')
       .then(response => {
         console.log(response)
@@ -56,6 +58,7 @@ export default {
       .catch(error => {
         console.log(error)
       })
+      Loading.hide()
     },
     is_published (number) {
       return number === '0' ? 'no' : 'yes'

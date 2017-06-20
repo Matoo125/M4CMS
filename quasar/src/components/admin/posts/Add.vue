@@ -86,7 +86,7 @@
 
 <script>
 import axios from 'axios'
-import { Toast } from 'quasar'
+import { Toast, Loading } from 'quasar'
 import { TrixVue } from 'trix-vue2'
 
 export default {
@@ -140,6 +140,7 @@ export default {
       }).catch(error => { console.log(error) })
     },
     create () {
+      Loading.show()
       axios({
         method: 'post',
         url: process.env.API + 'posts/create',
@@ -158,6 +159,7 @@ export default {
       .catch(error => {
         console.log(error)
       })
+      Loading.hide()
     }
   }
 }

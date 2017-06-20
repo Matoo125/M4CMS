@@ -28,9 +28,11 @@
 </template>
 
 <script>
+import { Loading } from 'quasar'
 import axios from 'axios'
 export default {
   mounted () {
+    Loading.show()
     this.fetchPagesListData()
   },
   data () {
@@ -40,10 +42,11 @@ export default {
   },
   methods: {
     fetchPagesListData () {
-      axios.get(process.env.api + 'pages/list')
+      axios.get(process.env.API + 'pages/list')
       .then(response => {
         console.log(response)
         this.pages = response.data
+        Loading.hide()
       })
       .catch(error => {
         console.log(error)

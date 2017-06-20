@@ -42,3 +42,14 @@
     }
   }
 </script>
+
+<style>
+.list > .item:first-child, .list > .q-collapsible:first-child {
+  margin-top: 0;
+}  
+.drawer .list {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+</style>

@@ -9,9 +9,19 @@ class Users extends UserController
   {
     $this->model = $this->getModel('User');
   }
+
+  public function list () 
+  {
+    $this->data = $this->model->getAll() ?: [];
+  }
   
   public function listBasic () 
   {
       $this->data = $this->model->getAllBasic() ?: [];
+  }
+
+  public function id ($id)
+  {
+    $this->data = $this->model->getById($id);
   }
 }

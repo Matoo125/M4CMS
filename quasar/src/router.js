@@ -71,14 +71,24 @@ export default new VueRouter({
           component: load('admin/posts/Add')
         },
         {
-          name: 'AdminPostUpdate',
+          name: 'AdminUpdatePost',
           path: 'post/:id',
           component: load('admin/posts/Update')
         },
         {
           name: 'AdminListUsers',
           path: 'users',
-          component: load('admin/Users')
+          component: load('admin/users/List')
+        },
+        {
+          name: 'AdminAddUser',
+          path: 'user/create',
+          component: load('admin/users/Add')
+        },
+        {
+          name: 'AdminUpdateUser',
+          path: 'user/:id',
+          component: load('admin/users/Update')
         },
         {
           name: 'AdminSettings',

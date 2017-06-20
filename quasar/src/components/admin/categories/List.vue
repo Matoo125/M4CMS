@@ -29,6 +29,7 @@
 
 <script>
 import axios from 'axios'
+import { Loading } from 'quasar'
 export default {
   mounted () {
     this.fetchCategoriesListData()
@@ -40,6 +41,7 @@ export default {
   },
   methods: {
     fetchCategoriesListData () {
+      Loading.show()
       axios.get(process.env.API + 'categories/list')
       .then(response => {
         console.log(response)
@@ -48,6 +50,7 @@ export default {
       .catch(error => {
         console.log(error)
       })
+      Loading.hide()
     }
   }
 
