@@ -13,7 +13,7 @@ class Categories extends Controller
 
     public function list ($pageId = null)
     {
-        $pageId ? $this->forPage($pageId) : ($this->data = $this->model->getAll() ?: []);
+        $this->data = $pageId ? $this->model->getForPage($pageId) ?? [] : ($this->model->getAll() ?: []);
     }
 
     public function id ($id)
@@ -23,7 +23,7 @@ class Categories extends Controller
 
     public function listBasic ($pageId)
     {
-      $this->data = $this->model->getForPage($pageId) ?: [];
+      $this->data = $this->model->getForPageBasic($pageId) ?: [];
     }
 
 }

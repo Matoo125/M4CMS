@@ -56,7 +56,7 @@ class Category extends Model
     return $this->fetch($query, $params);
   }
 
-  public function getAll ()
+  public function getAll ($where = null, $data = [])
   {
     $query = $this->query->select('c.id', 
                                   'c.title', 
@@ -72,12 +72,18 @@ class Category extends Model
                           ->join('left', 'images AS i', 'i.id = c.image_id')
                           ->join('left', 'posts AS po', 'po.category_id = c.id')
                           ->join('left', 'pages AS p ', 'p.id = c.page_id')
+                          ->where($where)
                           ->groupBy('c.id')
                           ->build();
-    return $this->fetchAll($query, []);
+    return $this->fetchAll($query, $data);
   }
 
-  public function getForPage ($id)
+  public function getForPage ($pageId)
+  {
+    return $this->getAll('c.page_id = :id', ['id' => $pageId]);
+  }
+
+  public function getForPageBasic ($id)
   {
     $query = $this->query->select('title as label', 'id as value')
                          ->from(self::$table)

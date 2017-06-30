@@ -1,15 +1,37 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
+import Home from '@/components/Home'
+import Page from '@/components/Page'
+import Post from '@/components/Post'
+import Category from '@/components/Category'
 
 Vue.use(Router)
 
 export default new Router({
+  linkActiveClass: 'is-active',
   routes: [
     {
       path: '/',
-      name: 'Hello',
-      component: Hello
+      name: 'Home',
+      component: Home
+    },
+    {
+      path: '/page/:id',
+      name: 'Page',
+      component: Page
+    },
+    {
+      path: '/post/:id?',
+      name: 'Post',
+      component: Post
+    },
+    {
+      path: '/category/:id?',
+      name: 'Category',
+      component: Category
     }
-  ]
+  ],
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  }
 })
