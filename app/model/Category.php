@@ -44,12 +44,12 @@ class Category extends Model
                                   'c.slug', 
                                   'c.page_id', 
                                   'c.description', 
-                                  'CONCAT(i.folder, "/", i.name) AS image', 
+                                  'CONCAT(i.folder, "/", i.filename) AS image', 
                                   'c.created_at', 
                                   'c.updated_at'
                             )
                           ->from(self::$table . " AS c")
-                          ->join('left', 'images AS i', 'i.id = c.image_id')
+                          ->join('left', 'media AS i', 'i.id = c.image_id')
                           ->where("c.id = :id")
                           ->build();
     $params = ['id' => $id];
@@ -64,12 +64,12 @@ class Category extends Model
                                   'p.title AS page', 
                                   'COUNT(DISTINCT po.id) posts' , 
                                   'c.description', 
-                                  'CONCAT(i.folder, "/", i.name) AS image', 
+                                  'CONCAT(i.folder, "/", i.filename) AS image', 
                                   'c.created_at', 
                                   'c.updated_at'
                             )
                           ->from(self::$table . " AS c")
-                          ->join('left', 'images AS i', 'i.id = c.image_id')
+                          ->join('left', 'media AS i', 'i.id = c.image_id')
                           ->join('left', 'posts AS po', 'po.category_id = c.id')
                           ->join('left', 'pages AS p ', 'p.id = c.page_id')
                           ->where($where)

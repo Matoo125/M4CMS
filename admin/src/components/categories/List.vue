@@ -9,7 +9,7 @@
       </tr>
     </thead>
     <tbody>
-      <router-link tag="tr" :to="'/admin/category/' + category.id" v-for="category in categories" :key="category.id">
+      <router-link tag="tr" :to="'/category/' + category.id" v-for="category in categories" :key="category.id">
         <td class="text-left">{{ category.title }}</td>
         <td class="text-right">{{ category.description }}</td>
         <td class="text-right">{{ category.updated_at }}</td>

@@ -22,78 +22,83 @@ export default new VueRouter({
 
   routes: [
     {
-      path: '/admin',
-      component: load('admin/Skeleton'),
+      path: '/',
+      component: load('Skeleton'),
       children: [
         {
           name: 'AdminHome',
           path: '',
-          component: load('admin/Home')
+          component: load('Home')
         },
         {
           name: 'AdminListPages',
           path: 'pages',
-          component: load('admin/pages/List')
+          component: load('pages/List')
         },
         {
           name: 'createPage',
           path: 'page/create',
-          component: load('admin/pages/Add')
+          component: load('pages/Add')
         },
         {
           name: 'AdminUpdatePage',
           path: 'page/:id',
-          component: load('admin/pages/Update')
+          component: load('pages/Update')
         },
         {
           name: 'AdminListCategories',
           path: 'categories',
-          component: load('admin/categories/List')
+          component: load('categories/List')
         },
         {
           name: 'AdminCreateCategory',
           path: 'category/create',
-          component: load('admin/categories/Add')
+          component: load('categories/Add')
         },
         {
           name: 'AdminUpdateCategory',
           path: 'category/:id',
-          component: load('admin/categories/Update')
+          component: load('categories/Update')
         },
         {
           name: 'AdminListPosts',
           path: 'posts',
-          component: load('admin/posts/List')
+          component: load('posts/List')
         },
         {
           name: 'AdminCreatePost',
           path: 'post/create',
-          component: load('admin/posts/Add')
+          component: load('posts/Add')
         },
         {
           name: 'AdminUpdatePost',
           path: 'post/:id',
-          component: load('admin/posts/Update')
+          component: load('posts/Update')
         },
         {
           name: 'AdminListUsers',
           path: 'users',
-          component: load('admin/users/List')
+          component: load('users/List')
         },
         {
           name: 'AdminAddUser',
           path: 'user/create',
-          component: load('admin/users/Add')
+          component: load('users/Add')
         },
         {
           name: 'AdminUpdateUser',
           path: 'user/:id',
-          component: load('admin/users/Update')
+          component: load('users/Update')
+        },
+        {
+          name: 'Media',
+          path: 'media',
+          component: load('media/Home')
         },
         {
           name: 'AdminSettings',
           path: 'settings',
-          component: load('admin/Settings')
+          component: load('Settings')
         }
       ]
     },

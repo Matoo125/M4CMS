@@ -50,12 +50,12 @@ class Post extends Model
                                   'cat.title AS category', 
                                   'auth.username AS author', 
                                   'post.author_id',
-                                  'CONCAT(i.folder, "/", i.name) AS image', 
+                                  'CONCAT(i.folder, "/", i.filename) AS image', 
                                   'post.created_at', 
                                   'post.updated_at'
                             )
                           ->from(self::$table . " AS post")
-                          ->join('left', 'images AS i', 'i.id = post.image_id')
+                          ->join('left', 'media AS i', 'i.id = post.image_id')
                           ->join('left', 'categories as cat', 'cat.id = post.category_id')
                           ->join('left', 'pages as page', 'page.id = cat.page_id')
                           ->join('left', 'users as auth', 'auth.id = post.author_id')
@@ -76,11 +76,11 @@ class Post extends Model
                                   'post.description', 
                                   'post.is_published',
                                   'auth.username as author' ,
-                                  'CONCAT(img.folder, "/", img.name) AS image', 
+                                  'CONCAT(img.folder, "/", img.filename) AS image', 
                                   'post.created_at', 
                                   'post.updated_at')
                          ->from(self::$table . " AS post")
-                         ->join('left', 'images as img', 'img.id = post.image_id')
+                         ->join('left', 'media as img', 'img.id = post.image_id')
                          ->join('left', 'categories as cat', 'cat.id = post.category_id')
                          ->join('left', 'pages as page', 'page.id = cat.page_id')
                          ->join('left', 'users as auth', 'auth.id = post.author_id')

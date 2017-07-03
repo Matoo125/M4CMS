@@ -44,11 +44,11 @@ class Page extends Model
                                     'p.description', 
                                     'p.content', 
                                     'p.is_published', 
-                                    'IF(p.image_id IS NOT NULL, CONCAT(i.folder, "/", i.name), false) AS image', 
+                                    'IF(p.image_id IS NOT NULL, CONCAT(i.folder, "/", i.filename), false) AS image', 
                                     'p.created_at', 
                                     'p.updated_at')
                             ->from(self::$table . " AS p")
-                            ->join('left', 'images AS i', 'i.id = p.image_id')
+                            ->join('left', 'media AS i', 'i.id = p.image_id')
                             ->where("p.id = :id")
                             ->build();
 
@@ -65,11 +65,11 @@ class Page extends Model
                                     'p.description', 
                                     'p.content', 
                                     'p.is_published', 
-                                    'IF(p.image_id IS NOT NULL, CONCAT(i.folder, "/", i.name), false) AS image', 
+                                    'IF(p.image_id IS NOT NULL, CONCAT(i.folder, "/", i.filename), false) AS image', 
                                     'p.created_at', 
                                     'p.updated_at')
                            ->from(self::$table . " AS p")
-                           ->join('left', 'images as i', 'i.id = p.image_id')
+                           ->join('left', 'media as i', 'i.id = p.image_id')
                            ->build();
       return $this->fetchAll($query, []);
     }

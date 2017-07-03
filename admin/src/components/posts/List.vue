@@ -13,7 +13,7 @@
       </tr>
     </thead>
     <tbody>
-      <router-link tag="tr" :to="'/admin/post/' + post.id" v-for="post in posts" :key="post.id">
+      <router-link tag="tr" :to="'/post/' + post.id" v-for="post in posts" :key="post.id">
         <td class="text-left">{{ post.title }}</td>
         <td class="text-right">{{ post.description }}</td>
         <td class="text-right">{{ is_published(post.is_published) }}</td>

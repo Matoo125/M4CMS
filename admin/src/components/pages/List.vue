@@ -10,7 +10,7 @@
       </tr>
     </thead>
     <tbody>
-      <router-link tag="tr" :to="'/admin/page/' + page.id" v-for="page in pages" :key="page.id">
+      <router-link tag="tr" :to="'/page/' + page.id" v-for="page in pages" :key="page.id">
         <td class="text-left">{{ page.title }}</td>
         <td class="text-right">{{ page.description }}</td>
         <td class="text-right">{{ page.is_published }}</td>

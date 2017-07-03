@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-title">
-      Page Editor
+      Create Page
     </div>
     <div class="card-content generic-margin">
       <div class="form-input">
@@ -22,6 +22,7 @@
         <div class="stacked-label">
           <textarea required class="full-width" v-model="page.content"></textarea>
           <label>Content</label>
+          <editor :content="page.content" @contentChange="value => { page.content = value }"></editor>
         </div>
       </div>
       <br>
@@ -30,13 +31,10 @@
         <div class="list no-border">
           <div class="item"><div class="item-content">
             Published:   <q-toggle v-model="page.is_published"></q-toggle></div></div>
-          <div class="item"><div class="item-content">Created at: {{ page.created_at }}</div></div>
-          <div class="item"><div class="item-content">Updated at: {{ page.updated_at }}</div></div>
         </div>
 
         <div>
-          <button class="primary" @click="updateIt()">Update</button>
-          <button class="red">Delete</button>
+          <button class="primary" @click="create()">Create</button>
         </div>
         
       </div>
@@ -47,43 +45,37 @@
 
 <script>
 import axios from 'axios'
+import Editor from '../Editor.vue'
 import { Toast, Loading } from 'quasar'
+
 export default {
   data () {
     return {
-      page: { is_published: false }
+      page: {
+        content: '',
+        description: '',
+        title: '',
+        is_published: false
+      }
     }
   },
-  created () {
-    this.fetchPageData()
-  },
+  components: { Editor },
   methods: {
-    fetchPageData () {
-      Loading.show()
-      axios.get(process.env.API + 'pages/id/' + this.$route.params.id)
-      .then(response => {
-        console.log(response)
-        this.page = response.data
-      })
-      .catch(error => {
-        console.log(error)
-      })
-      Loading.hide()
-    },
-    updateIt () {
+    create () {
       Loading.show()
       axios({
         method: 'post',
-        url: process.env.API + 'pages/update',
+        url: process.env.API + 'pages/create',
         data: this.page
       })
       .then(response => {
-        console.log(response)
+        console.log(response.data)
         if (response.data.status === 'ERROR') {
           Toast.create.negative({html: response.data.message})
         }
         else {
           Toast.create.positive({html: response.data.message})
+          this.$router.push(response.data.id)
         }
       })
       .catch(error => {
