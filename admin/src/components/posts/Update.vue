@@ -22,9 +22,9 @@
 
 
       <div class="form-input">
-        <div class="stacked-label">
-          <textarea required class="full-width" v-model="post.content"></textarea>
-          <label>Content</label>
+        <div class="form-input">
+          <label for="">Content</label>
+            <editor :content="post.content" @contentChange="value => { post.content = value }"></editor>
         </div>
       </div>
       <br>
@@ -91,7 +91,9 @@
 <script>
 import axios from 'axios'
 import { Toast, Loading } from 'quasar'
+import Editor from '../Editor.vue'
 export default {
+  components: { Editor },
   data () {
     return {
       categories: null,
@@ -126,16 +128,16 @@ export default {
       Loading.hide()
     },
     fetchPagesList () {
+      Loading.show()
       axios.get(process.env.API + 'pages/ListBasic').then(response => {
-        Loading.show()
         this.pages = response.data
         console.log(response.data)
       }).catch(error => { console.log(error) })
       Loading.hide()
     },
     fetchAuthorsList () {
+      Loading.show()
       axios.get(process.env.API + 'users/ListBasic').then(response => {
-        Loading.show()
         this.authors = response.data
         console.log(response.data)
       }).catch(error => { console.log(error) })

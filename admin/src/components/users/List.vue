@@ -16,7 +16,7 @@
       </tr>
     </thead>
     <tbody>
-      <router-link tag="tr" :to="'/admin/user/' + user.id" v-for="user in users" :key="user.id">
+      <router-link tag="tr" :to="'/user/' + user.id" v-for="user in users" :key="user.id">
         <td class="text-left">{{ user.id }}</td>
         <td class="text-right">{{ user.username }}</td>
         <td class="text-right">{{ user.email }}</td>

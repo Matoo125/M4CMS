@@ -26,11 +26,12 @@
       </div>
 
       <div class="form-input">
-        <div class="stacked-label">
-          <textarea class="full-width" v-model="post.content"></textarea>
-          <label>Content</label>
+        <div class="form-input">
+          <label for="">Content</label>
+            <editor :content="post.content" @contentChange="value => { post.content = value }"></editor>
         </div>
       </div>
+
       <br>
       <trix-vue></trix-vue>
       <br>
@@ -87,7 +88,7 @@
 <script>
 import axios from 'axios'
 import { Toast, Loading } from 'quasar'
-import { TrixVue } from 'trix-vue2'
+import Editor from '../Editor.vue'
 
 export default {
   name: 'AddPost',
@@ -97,6 +98,7 @@ export default {
       pages: null,
       authors: null,
       post: {
+        content: '',
         is_published: true,
         tags: null,
         category_id: null,
@@ -105,7 +107,7 @@ export default {
       }
     }
   },
-  components: { trixVue: TrixVue },
+  components: { Editor },
   computed: {
     tags: {
       get () {

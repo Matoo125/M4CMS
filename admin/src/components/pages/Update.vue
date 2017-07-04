@@ -20,7 +20,7 @@
 
       <div class="form-input">
         <label for="">Content</label>
-          <editor :content="page.content" @editorChange="value => { page.content = value }"></editor>
+          <editor :content="page.content" @contentChange="value => { page.content = value }"></editor>
       </div>
       <br>
       

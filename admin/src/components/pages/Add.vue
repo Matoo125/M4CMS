@@ -19,11 +19,8 @@
       </div>
 
       <div class="form-input">
-        <div class="stacked-label">
-          <textarea required class="full-width" v-model="page.content"></textarea>
           <label>Content</label>
           <editor :content="page.content" @contentChange="value => { page.content = value }"></editor>
-        </div>
       </div>
       <br>
       

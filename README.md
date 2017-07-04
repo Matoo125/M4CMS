@@ -1,7 +1,9 @@
 # M4CMS
 work is progress ..
 ## TODO:
-1. ADD vue-html5-editor
+1. add login and restrict admin area
+2. update documentation
+3. add header image for posts/pages/categories
 
 
 [OUT OF DATE DOCS](https://matoo125.github.io/M4CMS/#/)

@@ -1,10 +1,10 @@
 <template>
-  <div class="layout-padding " v-if="media">
+  <div class="layout-padding ">
 
     <div class="card">
       <div class="card-title">Media Gallery</div>
       <div class="card-content">
-            <q-gallery :src="gallery"></q-gallery>
+            <MediaGallery></MediaGallery>
       </div>
       <div class="card-footer">
         <q-uploader :url="url + 'media/create'"></q-uploader>
@@ -16,38 +16,26 @@
 </template>
 
 <script>
-import axios from 'axios'
+import MediaGallery from './Gallery.vue'
 export default {
   name: 'Home',
+  components: { MediaGallery },
   data () {
     return {
-      media: null,
       url: process.env.API
     }
   },
   created () {
-    this.getMedia()
+
   },
   beforeDestroy () {
 
   },
   computed: {
-    gallery () {
-      let gallery = []
-      for (let item of this.media) {
-        gallery.push('http://localhost/M4CMS/public/uploads/' + item.folder + '/' + item.filename)
-      }
-      return gallery
-    }
+
   },
   methods: {
-    getMedia () {
-      axios.get(process.env.API + 'media/list')
-      .then(response => {
-        console.log(response)
-        this.media = response.data
-      }).catch(error => console.log(error))
-    }
+
   }
 }
 </script>

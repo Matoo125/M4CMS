@@ -5,6 +5,7 @@ use m4\m4cms\controllers\api\Media as MediaController;
 use m4\m4mvc\helper\Response;
 use m4\m4mvc\helper\Request;
 use m4\m4cms\interfaces\Crud;
+use m4\m4mvc\helper\Str;
 
 class Media extends MediaController implements Crud 
 {
@@ -17,7 +18,6 @@ class Media extends MediaController implements Crud
   public function create () 
   {
     Request::forceMethod('post');
-    // var_dump($_FILES); print_r($_POST);die;
 
     $file = $_FILES['file'];
 
@@ -29,12 +29,17 @@ class Media extends MediaController implements Crud
     $targetDir = UPLOADS . $folder;
     file_exists($targetDir) ?: mkdir($targetDir, 0755, true);
 
-    $upload = move_uploaded_file($file['tmp_name'], $targetDir . DS . $file['name']);
+    $targetPath = $targetDir . DS . $file['name'];
+    $info = pathinfo($targetPath);
+    $targetPath = $info['dirname'] . DS . Str::slugify($info['filename']) . '.' . $info['extension'];
+
+    $targetPath = file_exists($targetPath) ? $this->getNewTargetPath($targetPath) : $targetPath;
+
+    $upload = move_uploaded_file($file['tmp_name'], $targetPath);
 
     !$upload ?? Response::error('We could not move the uploaded file. ');
-
     $data = [
-        'filename' => $file['name'],
+        'filename' => basename($targetPath),
         'alt'      => $_POST['alt'] ?? '',
         'folder'   => $_POST['folder'] ?? '',
         'type'     => $file['type'],
@@ -94,6 +99,23 @@ class Media extends MediaController implements Crud
     $this->model->delete($_POST['id']) ?
     Response::success('Media has been deleted. ') : 
     Response::error('Media has not been deleted. ');
+  }
+
+  public function getNewTargetPath ($path) {
+    $additional = 1;
+
+    while (file_exists($path)) {
+      $info = pathinfo($path);
+      if ($additional > 1) {
+        $info['filename'] = substr($info['filename'], 0, (strlen($info['filename']) - (strlen((string)$additional) + 2)) );
+      }
+
+      $path = $info['dirname'] . DS . $info['filename'] . '(' . $additional . ')' . '.' . $info['extension'];
+      $additional++;
+    }
+
+    return $path;
+
   }
 
 }

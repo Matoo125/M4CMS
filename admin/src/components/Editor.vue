@@ -9,49 +9,23 @@
     </quill-editor>
     
     
+    <ImageModal @imageSelected="addImage" :active="imageModalActive" ref="imageSelectModal"></ImageModal> <!-- Modal for image choosing -->
 
-    <q-modal ref="imageModal" content-css="padding: 50px;">
-      <h4>Add Image</h4>
-      <q-tabs
-        :refs="$refs"
-        default-tab="tab-4"
-      >
-        <q-tab name="tab-1" icon="message">
-          Tab 1
-        </q-tab>
-        <q-tab name="tab-2" disable icon="fingerprint">
-          Tab 2
-        </q-tab>
-        <q-tab name="tab-3" icon="alarm">
-          Tab 3
-        </q-tab>
-        <q-tab name="tab-4" icon="accessibility">
-          Tab 4
-        </q-tab>
-        <q-tab name="tab-5" hidden icon="accessibility">
-          Tab 5
-        </q-tab>
-      </q-tabs>
-      <!-- Targets -->
-      <div ref="tab-1">...</div>
-      <div ref="tab-2">...</div>
-      <div ref="tab-3">...</div>
-      <div ref="tab-4">...</div>
-      <div ref="tab-5">...</div>
-      <button class="primary" @click="$refs.imageModal.close()">Close</button>
-    </q-modal>
   </div>
 </template>
 
 <script>
 import { quillEditor } from 'vue-quill-editor'
+import ImageModal from './modals/Image'
 
 export default {
-  components: { quillEditor },
+  components: { quillEditor, ImageModal },
   name: 'Editor',
 
   data () {
     return {
+      imageModalActive: false,
+      range: null,
       editorOption: {
         modules: {
           toolbar: {
@@ -93,12 +67,13 @@ export default {
     }
   },
   methods: {
+    addImage (url) {
+      this.$refs.myQuillEditor.quill.insertEmbed(this.range.index, 'image', url)
+      this.$refs.imageSelectModal.toggleModal()
+    },
     imageHandler () {
-      this.$refs.imageModal.open()
-      var range = this.$refs.myQuillEditor.quill.getSelection()
-      // var value = prompt('What is the image URL')
-      var value = ''
-      this.$refs.myQuillEditor.quill.insertEmbed(range.index, 'image', value)
+      this.$refs.imageSelectModal.toggleModal()
+      this.range = this.$refs.myQuillEditor.quill.getSelection()
     },
     onEditorBlur (editor) {
       console.log('editor blur!', editor)

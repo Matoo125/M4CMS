@@ -75,7 +75,15 @@ CREATE TABLE media (
   type VARCHAR(145) NOT NULL,
   size INT NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP);
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  );
+
+CREATE TABLE settings (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(60) NOT NULL,
+  value TEXT DEFAULT NULL,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+); 
 
 
 -- insert data
@@ -87,3 +95,8 @@ INSERT INTO `images` (`id`, `folder`, `name`, `type`, `size`, `created_at`, `upd
 
 INSERT INTO `pages` (`id`, `title`, `slug`, `description`, `content`, `image_id`, `is_published`, `created_at`, `updated_at`) VALUES
 (4,	'First Page', 'first-page',	'this is short descriptions',	'<p>Lorem ipsum dolor sit amet, arcu ac. Mauris nulla platea sed, interdum nostra lectus, amet enim eget, scelerisque mollis non excepteur eget. Ligula nec ligula pede enim, nullam ut non id, semper pellentesque vivamus, nonummy malesuada consequatur. Bibendum elementum arcu massa odio sagittis libero, nulla fringilla leo, nullam velit nibh. Animi per adipiscing iaculis ligula ipsum elementum, diam sed viverra mauris orci nonummy, eget mi torquent sit vestibulum magna, massa curabitur mauris id, modi curabitur vel luctus quis urna. Arcu mauris imperdiet a nunc tristique, lectus euismod lectus at et nascetur. Suspendisse sapien, ut id viverra justo, ultricies lacus duis maecenas volutpat tincidunt, mauris odio dis. Ut et cum id imperdiet. Mi ligula urna duis interdum sit, cursus lorem congue vulputate, diam lectus saepe enim sem velit. Nulla in mattis felis vehicula eget.</p><p>Odio parturient lacus nulla et pede. Ipsum sit senectus suscipit, rhoncus luctus, velit morbi quisque ultrices morbi elit. Ipsum aut dui consequat quis sollicitudin, magna erat augue adipiscing, integer mollis curabitur duis. Morbi id libero sed, elit placerat libero eget justo velit, consequat neque neque eleifend ridiculus auctor. Ut risus vivamus turpis eu, sed blandit, lorem fusce consequat fames nisl faucibus pede, in nunc vel accusamus. Massa a adipiscing, consectetuer vivamus, tellus a id sed, suspendisse mauris quis condimentum cubilia ac. Lacus neque eu dignissim blanditiis, habitasse nonummy scelerisque, risus hendrerit eu porta pharetra mauris wisi.</p><p>Dignissim facilisis elit lorem, blandit urna turpis tellus porro at ut, massa vitae odio malesuada viverra. Eu ut, accumsan nisl posuere placerat lorem convallis a, dictum odio purus mattis proin. Sem mauris rhoncus, dolor purus ut. Eget adipiscing, magna imperdiet, leo velit, lorem elit dictum sit sed amet. Sed et at eget sed vestibulum amet. Ante suspendisse.</p><p>Sollicitudin ac, molestie nullam dolor, in accumsan enim i</p>',	7,	1,	'2017-04-10 07:41:21',	'2017-04-10 07:41:21');
+
+INSERT INTO `settings` (`name`) VALUES ('title');
+INSERT INTO `settings` (`name`) VALUES ('description');
+INSERT INTO `settings` (`name`) VALUES ('tags');
+INSERT INTO `settings` (`name`) VALUES ('online');
