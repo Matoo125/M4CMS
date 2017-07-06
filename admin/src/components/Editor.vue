@@ -67,8 +67,8 @@ export default {
     }
   },
   methods: {
-    addImage (url) {
-      this.$refs.myQuillEditor.quill.insertEmbed(this.range.index, 'image', url)
+    addImage (image) {
+      this.$refs.myQuillEditor.quill.insertEmbed(this.range.index, 'image', image.link)
       this.$refs.imageSelectModal.toggleModal()
     },
     imageHandler () {

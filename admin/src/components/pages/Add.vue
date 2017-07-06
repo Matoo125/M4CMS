@@ -24,39 +24,61 @@
       </div>
       <br>
       
-      <div class="row justify-between">
+      <div class="row wrap justify-between">
         <div class="list no-border">
-          <div class="item"><div class="item-content">
-            Published:   <q-toggle v-model="page.is_published"></q-toggle></div></div>
+          <div class="item">
+            <div class="item-content">
+              Published:   <q-toggle v-model="page.is_published"></q-toggle>
+            </div>
+          </div>
+
+        </div>
+
+        <div>
+          <div>
+            <button class="button primary" @click="$refs.ImageModal.toggleModal()">Image</button>
+          </div>
+          <br>
+          <div v-if="image">
+            <img :src="image" class="responsive" alt="">
+          </div>
+          <ImageModal ref="ImageModal" @imageSelected="imageSelected"></ImageModal>
         </div>
 
         <div>
           <button class="primary" @click="create()">Create</button>
         </div>
-        
+      
+
       </div>
 
     </div>
+
+
+
   </div>
 </template>
 
 <script>
 import axios from 'axios'
 import Editor from '../Editor.vue'
+import ImageModal from '../modals/Image.vue'
 import { Toast, Loading } from 'quasar'
 
 export default {
   data () {
     return {
+      image: null,
       page: {
         content: '',
         description: '',
         title: '',
+        image_id: null,
         is_published: false
       }
     }
   },
-  components: { Editor },
+  components: { Editor, ImageModal },
   methods: {
     create () {
       Loading.show()
@@ -79,6 +101,11 @@ export default {
         console.log(error)
       })
       Loading.hide()
+    },
+    imageSelected (image) {
+      this.page.image_id = image.id
+      this.image = image.link
+      this.$refs.ImageModal.toggleModal()
     }
   }
 }

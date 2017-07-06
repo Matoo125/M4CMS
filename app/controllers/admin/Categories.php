@@ -18,7 +18,7 @@ class Categories extends Controller implements Crud
   {
     Request::forceMethod('post');
     Request::required('title', 'description', 'page_id');
-    $data = Request::select('title', 'description', 'page_id');
+    $data = Request::select('title', 'description', 'page_id', 'image_id');
 
     $id = $this->model->insert($data);
     $id ? 
@@ -30,7 +30,7 @@ class Categories extends Controller implements Crud
   {
     Request::forceMethod('post');
     Request::required('id');
-    $data = Request::select('id', 'description', 'title', 'page_id');
+    $data = Request::select('id', 'description', 'title', 'page_id', 'image_id');
 
     $this->model->update($data) ? 
     Response::success('Category has been updated. ') : 

@@ -9,20 +9,14 @@ There are 3 core files:
 - [Controller](Framework/controller.md)
 
 
-Also it is worth noting here, that this application us taking advantage of composer autoloading feature and all classes are loaded by it. 
+And 7 helper files
 
-```json
-"autoload": {
-  "psr-4": {
-    "app\\":""
-  }
-}
-// app/composer.json
-```
+- Image
+- Query
+- Redirect
+- Request
+- Response
+- Session
+- Str
 
-We are also using composer for all the dependencies
-
-| Dependency         | Version | Description        |
-| ------------------ | ------- | ------------------ |
-| twig/twig          | ^2.0    | Template Engine    |
-| intervention/image | ^2.3    | Image manipulation |
+Then there is also extra helper folder `user` with can be used for fast and simple authentication system.

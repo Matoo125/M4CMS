@@ -23,7 +23,7 @@
     </div>
     <div ref="tab-2">
       <div class="stacked-label">
-        <input v-model="imageUrl" class="full-width">
+        <input v-model="image.link" class="full-width">
         <label>Insert URL</label>
       </div>
       <button class="primary" @click="insertUrl()">
@@ -47,19 +47,22 @@ export default {
   data () {
     return {
       url: process.env.API + 'media/create',
-      imageUrl: null
+      image: {
+        link: null
+      }
     }
   },
   methods: {
-    selectedFromGallery (url) {
-      this.$emit('imageSelected', url)
+    selectedFromGallery (image) {
+      this.$emit('imageSelected', image)
     },
     insertUrl () {
-      this.$emit('imageSelected', this.imageUrl)
+      this.$emit('imageSelected', this.image)
     },
-    upload (event) {
-      var uploadedImageUrl = process.env.BASE_URL + '/uploads/' + event
-      this.$emit('imageSelected', uploadedImageUrl)
+    upload (event, xhr) {
+      var response = JSON.parse(xhr)
+      var uploadedImageUrl = process.env.BASE_URL + 'uploads/' + response.filename
+      this.$emit('imageSelected', {link: uploadedImageUrl, id: response.id})
     },
     toggleModal () {
       this.$refs.imageModal.toggle()

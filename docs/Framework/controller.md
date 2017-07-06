@@ -1,23 +1,47 @@
-# app/core/Controller.php
+# Controller
 
-[This](https://github.com/Matoo125/M4CMS/blob/master/app/core/Controller.php) is [Abstract](http://php.net/manual/en/language.oop5.abstract.php) Controller [Class](http://php.net/manual/en/language.oop5.php) which is intended to be extended by every controller. It might also be extended by Controller which is extended by another Controller. It has two methods. It can instantiates model and calls corresponding view. For views we are using [twig](https://twig.sensiolabs.org/) files. We are passing some global variables to every twig template .
+`m4\m4mvc\core\Controller`
 
+[This](https://github.com/Matoo125/M4CMS/blob/master/app/core/Controller.php) is [Abstract](http://php.net/manual/en/language.oop5.abstract.php) Controller [Class](http://php.net/manual/en/language.oop5.php) which is intended to be extended by every controller.
+
+You might create your own base controller, which extends this controller.
+
+## Properties
+
+| name           | description                            | note                                     |
+| -------------- | -------------------------------------- | ---------------------------------------- |
+| model          | to store model object                  |                                          |
+| modelNamespace | name space to access model             | This can be set in App->db function      |
+| view           | path to view                           | use this if you do not want default module/controller/method path |
+| data           | Data to be passed to view or outputted | []                                       |
+| response       | Static version of data                 | This is used by Response helper          |
+
+## Usage
+
+All those calls should be made from controller which extends this.
+
+To set controller
+
+```php
+$this->model = $this->getModel('Name')
+// for this to work modelNamespace has to be set
 ```
-session      -> $_SESSION
-sessionclass -> new app/helper/Session
-slugifilter  -> slugify helper function
-lang         -> active language array
-url          -> active url array
+
+Set data
+
+```php
+$this->data['key'] = 'value';
 ```
 
-If you don't want to use twig for some reason, you can create your own Abstract Controller with custom view function and use different template engine or just plain PHP. Also you can just write another method to this controller and create push request.
 
-If you want to use this as an API just use API module or don't create views and it will render JSON automatically. 
 
-### Parameters
+### Rendering
 
-Also you can specify view with `$this->view = 'new/view/path'` and it will be called instead of matching exact paths.
+There are 3 default render functions. render, renderTwig and json.
 
-To pass data to template you do `$this->data = []` from controller. This array can be nested multiple levels. Then just use it from twig.
+- json outputs pure json from data + response arrays
+- renderTwig renders twig file 
+- render is for pure PHP view
 
-Third parameter `$this->model` is used to store instance of model. 
+you can write your own render function by creating your own base controller and then passing function name to $app->settings['renderFunction']
+

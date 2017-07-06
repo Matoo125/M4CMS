@@ -30,6 +30,18 @@
             ></q-select>
           </div>
 
+
+          <div>
+            <div>
+              <button class="button primary" @click="$refs.ImageModal.toggleModal()">Image</button>
+            </div>
+            <br>
+            <div v-if="image">
+              <img :src="image" class="responsive" alt="">
+            </div>
+            <ImageModal ref="ImageModal" @imageSelected="imageSelected"></ImageModal>
+          </div>
+
         <div>
           <button class="primary" @click="create()">Create</button>
         </div>
@@ -43,11 +55,14 @@
 <script>
 import axios from 'axios'
 import { Toast, Loading } from 'quasar'
+import ImageModal from '../modals/Image.vue'
 
 export default {
   data () {
     return {
+      image: null,
       category: {
+        image_id: null,
         title: '',
         description: '',
         page_id: 0
@@ -55,6 +70,7 @@ export default {
       pages: null
     }
   },
+  components: { ImageModal },
   created () {
     this.fetchPagesList()
   },
@@ -67,6 +83,11 @@ export default {
       .catch(error => {
         console.log(error)
       })
+    },
+    imageSelected (image) {
+      this.category.image_id = image.id
+      this.image = image.link
+      this.$refs.ImageModal.toggleModal()
     },
     create () {
       Loading.show()

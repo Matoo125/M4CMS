@@ -31,14 +31,14 @@
             <editor :content="post.content" @contentChange="value => { post.content = value }"></editor>
         </div>
       </div>
-
       <br>
-      <trix-vue></trix-vue>
-      <br>
-      <div class="row justify-between">
+      <div class="row wrap justify-between">
         <div class="list no-border">
-          <div class="item"><div class="item-content">
-            Publish:   <q-toggle v-model="post.is_published"></q-toggle></div></div>
+          <div class="item">
+            <div class="item-content">
+             Publish:   <q-toggle v-model="post.is_published"></q-toggle>
+            </div>
+          </div>
         </div>
 
         <div class="list no-border">
@@ -76,6 +76,17 @@
         </div>
 
         <div>
+          <div>
+            <button class="button primary" @click="$refs.ImageModal.toggleModal()">Image</button>
+          </div>
+          <br>
+          <div v-if="image">
+            <img :src="image" class="responsive" alt="">
+          </div>
+          <ImageModal ref="ImageModal" @imageSelected="imageSelected"></ImageModal>
+        </div>
+
+        <div>
           <button class="primary" @click="create()">Create</button>
         </div>
         
@@ -89,6 +100,7 @@
 import axios from 'axios'
 import { Toast, Loading } from 'quasar'
 import Editor from '../Editor.vue'
+import ImageModal from '../modals/Image.vue'
 
 export default {
   name: 'AddPost',
@@ -97,17 +109,19 @@ export default {
       categories: null,
       pages: null,
       authors: null,
+      image: null,
       post: {
         content: '',
         is_published: true,
         tags: null,
         category_id: null,
         page_id: null,
-        author_id: null
+        author_id: null,
+        image_id: null
       }
     }
   },
-  components: { Editor },
+  components: { Editor, ImageModal },
   computed: {
     tags: {
       get () {
@@ -140,6 +154,11 @@ export default {
         this.authors = response.data
         console.log(response.data)
       }).catch(error => { console.log(error) })
+    },
+    imageSelected (image) {
+      this.post.image_id = image.id
+      this.image = image.link
+      this.$refs.ImageModal.toggleModal()
     },
     create () {
       Loading.show()

@@ -1,6 +1,8 @@
-# app/core/Model.php 
+# Model 
 
-[Abstract model class](https://github.com/Matoo125/M4CMS/blob/master/app/core/Model.php) is intended to be extended by all the other models (which should be stored in `app/models` folder).  
+`m4\m4mvc\core\Model`
+
+[Abstract model class](https://github.com/Matoo125/M4CMS/blob/master/app/core/Model.php) is intended to be extended by all the other models.
 
 ### Parameters
 

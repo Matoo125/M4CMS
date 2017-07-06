@@ -25,7 +25,7 @@ class Media extends MediaController implements Crud
         Response::error('There was error during upload');
     }
 
-    $folder = $_POST['folder'] ? DS . $_POST['folder'] : '';
+    $folder = isset($_POST['folder']) ? DS . $_POST['folder'] : '';
     $targetDir = UPLOADS . $folder;
     file_exists($targetDir) ?: mkdir($targetDir, 0755, true);
 
@@ -49,7 +49,7 @@ class Media extends MediaController implements Crud
 
     $id = $this->model->insert($data);
     $id ? 
-    Response::success('Media has been added. ', ['id' => $id]) : 
+    Response::success('Media has been added. ', ['id' => $id, 'folder' => $folder, 'filename' => basename($targetPath)]) : 
     Response::error('Media has not been added. ');
   }
 

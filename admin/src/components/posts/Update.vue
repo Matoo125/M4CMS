@@ -18,8 +18,10 @@
         </div>
       </div>
 
-      <q-chips v-model="tags"></q-chips>
-
+      <div class="form-input">
+         <label>Tags</label>
+          <q-chips v-model="tags"></q-chips>
+      </div>
 
       <div class="form-input">
         <div class="form-input">
@@ -29,7 +31,7 @@
       </div>
       <br>
       
-      <div class="row justify-between">
+      <div class="row wrap justify-between">
         <div class="list no-border">
           <div class="item"><div class="item-content">
             Published:   <q-toggle v-model="post.is_published"></q-toggle></div></div>
@@ -78,6 +80,17 @@
         </div>
 
         <div>
+          <div>
+            <button class="button primary" @click="$refs.ImageModal.toggleModal()">Image</button>
+          </div>
+          <br>
+          <div v-if="image">
+            <img :src="image" class="responsive" alt="">
+          </div>
+          <ImageModal ref="ImageModal" @imageSelected="imageSelected"></ImageModal>
+        </div>
+
+        <div>
           <button class="primary" @click="updateIt()">Update</button>
           <button class="red">Delete</button>
         </div>
@@ -92,16 +105,20 @@
 import axios from 'axios'
 import { Toast, Loading } from 'quasar'
 import Editor from '../Editor.vue'
+import ImageModal from '../modals/Image.vue'
+
 export default {
-  components: { Editor },
+  components: { Editor, ImageModal },
   data () {
     return {
+      image: null,
       categories: null,
       pages: null,
       authors: null,
       post: {
         is_published: false,
-        tags: ''
+        tags: '',
+        image_id: null
       }
     }
   },
@@ -149,11 +166,17 @@ export default {
       .then(response => {
         console.log(response)
         this.post = response.data
+        this.image = this.post.image ? process.env.BASE_URL + 'uploads/' + this.post.image : false
       })
       .catch(error => {
         console.log(error)
       })
       Loading.hide()
+    },
+    imageSelected (image) {
+      this.post.image_id = image.id
+      this.image = image.link
+      this.$refs.ImageModal.toggleModal()
     },
     updateIt () {
       Loading.show()

@@ -2,7 +2,7 @@
   <div v-if="media">
     <div class="q-gallery">
       <div v-for="image in gallery">
-        <div><img :src="image" alt="" @click="emitLink(image)"></div>
+        <div><img :src="image.link" alt="" @click="emitLink(image)"></div>
       </div>
     </div>
   </div>
@@ -25,7 +25,10 @@ export default {
     gallery () {
       let gallery = []
       for (let item of this.media) {
-        gallery.push(process.env.BASE_URL + '/uploads/' + item.folder + '/' + item.filename)
+        gallery.push({
+          link: process.env.BASE_URL + 'uploads/' + item.folder + '/' + item.filename,
+          id: item.id
+        })
       }
       return gallery
     }

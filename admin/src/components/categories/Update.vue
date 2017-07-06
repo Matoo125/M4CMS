@@ -24,15 +24,28 @@
           <div class="item"><div class="item-content">Updated at: {{ category.updated_at }}</div></div>
         </div>
 
-        <div class="form-input">
-          <p class="caption">Belongs to: </p>
-            <q-select
-              v-if="pages"
-              type="radio"
-              v-model="category.page_id"
-              :options="pages"
-            ></q-select>
+      <div class="form-input">
+        <p class="caption">Belongs to: </p>
+          <q-select
+            v-if="pages"
+            type="radio"
+            v-model="category.page_id"
+            :options="pages"
+          ></q-select>
+        </div>
+
+        <div>
+          <div>
+            <div>
+              <button class="button primary" @click="$refs.ImageModal.toggleModal()">Image</button>
+            </div>
+            <br>
+            <div v-if="image">
+              <img :src="image" class="responsive" alt="">
+            </div>
+            <ImageModal ref="ImageModal" @imageSelected="imageSelected"></ImageModal>
           </div>
+        </div>
 
         <div>
           <button class="primary" @click="updateIt()">Update</button>
@@ -48,14 +61,19 @@
 <script>
 import axios from 'axios'
 import { Toast, Loading } from 'quasar'
+import ImageModal from '../modals/Image.vue'
 
 export default {
   data () {
     return {
-      category: null,
+      image: null,
+      category: {
+        image_id: null
+      },
       pages: null
     }
   },
+  components: { ImageModal },
   created () {
     this.fetchCategoryData()
     this.fetchPagesList()
@@ -75,10 +93,16 @@ export default {
       .then(response => {
         console.log(response)
         this.category = response.data
+        this.image = this.category.image ? process.env.BASE_URL + 'uploads/' + this.category.image : false
       })
       .catch(error => {
         console.log(error)
       })
+    },
+    imageSelected (image) {
+      this.category.image_id = image.id
+      this.image = image.link
+      this.$refs.ImageModal.toggleModal()
     },
     updateIt () {
       Loading.show()
