@@ -16,6 +16,26 @@ Vue.use(Quasar) // Install Quasar Framework
 const eventHub = new Vue() // event hub
 Vue.prototype.$bus = eventHub
 
+let checkSession = function () {
+  store.dispatch('checkSession')
+  setTimeout(function () {
+    if (store.state.user.session === false) {
+      router.push({ name: 'Login' })
+    }
+  }, 150)
+}
+
+router.beforeEach((to, from, next) => {
+  console.log(store.state.user.session)
+  if (store.state.user.session === false && to.name !== 'Login') {
+    checkSession()
+    next()
+  }
+  else {
+    next()
+  }
+})
+
 Quasar.start(() => {
   /* eslint-disable no-new */
   new Vue({

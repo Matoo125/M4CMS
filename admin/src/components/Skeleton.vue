@@ -11,12 +11,10 @@
     <q-toolbar-title :padding="2">
       M4CMS
     </q-toolbar-title>
-    <button>
-      <i>mail</i>
+    <button @click="logout()">
+      <i>power_settings_new</i>
     </button>
-    <button>
-      <i>alarm</i>
-    </button>
+
   </div>
     <q-drawer ref="drawer">
     <div class="list platform-delimiter">
@@ -39,6 +37,12 @@
     data () {
       return {
         nothing: ''
+      }
+    },
+    methods: {
+      logout () {
+        this.$store.dispatch('logout')
+        this.$router.push({ name: 'Login' })
       }
     }
   }

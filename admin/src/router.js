@@ -22,6 +22,11 @@ export default new VueRouter({
 
   routes: [
     {
+      name: 'Login',
+      path: '/login',
+      component: load('Login')
+    },
+    {
       path: '/',
       component: load('Skeleton'),
       children: [

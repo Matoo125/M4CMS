@@ -9,7 +9,15 @@
 /*
  * Root component
  */
-export default {}
+export default {
+
+}
 </script>
 
-<style></style>
+<style lang="sass">
+body 
+  background-color: none
+
+html, body, #q-app
+  height: auto
+</style>
