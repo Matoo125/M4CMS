@@ -1,6 +1,9 @@
 <template>
 <section class="hero is-default is-bold">
-
+  <div class="container" style="padding-top: 25px">
+    <div class="title is-2">Welcome</div>
+  </div>
+<!--
   <div class="hero-body">
     <div class="container has-text-centered">
       <div class="columns is-vcentered">
@@ -36,6 +39,7 @@
       </div>
     </div>
   </div>
+  -->
 </section> 
 </template>
 

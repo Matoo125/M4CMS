@@ -49,7 +49,7 @@
 
         <div>
           <button class="primary" @click="updateIt()">Update</button>
-          <button class="red">Delete</button>
+          <button class="red" @click="remove()">Delete</button>
         </div>
         
       </div>
@@ -60,7 +60,7 @@
 
 <script>
 import axios from 'axios'
-import { Toast, Loading } from 'quasar'
+import { Toast, Loading, Dialog } from 'quasar'
 import ImageModal from '../modals/Image.vue'
 
 export default {
@@ -123,6 +123,41 @@ export default {
       })
       .catch(error => {
         console.log(error)
+      })
+    },
+    remove () {
+      let vm = this
+      Dialog.create({
+        title: 'Delete Category: ' + this.category.title,
+        message: 'This action is irreversible. Are you sure you want to do this?',
+        buttons: [
+          {
+            label: 'No',
+            handler () {
+              console.log('Disagreed...')
+            }
+          },
+          {
+            label: 'Yes',
+            handler () {
+              console.log('Agreed!')
+              axios({
+                method: 'post',
+                url: process.env.API + 'categories/delete',
+                data: vm.category
+              }).then(response => {
+                console.log(response.data)
+                if (response.data.status === 'SUCCESS') {
+                  Toast.create.positive({html: response.data.message})
+                  vm.$router.push({ name: 'AdminListCategories' })
+                }
+                else {
+                  Toast.create.negative({html: response.data.message})
+                }
+              }).catch(error => { console.log(error) })
+            }
+          }
+        ]
       })
     }
   }

@@ -10,6 +10,8 @@ class Users extends UserController
     $this->model = $this->getModel('User');
   }
 
+  public function index () {}
+
   public function list () 
   {
     $this->data = $this->model->getAll() ?: [];

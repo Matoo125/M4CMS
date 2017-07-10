@@ -13,6 +13,8 @@ class Settings extends Controller
 
   }
 
+  public function index () {}
+
   public function load () 
   {
     $data = $this->model->getAll();

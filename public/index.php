@@ -2,7 +2,8 @@
 use m4\m4mvc\core\App;
 
 require_once '../app/config/bootstrap.php';
-header('Access-Control-Allow-Origin: http://localhost:8080'); 
+
+header('Access-Control-Allow-Origin: http://localhost:3000', false); 
 header('Access-Control-Allow-Credentials: true');
 header('Access-Control-Allow-Headers: Content-Type');
 

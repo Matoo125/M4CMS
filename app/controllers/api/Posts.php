@@ -11,6 +11,8 @@ class Posts extends Controller
         $this->model = $this->getModel('Post');
     }
 
+    public function index () {}
+
     public function list ()
     {
         $this->data = $this->model->getAll() ?: [];

@@ -11,6 +11,9 @@ class Pages extends Controller
         $this->model = $this->getModel('Page');
     }
 
+    public function index () {}
+
+
     public function list ()
     {
         $this->data = $this->model->getAll() ?: [];

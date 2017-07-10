@@ -8,6 +8,7 @@ function load (component) {
 }
 
 export default new VueRouter({
+  base: '/admin',
   /*
    * NOTE! VueRouter "history" mode DOESN'T works for Cordova builds,
    * it is only to be used only for websites.

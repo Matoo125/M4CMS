@@ -82,4 +82,10 @@ class Page extends Model
       return $this->fetchAll($query);
     }
 
+    public function delete ($id) 
+    {
+      $query = $this->query->delete(self::$table)->where('id = :id')->build();
+      return $this->save($query, ['id' => $id]);
+    }
+
 }

@@ -39,7 +39,13 @@ class Categories extends Controller implements Crud
 
   public function delete ()
   {
-    
+    Request::forceMethod('post');
+    Request::required('id');
+    $id = $_POST['id'];
+
+    $this->model->delete($id) ?
+    Response::success('Category was deleted') :
+    Response::error('There was error and category could not be deleted');
   }
 
 }

@@ -36,6 +36,12 @@ class Post extends Model
       return $this->save($query, $data);
   }
 
+  public function delete ($id)
+  {
+    $query = $this->query->delete(self::$table)->where('id = :id')->build();
+    return $this->save($query, ['id' => $id]);
+  }
+
   public function get ($id)
   {
     $query = $this->query->select('post.id', 

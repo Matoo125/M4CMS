@@ -42,5 +42,14 @@ class Posts extends Controller implements Crud
         Response::error('Post was not updated. ');
     }
 
-    public function delete () {}
+    public function delete () 
+    {
+        Request::forceMethod('post');
+        Request::required('id');
+        $id = $_POST['id'];
+
+        $this->model->delete($id) ?
+        Response::success('Post was deleted') :
+        Response::error('There was error and post could not be deleted');
+    }
 }

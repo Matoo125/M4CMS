@@ -92,7 +92,7 @@
 
         <div>
           <button class="primary" @click="updateIt()">Update</button>
-          <button class="red">Delete</button>
+          <button class="red" @click="remove()">Delete</button>
         </div>
         
       </div>
@@ -103,7 +103,7 @@
 
 <script>
 import axios from 'axios'
-import { Toast, Loading } from 'quasar'
+import { Toast, Loading, Dialog } from 'quasar'
 import Editor from '../Editor.vue'
 import ImageModal from '../modals/Image.vue'
 
@@ -198,6 +198,42 @@ export default {
         console.log(error)
       })
       Loading.hide()
+    },
+    remove () {
+      let vm = this
+      Dialog.create({
+        title: 'Delete Post: ' + this.post.title,
+        message: 'This action is irreversible. Are you sure you want to do this?',
+        buttons: [
+          {
+            label: 'No',
+            handler () {
+              console.log('Disagreed...')
+            }
+          },
+          {
+            label: 'Yes',
+            handler () {
+              console.log('Agreed!')
+              console.log(vm.$route.params.id)
+              axios({
+                method: 'post',
+                url: process.env.API + 'posts/delete',
+                data: vm.post
+              }).then(response => {
+                console.log(response.data)
+                if (response.data.status === 'SUCCESS') {
+                  Toast.create.positive({html: response.data.message})
+                  vm.$router.push({ name: 'AdminListPosts' })
+                }
+                else {
+                  Toast.create.negative({html: response.data.message})
+                }
+              }).catch(error => { console.log(error) })
+            }
+          }
+        ]
+      })
     }
   }
 }

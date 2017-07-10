@@ -45,7 +45,7 @@
 
         <div>
           <button class="primary" @click="updateIt()">Update</button>
-          <button class="red">Delete</button>
+          <button class="red" @click="remove()">Delete</button>
         </div>
         
       </div>
@@ -63,7 +63,8 @@ import axios from 'axios'
 import Editor from '../Editor.vue'
 import ImageModal from '../modals/Image.vue'
 
-import { Toast, Loading } from 'quasar'
+import { Toast, Loading, Dialog } from 'quasar'
+
 export default {
   components: { Editor, ImageModal },
   data () {
@@ -116,6 +117,42 @@ export default {
       this.page.image_id = image.id
       this.image = image.link
       this.$refs.ImageModal.toggleModal()
+    },
+    remove () {
+      let vm = this
+      Dialog.create({
+        title: 'Delete Page: ' + this.page.title,
+        message: 'This action is irreversible. Are you sure you want to do this?',
+        buttons: [
+          {
+            label: 'No',
+            handler () {
+              console.log('Disagreed...')
+            }
+          },
+          {
+            label: 'Yes',
+            handler () {
+              console.log('Agreed!')
+              console.log(vm.$route.params.id)
+              axios({
+                method: 'post',
+                url: process.env.API + 'pages/delete',
+                data: vm.page
+              }).then(response => {
+                console.log(response.data)
+                if (response.data.status === 'SUCCESS') {
+                  Toast.create.positive({html: response.data.message})
+                  vm.$router.push({ name: 'AdminListPages' })
+                }
+                else {
+                  Toast.create.negative({html: response.data.message})
+                }
+              }).catch(error => { console.log(error) })
+            }
+          }
+        ]
+      })
     }
   }
 }

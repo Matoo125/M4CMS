@@ -45,6 +45,15 @@ class Pages extends PagesApi implements Crud
 
     }
 
-    public function delete(){}
+    public function delete(){
+      Request::forceMethod('post');
+      Request::required('id');
+      $id = $_POST['id'];
+
+      $this->model->delete($id) ?
+      Response::success('Page was deleted') :
+      Response::error('There was error and page could not be deleted');
+
+    }
 
 }
