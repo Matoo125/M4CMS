@@ -21,7 +21,7 @@ class Posts extends Controller implements Crud
     public function create ()
     {
         Request::forceMethod('post');
-        Request::required('title', 'description', 'content', 'is_published');
+        Request::required('title');
         $data = Request::select(...self::$fields);
 
         $id = $this->model->insert($data);

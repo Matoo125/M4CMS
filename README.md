@@ -1,17 +1,11 @@
 # M4CMS
 work is progress ..
-## TODO:
-1. I want to save posts/categories/pages without content or description
+
+## IDEAS:
 2. Connect somehow Post with page without category
 3. Setting - Homepage Content or choose homepage from pages
 4. Page setting - show in main menu / footer / nowhere
 
-
-
-## DONE:
-1. add login and restrict admin area
-2. update documentation
-3. add header image for posts/pages/categories
 
 
 [OUT OF DATE DOCS](https://matoo125.github.io/M4CMS/#/)

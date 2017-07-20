@@ -1,4 +1,5 @@
 module.exports = {
   NODE_ENV: '"production"',
-  API: '"/api/"'
+  API: '"/api/"',
+  UPLOADS: '"/public/uploads/"'
 }

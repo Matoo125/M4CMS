@@ -17,7 +17,7 @@ class Categories extends Controller implements Crud
   public function create () 
   {
     Request::forceMethod('post');
-    Request::required('title', 'description', 'page_id');
+    Request::required('title', 'page_id');
     $data = Request::select('title', 'description', 'page_id', 'image_id');
 
     $id = $this->model->insert($data);

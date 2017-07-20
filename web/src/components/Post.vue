@@ -1,7 +1,7 @@
 <template>
   <div v-if="post.show">
     
-    <section class="hero is-info is-medium">
+    <section class="hero is-info is-medium" :style="{ 'background': image, 'background-size': 'cover' }">
       <div class="hero-body">
         <div class="container has-text-centered">
           <h1 class="title is-2">
@@ -14,32 +14,38 @@
       </div>
     </section>
 
-    <section class="section blog">
+    <section class="section">
       <div class="container">
         <div class="columns is-mobile">
           <div class="column is-8 is-offset-2">
-            <div class="columns">
-              <nav class="breadcrumb column">
-                  <ul>
-                      <li>
-                        <router-link :to="{ name: 'Page', params: { id: post.page_id }}">
-                          {{ post.page }}
-                        </router-link>
-                      </li>
-                      <li>
-                        <router-link :to="{ name: 'Category', params: { id: post.category_id }}">
-                          {{ post.category }}
-                        </router-link>
-                      </li>
-                      <li class="is-active">
-                        <a>{{ post.title }}</a>
-                      </li>
-                  </ul>
-              </nav>
-              <div class="column">
+
+            <!-- columns start -->
+            <div class="columns is-mobile is-multiline">
+              <div class="column"> <!-- First Column -->
+                <nav class="breadcrumb"> 
+                    <ul>
+                        <li>
+                          <router-link :to="{ name: 'Page', params: { id: post.page_id }}">
+                            {{ post.page }}
+                          </router-link>
+                        </li>
+                        <li>
+                          <router-link :to="{ name: 'Category', params: { id: post.category_id }}">
+                            {{ post.category }}
+                          </router-link>
+                        </li>
+                        <li class="is-active">
+                          <a>{{ post.title }}</a>
+                        </li>
+                    </ul>
+                </nav>
+              </div>
+              <div class="column"> <!-- Second Column -->
                 <p class="has-text-right has-text-muted">{{ post.created_at}}</p>
               </div>
             </div>
+            <!-- columns end -->
+
             <div class="content blog-post section">
               <article v-html="post.content"></article>
             </div>
@@ -101,6 +107,15 @@ export default {
         this.post = response.data
         this.post.show = true
       }).catch(error => { console.log(error) })
+    }
+  },
+  computed: {
+    image () {
+      if (this.post.image) {
+        // linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://placehold.it/350x150')
+        return 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("' + process.env.UPLOADS + this.post.image + '") '
+      }
+      return null
     }
   },
   watch: {

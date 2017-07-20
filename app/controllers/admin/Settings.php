@@ -9,7 +9,7 @@ class Settings extends Controller
 {
   public function __construct () 
   {
-    $this->model = $this->getModel('setting');
+    $this->model = $this->getModel('Setting');
 
   }
 
@@ -40,10 +40,7 @@ class Settings extends Controller
     Response::success('Settings were updated');
   }
 
-  public function index()
-  {
 
-  }
 
 
 }

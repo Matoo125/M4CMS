@@ -61,7 +61,7 @@ export default {
     },
     upload (event, xhr) {
       var response = JSON.parse(xhr)
-      var uploadedImageUrl = process.env.BASE_URL + 'uploads/' + response.filename
+      var uploadedImageUrl = process.env.UPLOADS + response.filename
       this.$emit('imageSelected', {link: uploadedImageUrl, id: response.id})
     },
     toggleModal () {

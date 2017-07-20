@@ -1,6 +1,6 @@
 <template>
   <div v-if="page">
-    <section class="hero is-success">
+    <section class="hero is-success bg-image" :style="image(page.image, true)">
          <div class="hero-body">
            <div class="container has-text-centered">
              <h1 class="title is-2">
@@ -13,7 +13,7 @@
          </div>
        </section>
 
-       <section class="section blog">
+       <section>
          <div class="container">
            <div class="columns is-mobile">
              <div class="column is-8 is-offset-2">
@@ -23,32 +23,40 @@
                  </div>
 
                  <!-- -->
-                 <div class="section" v-for="category in categories">
+                 <div v-for="category in categories">
                    <h2 class="is-title">{{ category.title }}</h2>
-                      <div class="card post is-fullwidth" v-for="post in category.posts">
-                         <header class="card-header has-text-centered ">
-                           <p class="card-header-title">
-                             {{ post.title }}
-                           </p>
-                         </header>
-                         <div class="card-content">
-                           <article class="media">
-                             <div class="media-left">
-                             </div>
-                             <div class="media-content">
-                               <div class="content">
+                      <div class="columns">
+                        <div class="column" v-for="post in category.posts">
+                          <div class="card post is-fullwidth">
+                          <div class="card-image">
+                            <figure class="image is-4by3" :style="image(post.image)">
+                            </figure>
+                          </div>
+                             <header class="card-header has-text-centered ">
+                               <p class="card-header-title">
+                                 {{ post.title }}
+                               </p>
+                             </header>
+                             <div class="card-content">
+                               <article class="media">
+                                 <div class="media-left">
+                                 </div>
+                                 <div class="media-content">
+                                   <div class="content">
 
-                                 <p>
-                                   {{ post.description }}
-                                 </p>
-                               </div>
+                                     <p>
+                                       {{ post.description }}
+                                     </p>
+                                   </div>
+                                 </div>
+                               </article>
                              </div>
-                           </article>
-                         </div>
-                         <footer class="card-footer">
-                           <router-link class="card-footer-item" :to="{ name: 'Post', params: { id: post.id }}">Read More</router-link>
-                         </footer>
-                       </div>
+                             <footer class="card-footer">
+                               <router-link class="card-footer-item" :to="{ name: 'Post', params: { id: post.id }}">Read More</router-link>
+                             </footer>
+                           </div>
+                        </div>
+                      </div>
                  </div>
 
 
@@ -95,7 +103,23 @@ export default {
           category.posts = response.data
         })
       }
+    },
+    imgUrl (image) {
+      return process.env.UPLOADS + image
+    },
+    image (image, darken) {
+      if (image) {
+        if (darken) {
+          return 'background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("' + process.env.UPLOADS + image + '"); background-size: cover '
+        } else {
+          return 'background-image: url("' + process.env.UPLOADS + image + '"); background-size: cover '
+        }
+      }
+      return null
     }
+  },
+  computed: {
+
   },
   watch: {
     '$route': 'fetchContent'
@@ -113,5 +137,9 @@ export default {
 <style scoped>
   .post .card-header .card-header-title {
     display: block;
+  }
+
+  .bg-image {
+
   }
 </style>

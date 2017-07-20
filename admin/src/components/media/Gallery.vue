@@ -26,7 +26,7 @@ export default {
       let gallery = []
       for (let item of this.media) {
         gallery.push({
-          link: process.env.BASE_URL + 'uploads/' + item.folder + '/' + item.filename,
+          link: process.env.UPLOADS + item.folder + '/' + item.filename,
           id: item.id
         })
       }

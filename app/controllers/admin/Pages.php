@@ -24,7 +24,7 @@ class Pages extends PagesApi implements Crud
     public function create ()
     {
       Request::forceMethod('post');
-      Request::required('title', 'description', 'content', 'is_published');
+      Request::required('title', 'is_published');
       $data = Request::select('title', 'description', 'content', 'is_published', 'image_id');
 
       $id = $this->model->insert($data); 
