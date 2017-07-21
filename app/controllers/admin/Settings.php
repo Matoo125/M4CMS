@@ -28,7 +28,7 @@ class Settings extends Controller
   public function update ()
   {
     Request::forceMethod('post');
-    $data = Request::select('title', 'description', 'tags', 'online');
+    $data = Request::select('title', 'description', 'tags', 'online', 'navigation');
 
     foreach ($data as $key => $value) {
       $name = $key;

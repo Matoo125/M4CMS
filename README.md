@@ -1,6 +1,10 @@
 # M4CMS
 work is progress ..
 
+## TODO: 
+1. Create navigation database
+2. Create setting for choosing navigation for main, footer and others 
+
 ## IDEAS:
 2. Connect somehow Post with page without category
 3. Setting - Homepage Content or choose homepage from pages

@@ -19,13 +19,21 @@
     </div>
 
     <br>
-    <div>
-      Published:   <q-toggle v-model="isOnline"></q-toggle>
+    
+
+    <div class="row justify-between">
+      <div class="column">
+        Published:   <q-toggle v-model="isOnline"></q-toggle>
+      </div>
+      <div class="column">
+        <a @click="$refs.nav.$emit('open')">navigation</a>
+      </div>
+      <div class="column">
+        <button class="primary" @click="update()">Update</button>
+      </div>
     </div>
-    <br>
-    <button class="primary" @click="update()">Update</button>
 
-
+    <Navigation ref="nav" :current="settings.navigation.value" v-on:saveNav='saveNav'></Navigation>
 
   </div>
 
@@ -35,11 +43,14 @@
 <script>
 import axios from 'axios'
 import { Toast } from 'quasar'
+import Navigation from './modals/Navigation.vue'
 
 export default {
+  components: { Navigation },
   data () {
     return {
-      settings: null
+      settings: null,
+      navigation: false
     }
   },
   created () {
@@ -79,7 +90,8 @@ export default {
           title: this.settings.title.value,
           description: this.settings.description.value,
           tags: this.settings.tags.value,
-          online: this.settings.online.value
+          online: this.settings.online.value,
+          navigation: this.settings.navigation
         }
       })
       .then(response => {
@@ -87,6 +99,11 @@ export default {
           Toast.create.positive({html: response.data.message})
         }
       }).catch(error => { console.log(error) })
+    },
+    saveNav (nav) {
+      console.log(JSON.stringify(nav))
+      this.settings.navigation = JSON.stringify(nav)
+      this.update()
     }
   }
 }

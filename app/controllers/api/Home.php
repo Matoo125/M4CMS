@@ -9,6 +9,7 @@ class Home extends Controller
     public function __construct()
     {
         $this->model = $this->getModel('Home');
+
     }
 
     public function index($page = null, $post = null)

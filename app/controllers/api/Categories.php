@@ -15,7 +15,7 @@ class Categories extends Controller
 
     public function list ($pageId = null)
     {
-        $this->data = $pageId ? $this->model->getForPage($pageId) ?? [] : ($this->model->getAll() ?: []);
+        return $this->data = $pageId ? $this->model->getForPage($pageId) ?? [] : ($this->model->getAll() ?: []);
     }
 
     public function id ($id)

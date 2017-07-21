@@ -20,7 +20,7 @@ class Posts extends Controller
 
     public function listByCategory ($categoryId) 
     {
-        $this->data = $this->model->getAllByCategory($categoryId) ?: [];
+        return $this->data = $this->model->getAllByCategory($categoryId) ?: [];
     }
 
     public function listByPage ($pageId) 
@@ -30,7 +30,7 @@ class Posts extends Controller
 
     public function id ($id)
     {
-        $this->data = $this->model->get($id) ?: [];
+        return $this->data = $this->model->get($id) ?: [];
     }
 
 }

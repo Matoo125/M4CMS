@@ -78,6 +78,7 @@ CREATE TABLE media (
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   );
 
+
 CREATE TABLE settings (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(60) NOT NULL,
@@ -91,4 +92,6 @@ INSERT INTO `users` (`id`, `username`, `slug`, `password`, `first_name`, `last_n
 INSERT INTO `settings` (`name`) VALUES ('title');
 INSERT INTO `settings` (`name`) VALUES ('description');
 INSERT INTO `settings` (`name`) VALUES ('tags');
+INSERT INTO `settings` (`name`) VALUES ('online');
+INSERT INTO `settings` (`name`) VALUES ('navigation');
 

@@ -21,12 +21,12 @@ class Pages extends Controller
 
     public function listBasic ()
     {
-        $this->data = $this->model->getAllBasic() ?: [];
+        return $this->data = $this->model->getAllBasic() ?: [];
     }
 
     public function id ($id)
     {
-        $this->data = $this->model->get($id) ?: [];
+        return $this->data = $this->model->get($id) ?: [];
     }
 
 }

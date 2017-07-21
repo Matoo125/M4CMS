@@ -1,0 +1,15 @@
+{% extends 'Skeleton.twig' %}
+
+{% block content %}
+  <div class="index-area">
+    <h1>{{ post.title}} </h1>
+
+    <p class="lead">{{ post.description }}</p>
+    {% if post.image %}
+      <img src="/uploads/{{ post.image }}" class="img-fluid" alt="">
+    {% endif %}
+    <p>{{ post.content|raw }}</p>
+  </div>
+
+
+{% endblock %}

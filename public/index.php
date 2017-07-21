@@ -17,7 +17,11 @@ $app->paths = [
 	'views'			=>	APP . DS . 'view'
 ];
 
-$app->response = 'json';
+if (isset($_GET['url']) && substr($_GET['url'], 0, 5)  === 'admin') {
+  $app->response = 'json';
+}
+
+$app->module = 'web';
 
 $config = parse_ini_file(APP . DS . 'config' . DS . 'App.ini');
 
