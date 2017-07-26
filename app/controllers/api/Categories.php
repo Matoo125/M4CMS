@@ -23,6 +23,11 @@ class Categories extends Controller
       $this->data = $this->model->get($id) ?: [];
     }
 
+    public function slug ($slug) 
+    {
+        $this->data = $this->model->get(null, $slug) ?: [];
+    }
+
     public function listBasic ($pageId)
     {
       $this->data = $this->model->getForPageBasic($pageId) ?: [];

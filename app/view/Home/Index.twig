@@ -2,9 +2,20 @@
 
 {% block content %}
   <div class="index-area">
-    <h1>Toto je SlovakVegan </h1>
-    <p class="lead">Informácie o vegánstve a životnom štýle.</p>
+    <h1>Toto je {{ settings.title }} </h1>
+    <p class="lead">{{ settings.description }}</p>
+    <p>Stará verzia webu je dočasne dostupná na tomto <a href="/old">odkaze</a>.</p>
   </div>
-<pre>
-  
+
+  <div>
+    <h2>Novinky</h2>
+    <ul class="article-list-thumbnails">
+      {% for post in posts %}
+        <li style="background-image: url('uploads/{{ post.image }}')">
+          <h2><a href="{{ post.page|slugify }}/{{ post.category|slugify ?: 'uncategorized' }}/{{ post.slug }}">{{ post.title }}</a></h2>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
 {% endblock %}

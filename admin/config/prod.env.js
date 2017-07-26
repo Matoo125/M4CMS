@@ -1,6 +1,6 @@
 module.exports = {
   NODE_ENV: '"production"',
-  API: '"/api/admin/"',
-  BASE_URL: '"/api/"',
+  API: '"/admin/"',
+  BASE_URL: '"/"',
   UPLOADS: '"/public/uploads/"'
 }

@@ -36,7 +36,7 @@ class Page extends Model
       return $this->save($query, $data);
     }
 
-    public function get ($id)
+    public function get ($id, $slug = null)
     {
       $query = $this->query->select('p.id', 
                                     'p.title', 
@@ -49,10 +49,10 @@ class Page extends Model
                                     'p.updated_at')
                             ->from(self::$table . " AS p")
                             ->join('left', 'media AS i', 'i.id = p.image_id')
-                            ->where("p.id = :id")
+                            ->where($id ? "p.id = :id" : 'p.slug = :slug')
                             ->build();
 
-      $data = $this->fetch($query, ['id' => $id]);
+      $data = $this->fetch($query, $id ? ['id' => $id] : ['slug' => $slug]);
       $data['is_published'] = $data['is_published'] == 1 ? true : false;
       return $data;
     }

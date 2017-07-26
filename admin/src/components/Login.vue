@@ -35,7 +35,6 @@ export default {
   },
   methods: {
     login () {
-      console.log('login')
       axios({
         method: 'post',
         url: process.env.API + 'users/login',
@@ -51,7 +50,13 @@ export default {
           this.$router.push({ name: 'AdminHome' })
         }
         console.log(response.data)
-      }).catch(error => { console.log(error) })
+      }).catch(error => {
+        // console.log(JSON.stringify(error))
+        if (error.response) {
+          console.log('error response')
+          console.log(error.response)
+        }
+      })
     }
   }
 }

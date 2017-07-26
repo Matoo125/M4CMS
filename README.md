@@ -2,13 +2,14 @@
 work is progress ..
 
 ## TODO: 
-1. Create navigation database
-2. Create setting for choosing navigation for main, footer and others 
+
+#### Settings:
+2. Setting - Choosing navigation for main, footer and others 
+3. Setting - Homepage Content or choose homepage from pages
 
 ## IDEAS:
-2. Connect somehow Post with page without category
-3. Setting - Homepage Content or choose homepage from pages
-4. Page setting - show in main menu / footer / nowhere
+4. separate thumbnail and header image
+5. improve images and folders for saving them
 
 
 

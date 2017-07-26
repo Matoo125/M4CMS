@@ -1,12 +1,18 @@
 <?php
 use m4\m4mvc\core\App;
+use m4\m4mvc\helper\Response;
 
-require_once '../app/config/bootstrap.php';
 
-header('Access-Control-Allow-Origin: http://localhost:3000', false); 
+header("Connection: Keep-alive");
+header('Access-Control-Allow-Origin: http://localhost:3000'); 
 //header('Access-Control-Allow-Origin: http://localhost:8080', false); 
 header('Access-Control-Allow-Credentials: true');
 header('Access-Control-Allow-Headers: Content-Type');
+header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+require_once '../app/config/bootstrap.php';
+//require_once 'api/config/bootstrap.php';
+
+
 
 $app = new App;
 $app->settings['namespace'] = 'm4\m4cms';
@@ -16,6 +22,8 @@ $app->paths = [
 	'controllers'	=>	APP . DS . 'controllers',
 	'views'			=>	APP . DS . 'view'
 ];
+
+Response::$errorCode = 200;
 
 if (isset($_GET['url']) && substr($_GET['url'], 0, 5)  === 'admin') {
   $app->response = 'json';

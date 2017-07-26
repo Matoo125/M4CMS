@@ -26,4 +26,9 @@ class Users extends UserController
   {
     $this->data = $this->model->getById($id);
   }
+
+  public function slug ($slug)
+  { // model method not written
+    $this->data = $this->model->getBySlug(null, $slug);
+  }
 }

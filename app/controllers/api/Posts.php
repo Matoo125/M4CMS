@@ -25,12 +25,22 @@ class Posts extends Controller
 
     public function listByPage ($pageId) 
     {
-        $this->data = $this->model->getAllByPage($pageId) ?: [];
+        return $this->data = $this->model->getAllByPage($pageId) ?: [];
+    }
+
+    public function listByPageWC ($pageId)
+    {
+        return $this->data = $this->model->getAllByPageWithoutCategory($pageId) ?: [];
     }
 
     public function id ($id)
     {
         return $this->data = $this->model->get($id) ?: [];
+    }
+
+    public function slug ($slug)
+    {
+        return $this->data = $this->model->get(null, $slug) ?: [];
     }
 
 }

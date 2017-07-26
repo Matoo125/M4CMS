@@ -13,13 +13,14 @@
         <h1>Categories</h1>
       </div>
     {% endif %}
+
     {% for category in categories %}
         <h4>{{ category.title }}</h4>
         {% if category.posts %}
           <ul class="article-list-thumbnails">
             {% for post in category.posts %}
               <li style="background-image: url('uploads/{{ post.image }}')">
-                <h2><a href="{{ page.id }}/{{ category.id }}/{{ post.id }}">{{ post.title }}</a></h2>
+                <h2><a href="{{ page.slug }}/{{ category.slug }}/{{ post.slug }}">{{ post.title }}</a></h2>
               </li>
             {% endfor %}
           </ul>

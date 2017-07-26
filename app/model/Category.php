@@ -56,9 +56,9 @@ class Category extends Model
                             )
                           ->from(self::$table . " AS c")
                           ->join('left', 'media AS i', 'i.id = c.image_id')
-                          ->where("c.id = :id")
+                          ->where($id ? "c.id = :id" : 'c.slug = :slug')
                           ->build();
-    $params = ['id' => $id];
+    $params = $id ? ['id' => $id] : ['slug' => $slug];
     return $this->fetch($query, $params);
   }
 

@@ -26,7 +26,6 @@ let checkSession = function () {
 }
 
 router.beforeEach((to, from, next) => {
-  console.log(store.state.user.session)
   if (store.state.user.session === false && to.name !== 'Login') {
     checkSession()
     next()

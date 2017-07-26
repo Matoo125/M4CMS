@@ -12,16 +12,27 @@ class Home extends IndexApiController
     $pages = new \m4\m4cms\controllers\api\Pages;
     $this->data['navbar'] = $pages->listBasic();
 
+    $settings = new \m4\m4cms\model\Setting;
+    $settings = $settings->getAll();
+    foreach($settings as $setting) {
+      $this->data['settings'][$setting['name']] = $setting['value'];
+    }
+
     if ($page && !$category && !$post) {
-      $this->data['page'] = $pages->id($page);
-      $this->getCategories($page);
+      $this->data['page'] = $pages->slug($page);
+      $this->getCategories($this->data['page']['id']);
       $this->view = 'Home/Page.twig';
     }
 
-    if ($page && $category && $post) {
+    else if ($page && $category && $post) {
       $posts = new \m4\m4cms\controllers\api\Posts;
-      $this->data['post'] = $posts->id($post);
+      $this->data['post'] = $posts->slug($post);
       $this->view = 'Home/Post.twig';
+    }
+
+    else {
+      $posts = new \m4\m4cms\model\Post;
+      $this->data['posts'] = $posts->getNewest();
     }
   }
 
@@ -36,6 +47,19 @@ class Home extends IndexApiController
       $category['posts'] = $posts->listByCategory($category['id']);
       $categoriesWithIdAsKey[$category['id']] = $category;
     }
+
+    $wc = $posts->listByPageWC($pageId);
+    if ($wc) {
+      array_push($categoriesWithIdAsKey, [
+        'id'    =>  'none',
+        'title' =>  'Uncategorized',
+        'slug'  =>  'uncategorized',
+        'page'  =>  $this->data['categories'][0]['page'],
+        'posts' =>  $wc,
+        'description' =>  'Posts without category'
+      ]);
+    }
+
     $this->data['categories'] = $categoriesWithIdAsKey;
   }
 }

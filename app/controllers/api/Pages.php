@@ -29,4 +29,9 @@ class Pages extends Controller
         return $this->data = $this->model->get($id) ?: [];
     }
 
+    public function slug ($slug)
+    {
+        return $this->data = $this->model->get(null, $slug) ?: [];
+    }
+
 }

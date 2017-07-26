@@ -20,7 +20,11 @@ const store = new Vuex.Store({
       .then(response => {
         let bool = response.data.status === 'SUCCESS'
         context.commit('setSession', bool)
-      }).catch(error => { console.log(error) })
+      }).catch(error => {
+        if (error.response) {
+          console.log(error.response)
+        }
+      })
     },
     logout (context) {
       axios({

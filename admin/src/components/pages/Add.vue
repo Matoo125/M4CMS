@@ -84,6 +84,7 @@ export default {
       Loading.show()
       axios({
         method: 'post',
+        headers: {'X-Requested-With': 'XMLHttpRequest'},
         url: process.env.API + 'pages/create',
         data: this.page
       })

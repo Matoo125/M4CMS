@@ -56,7 +56,7 @@ export default{
   methods: {
     fetchDashboardData () {
       this.loading = true
-      axios.get(process.env.API)
+      axios.get(process.env.API + 'index')
       .then(response => {
         console.log(response)
         this.statistics = response.data
