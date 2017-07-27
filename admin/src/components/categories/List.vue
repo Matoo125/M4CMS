@@ -43,13 +43,13 @@ export default {
     fetchCategoriesListData () {
       Loading.show()
       axios.get(process.env.API + 'categories/list')
-      .then(response => {
-        console.log(response)
-        this.categories = response.data
-      })
-      .catch(error => {
-        console.log(error)
-      })
+        .then(response => {
+          console.log(response)
+          this.categories = response.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
       Loading.hide()
     }
   }

@@ -75,13 +75,13 @@ export default {
     fetchUserData () {
       Loading.show()
       axios.get(process.env.API + 'users/id/' + this.$route.params.id)
-      .then(response => {
-        console.log(response)
-        this.user = response.data
-      })
-      .catch(error => {
-        console.log(error)
-      })
+        .then(response => {
+          console.log(response)
+          this.user = response.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
       Loading.hide()
     },
     updateIt () {
@@ -91,18 +91,18 @@ export default {
         url: process.env.API + 'users/update',
         data: this.user
       })
-      .then(response => {
-        console.log(response)
-        if (response.data.status === 'ERROR') {
-          Toast.create.negative({html: response.data.message})
-        }
-        else {
-          Toast.create.positive({html: response.data.message})
-        }
-      })
-      .catch(error => {
-        console.log(error)
-      })
+        .then(response => {
+          console.log(response)
+          if (response.data.status === 'ERROR') {
+            Toast.create.negative({html: response.data.message})
+          }
+          else {
+            Toast.create.positive({html: response.data.message})
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
       Loading.hide()
     }
   }

@@ -51,13 +51,13 @@ export default {
     fetchpostsListData () {
       Loading.show()
       axios.get(process.env.API + 'posts/list')
-      .then(response => {
-        console.log(response)
-        this.posts = response.data
-      })
-      .catch(error => {
-        console.log(error)
-      })
+        .then(response => {
+          console.log(response)
+          this.posts = response.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
       Loading.hide()
     },
     is_published (number) {

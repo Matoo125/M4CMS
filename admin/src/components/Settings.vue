@@ -77,10 +77,10 @@ export default {
   methods: {
     load () {
       axios.get(process.env.API + 'settings/load')
-      .then(response => {
-        console.log(response)
-        this.settings = response.data
-      }).catch(error => { console.log(error) })
+        .then(response => {
+          console.log(response)
+          this.settings = response.data
+        }).catch(error => { console.log(error) })
     },
     update () {
       axios({
@@ -94,11 +94,11 @@ export default {
           navigation: this.settings.navigation
         }
       })
-      .then(response => {
-        if (response.data.status === 'SUCCESS') {
-          Toast.create.positive({html: response.data.message})
-        }
-      }).catch(error => { console.log(error) })
+        .then(response => {
+          if (response.data.status === 'SUCCESS') {
+            Toast.create.positive({html: response.data.message})
+          }
+        }).catch(error => { console.log(error) })
     },
     saveNav (nav) {
       console.log(JSON.stringify(nav))

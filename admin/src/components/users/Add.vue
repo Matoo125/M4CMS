@@ -60,19 +60,19 @@ export default {
         url: process.env.API + 'users/create',
         data: this.user
       })
-      .then(response => {
-        console.log(response.data)
-        if (response.data.status === 'ERROR') {
-          Toast.create.negative({html: response.data.message})
-        }
-        else {
-          Toast.create.positive({html: response.data.message})
-          this.$router.push(response.data.id)
-        }
-      })
-      .catch(error => {
-        console.log(error)
-      })
+        .then(response => {
+          console.log(response.data)
+          if (response.data.status === 'ERROR') {
+            Toast.create.negative({html: response.data.message})
+          }
+          else {
+            Toast.create.positive({html: response.data.message})
+            this.$router.push(response.data.id)
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
       Loading.hide()
     }
   }

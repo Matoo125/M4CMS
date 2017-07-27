@@ -163,14 +163,14 @@ export default {
     fetchPostData () {
       Loading.show()
       axios.get(process.env.API + 'posts/id/' + this.$route.params.id)
-      .then(response => {
-        console.log(response)
-        this.post = response.data
-        this.image = this.post.image ? process.env.BASE_URL + 'uploads/' + this.post.image : false
-      })
-      .catch(error => {
-        console.log(error)
-      })
+        .then(response => {
+          console.log(response)
+          this.post = response.data
+          this.image = this.post.image ? process.env.BASE_URL + '/public/uploads/' + this.post.image : false
+        })
+        .catch(error => {
+          console.log(error)
+        })
       Loading.hide()
     },
     imageSelected (image) {
@@ -185,18 +185,18 @@ export default {
         url: process.env.API + 'posts/update',
         data: this.post
       })
-      .then(response => {
-        console.log(response)
-        if (response.data.status === 'ERROR') {
-          Toast.create.negative({html: response.data.message})
-        }
-        else {
-          Toast.create.positive({html: response.data.message})
-        }
-      })
-      .catch(error => {
-        console.log(error)
-      })
+        .then(response => {
+          console.log(response)
+          if (response.data.status === 'ERROR') {
+            Toast.create.negative({html: response.data.message})
+          }
+          else {
+            Toast.create.positive({html: response.data.message})
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
       Loading.hide()
     },
     remove () {

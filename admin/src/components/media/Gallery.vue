@@ -39,10 +39,10 @@ export default {
     },
     getMedia () {
       axios.get(process.env.API + 'media/list')
-      .then(response => {
-        console.log(response)
-        this.media = response.data
-      }).catch(error => console.log(error))
+        .then(response => {
+          console.log(response)
+          this.media = response.data
+        }).catch(error => console.log(error))
     }
   }
 }

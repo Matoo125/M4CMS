@@ -54,7 +54,7 @@ class Home extends IndexApiController
         'id'    =>  'none',
         'title' =>  'Uncategorized',
         'slug'  =>  'uncategorized',
-        'page'  =>  $this->data['categories'][0]['page'],
+        'page'  =>  $this->data['categories'][0]['page'] ?? null,
         'posts' =>  $wc,
         'description' =>  'Posts without category'
       ]);

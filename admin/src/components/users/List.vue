@@ -56,14 +56,14 @@ export default {
   methods: {
     fetchUsersListData () {
       axios.get(process.env.API + 'users/list')
-      .then(response => {
-        console.log(response)
-        this.users = response.data
-        Loading.hide()
-      })
-      .catch(error => {
-        console.log(error)
-      })
+        .then(response => {
+          console.log(response)
+          this.users = response.data
+          Loading.hide()
+        })
+        .catch(error => {
+          console.log(error)
+        })
     },
     create () {
       this.$router.push({ path: 'user/create' })

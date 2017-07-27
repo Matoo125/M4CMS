@@ -81,23 +81,23 @@ export default {
   methods: {
     fetchPagesList () {
       axios.get(process.env.API + 'pages/listbasic')
-      .then(response => {
-        this.pages = response.data
-      })
-      .catch(error => {
-        console.log(error)
-      })
+        .then(response => {
+          this.pages = response.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
     },
     fetchCategoryData () {
       axios.get(process.env.API + 'categories/id/' + this.$route.params.id)
-      .then(response => {
-        console.log(response)
-        this.category = response.data
-        this.image = this.category.image ? process.env.BASE_URL + 'uploads/' + this.category.image : false
-      })
-      .catch(error => {
-        console.log(error)
-      })
+        .then(response => {
+          console.log(response)
+          this.category = response.data
+          this.image = this.category.image ? process.env.BASE_URL + '/public/uploads/' + this.category.image : false
+        })
+        .catch(error => {
+          console.log(error)
+        })
     },
     imageSelected (image) {
       this.category.image_id = image.id
@@ -111,19 +111,19 @@ export default {
         url: process.env.API + 'categories/update',
         data: this.category
       })
-      .then(response => {
-        console.log(response)
-        if (response.data.status === 'ERROR') {
-          Toast.create.negative({html: response.data.message})
-        }
-        else {
-          Toast.create.positive({html: response.data.message})
-        }
-        Loading.hide()
-      })
-      .catch(error => {
-        console.log(error)
-      })
+        .then(response => {
+          console.log(response)
+          if (response.data.status === 'ERROR') {
+            Toast.create.negative({html: response.data.message})
+          }
+          else {
+            Toast.create.positive({html: response.data.message})
+          }
+          Loading.hide()
+        })
+        .catch(error => {
+          console.log(error)
+        })
     },
     remove () {
       let vm = this
@@ -145,16 +145,17 @@ export default {
                 method: 'post',
                 url: process.env.API + 'categories/delete',
                 data: vm.category
-              }).then(response => {
-                console.log(response.data)
-                if (response.data.status === 'SUCCESS') {
-                  Toast.create.positive({html: response.data.message})
-                  vm.$router.push({ name: 'AdminListCategories' })
-                }
-                else {
-                  Toast.create.negative({html: response.data.message})
-                }
-              }).catch(error => { console.log(error) })
+              })
+                .then(response => {
+                  console.log(response.data)
+                  if (response.data.status === 'SUCCESS') {
+                    Toast.create.positive({html: response.data.message})
+                    vm.$router.push({ name: 'AdminListCategories' })
+                  }
+                  else {
+                    Toast.create.negative({html: response.data.message})
+                  }
+                }).catch(error => { console.log(error) })
             }
           }
         ]

@@ -17,14 +17,14 @@ const store = new Vuex.Store({
         url: process.env.API + 'users/is_logged_in',
         withCredentials: true
       })
-      .then(response => {
-        let bool = response.data.status === 'SUCCESS'
-        context.commit('setSession', bool)
-      }).catch(error => {
-        if (error.response) {
-          console.log(error.response)
-        }
-      })
+        .then(response => {
+          let bool = response.data.status === 'SUCCESS'
+          context.commit('setSession', bool)
+        }).catch(error => {
+          if (error.response) {
+            console.log(error.response)
+          }
+        })
     },
     logout (context) {
       axios({
@@ -32,9 +32,9 @@ const store = new Vuex.Store({
         url: process.env.API + 'users/logout',
         withCredentials: true
       })
-      .then(response => {
-        context.commit('setSession', false)
-      }).catch(error => { console.log(error) })
+        .then(response => {
+          context.commit('setSession', false)
+        }).catch(error => { console.log(error) })
     }
   },
   mutations: {

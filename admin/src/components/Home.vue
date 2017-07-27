@@ -57,14 +57,14 @@ export default{
     fetchDashboardData () {
       this.loading = true
       axios.get(process.env.API + 'index')
-      .then(response => {
-        console.log(response)
-        this.statistics = response.data
-        this.loading = false
-      })
-      .catch(error => {
-        console.log(error)
-      })
+        .then(response => {
+          console.log(response)
+          this.statistics = response.data
+          this.loading = false
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
   }
 }

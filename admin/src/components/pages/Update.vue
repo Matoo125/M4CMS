@@ -82,14 +82,14 @@ export default {
     fetchPageData () {
       Loading.show()
       axios.get(process.env.API + 'pages/id/' + this.$route.params.id)
-      .then(response => {
-        console.log(response)
-        this.page = response.data
-        this.image = parseInt(this.page.image) !== 0 ? process.env.BASE_URL + 'uploads/' + this.page.image : false
-      })
-      .catch(error => {
-        console.log(error)
-      })
+        .then(response => {
+          console.log(response)
+          this.page = response.data
+          this.image = parseInt(this.page.image) !== 0 ? process.env.BASE_URL + '/public/uploads/' + this.page.image : false
+        })
+        .catch(error => {
+          console.log(error)
+        })
       Loading.hide()
     },
     updateIt () {
@@ -99,18 +99,18 @@ export default {
         url: process.env.API + 'pages/update',
         data: this.page
       })
-      .then(response => {
-        console.log(response)
-        if (response.data.status === 'ERROR') {
-          Toast.create.negative({html: response.data.message})
-        }
-        else {
-          Toast.create.positive({html: response.data.message})
-        }
-      })
-      .catch(error => {
-        console.log(error)
-      })
+        .then(response => {
+          console.log(response)
+          if (response.data.status === 'ERROR') {
+            Toast.create.negative({html: response.data.message})
+          }
+          else {
+            Toast.create.positive({html: response.data.message})
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
       Loading.hide()
     },
     imageSelected (image) {

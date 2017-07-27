@@ -6,10 +6,11 @@
 
     <p class="lead">{{ post.description }}</p>
     {% if post.image %}
-      <img src="/uploads/{{ post.image }}" class="img-fluid" alt="">
+      <img src="/public/uploads/{{ post.image }}" class="img-fluid" alt="">
     {% endif %}
-    <p>{{ post.content|raw }}</p>
   </div>
+
+    <p>{{ post.content|raw }}</p>
 
 
 {% endblock %}

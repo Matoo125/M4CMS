@@ -30,19 +30,19 @@ export default {
         modules: {
           toolbar: {
             container: [
-              ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+              ['bold', 'italic', 'underline', 'strike'], // toggled buttons
               ['link', 'blockquote', 'code-block', 'image'],
 
               [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-              [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
+              [{ 'indent': '-1' }, { 'indent': '+1' }], // outdent/indent
 
               [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
 
-              [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+              [{ 'color': [] }, { 'background': [] }], // dropdown with defaults from theme
               [{ 'font': [] }],
               [{ 'align': [] }],
 
-              ['clean']                                       // remove formatting button
+              ['clean'] // remove formatting button
             ],
             handlers: {
               'image': this.imageHandler

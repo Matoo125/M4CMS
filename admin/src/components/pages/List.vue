@@ -43,14 +43,14 @@ export default {
   methods: {
     fetchPagesListData () {
       axios.get(process.env.API + 'pages/list')
-      .then(response => {
-        console.log(response)
-        this.pages = response.data
-        Loading.hide()
-      })
-      .catch(error => {
-        console.log(error)
-      })
+        .then(response => {
+          console.log(response)
+          this.pages = response.data
+          Loading.hide()
+        })
+        .catch(error => {
+          console.log(error)
+        })
     },
     create () {
       this.$router.push({ path: 'page/create' })

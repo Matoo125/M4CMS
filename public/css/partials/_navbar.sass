@@ -1,0 +1,23 @@
+.navbar-up 
+  top: -50px
+
+nav
+  transition: top .2s ease-in-out
+  position: fixed
+  background-color: $white
+  a
+    color: $primary
+  .nav-link
+    padding: 0 1.5rem
+  .navbar-brand
+    padding: 3px 20px
+  .nav-link:hover, .navbar-brand:hover
+    color: $white
+    background-color: $primary
+    border-radius: 15px
+
+@media (max-width: $small)
+  .navbar-brand
+    position: absolute
+    top: 10px
+    left: 40%

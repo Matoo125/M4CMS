@@ -44,19 +44,19 @@ export default {
           password: this.password
         }
       })
-      .then(response => {
-        if (response.data.status === 'SUCCESS') {
-          this.$store.commit('setSession', true)
-          this.$router.push({ name: 'AdminHome' })
-        }
-        console.log(response.data)
-      }).catch(error => {
-        // console.log(JSON.stringify(error))
-        if (error.response) {
-          console.log('error response')
-          console.log(error.response)
-        }
-      })
+        .then(response => {
+          if (response.data.status === 'SUCCESS') {
+            this.$store.commit('setSession', true)
+            this.$router.push({ name: 'AdminHome' })
+          }
+          console.log(response.data)
+        }).catch(error => {
+          // console.log(JSON.stringify(error))
+          if (error.response) {
+            console.log('error response')
+            console.log(error.response)
+          }
+        })
     }
   }
 }

@@ -77,12 +77,12 @@ export default {
   methods: {
     fetchPagesList () {
       axios.get(process.env.API + 'pages/listbasic')
-      .then(response => {
-        this.pages = response.data
-      })
-      .catch(error => {
-        console.log(error)
-      })
+        .then(response => {
+          this.pages = response.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
     },
     imageSelected (image) {
       this.category.image_id = image.id
@@ -96,19 +96,19 @@ export default {
         url: process.env.API + 'categories/create',
         data: this.category
       })
-      .then(response => {
-        console.log(response)
-        if (response.data.status === 'ERROR') {
-          Toast.create.negative({html: response.data.message})
-        }
-        else {
-          Toast.create.positive({html: response.data.message})
-          this.$router.push(response.data.id)
-        }
-      })
-      .catch(error => {
-        console.log(error)
-      })
+        .then(response => {
+          console.log(response)
+          if (response.data.status === 'ERROR') {
+            Toast.create.negative({html: response.data.message})
+          }
+          else {
+            Toast.create.positive({html: response.data.message})
+            this.$router.push(response.data.id)
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
       Loading.hide()
     }
   }
