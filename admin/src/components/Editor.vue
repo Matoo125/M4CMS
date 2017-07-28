@@ -28,6 +28,9 @@ export default {
       range: null,
       editorOption: {
         modules: {
+          clipboard: {
+            matchVisual: false
+          },
           toolbar: {
             container: [
               ['bold', 'italic', 'underline', 'strike'], // toggled buttons
@@ -91,3 +94,13 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">
+.ql-editor
+  h1, h2, h3, h4, h5, h6
+    padding-top: 20px;
+    padding-bottom: 10px;
+  blockquote
+   margin-top: 10px;
+   margin-bottom: 10px;
+</style>

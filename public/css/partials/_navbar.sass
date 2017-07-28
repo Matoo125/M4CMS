@@ -4,17 +4,18 @@
 nav
   transition: top .2s ease-in-out
   position: fixed
-  background-color: $white
+  background-color: $accent
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)
   a
-    color: $primary
+    color: $white
   .nav-link
     padding: 0 1.5rem
   .navbar-brand
     padding: 3px 20px
-  .nav-link:hover, .navbar-brand:hover
-    color: $white
-    background-color: $primary
-    border-radius: 15px
+  .nav-link:hover, .navbar-brand:hover, .nav-link.is-active
+    color: $primary
+    //background-color: $white
+    //border-radius: 15px
 
 @media (max-width: $small)
   .navbar-brand

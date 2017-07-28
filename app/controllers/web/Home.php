@@ -27,6 +27,7 @@ class Home extends IndexApiController
     else if ($page && $category && $post) {
       $posts = new \m4\m4cms\controllers\api\Posts;
       $this->data['post'] = $posts->slug($post);
+      $this->data['page']['id'] = $this->data['post']['page_id'];
       $this->view = 'Home/Post.twig';
     }
 
