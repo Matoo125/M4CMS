@@ -1,0 +1,21 @@
+  <nav>
+    <div class="nav-wrapper container">
+      <a href="#!" class="brand-logo ">{{ settings.title }}</a>
+      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        {% for item in navbar %}
+        <li class="{{ item.value == page.id ? 'active' }}">
+          <a class="nav-link" href="/{{ item.label|slugify }}">{{ item.label }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+      <ul class="side-nav" id="mobile-demo">
+        {% for item in navbar %}
+        <li class="{{ item.value == page.id ? 'active' }}">
+          <a class="nav-link" href="/{{ item.label|slugify }}">{{ item.label }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </nav>
+

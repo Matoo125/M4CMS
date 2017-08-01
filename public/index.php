@@ -20,7 +20,7 @@ $app->useTwig();
 
 $app->paths = [
 	'controllers'	=>	APP . DS . 'controllers',
-	'views'			=>	APP . DS . 'view'
+	'views'			=> WEB . DS . 'themes' . DS . 'default' // APP . DS . 'view' //  
 ];
 
 Response::$errorCode = 200;

@@ -28,6 +28,11 @@ h1, h2, h3, h4, h5, h6 {
 
 .content {
   margin: 2rem; }
+  .content img {
+    max-width: 100%;
+    display: block;
+    height: auto;
+    margin: 1.2rem 0; }
   .content .card {
     max-width: 400px; }
   .content p {
@@ -124,6 +129,8 @@ nav {
   nav .navbar-brand {
     padding: 3px 20px; }
   nav .nav-link:hover, nav .navbar-brand:hover, nav .nav-link.is-active {
+    color: #4CAF50; }
+  nav .navbar-toggler {
     color: #4CAF50; }
 
 @media (max-width: 62rem) {
