@@ -1,1 +1,16 @@
 {% extends 'Base.twig' %}
+{% block body %}
+  <div class="page">
+    <div class="container">
+      <div class="card">
+        <div class="card-content">
+          <div class="title">
+            <h2>{{ page.title}} </h2>
+            <h6>{{ page.description }}</h6>
+          </div>
+          <div class="flow-text">{{ page.content|raw }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

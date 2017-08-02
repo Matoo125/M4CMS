@@ -1,7 +1,20 @@
-.page-footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0; }
+.index {
+  flex: auto; }
+
+.page {
+  background-color: #f5f5f5;
+  flex: auto; }
+  .page .card {
+    margin-top: 2rem; }
+  .page .title {
+    text-align: center;
+    margin-bottom: 2rem; }
+
+html, body {
+  height: 100%; }
+
+body {
+  display: flex;
+  flex-direction: column; }
 
 /*# sourceMappingURL=style.css.map */
