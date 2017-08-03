@@ -2,6 +2,9 @@
 
 require_once('../../app/vendor/autoload.php');
 
+$pathToConfig = '../../app/config/App.ini';
+$pathToTables = '../../db/tables.sql';
+
 use m4\m4mvc\helper\Request;
 
 Request::handle();
@@ -62,7 +65,7 @@ try {
 $conn->exec('USE ' . $db['name']);
 
 // insert tables
-$sql = file_get_contents('../../db/tables.sql');
+$sql = file_get_contents($pathToTables);
 $conn->exec($sql);
 
 // insert settings
@@ -76,7 +79,6 @@ INSERT INTO `settings` (`name`) VALUES ('navigation');
 $conn->exec($sql);
 
 // insert user
-require_once('../../app/vendor/m4/m4mvc/src/helper/Str.php');
 $sql  = "INSERT INTO `users` (`username`, `slug`, `password`, `email`, `role`) ";
 $sql .= "VALUES ('";
 $sql .= $user['username'] . "', '";
@@ -88,6 +90,16 @@ $sql .= "4')";
 $conn->exec($sql);
 
 $conn = null;
+
+$fh = fopen($pathToConfig, 'w');
+
+fwrite($fh, '[APPLICATION] ' . PHP_EOL . ' DEVELOPMENT = false' . PHP_EOL . PHP_EOL);
+fwrite($fh, '[DATABASE] ' . PHP_EOL . ' DB_HOST = ' . $db['host'] . PHP_EOL);
+fwrite($fh, 'DB_NAME = ' . $db['name'] . PHP_EOL);
+fwrite($fh, 'DB_USER = ' . $db['username'] . PHP_EOL);
+fwrite($fh, 'DB_PASS = ' . $db['password'] . PHP_EOL);
+
+fclose($fh);
 
 header("Location: completed.php");
 // create tables
