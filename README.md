@@ -1,24 +1,15 @@
-# M4CMS
-work is progress ..
+[OFFICIAL WEBSITE WITH TUTORIALS AND DEMO](http://m4cms.6f.sk/)
 
-## TODO: 
-
-#### Settings:
-2. Setting - Choosing navigation for main, footer and others 
-3. Setting - Homepage Content or choose homepage from pages
-
-## IDEAS:
-4. separate thumbnail and header image
-5. improve images and folders for saving them
-
-
-
-[OUT OF DATE DOCS](https://matoo125.github.io/M4CMS/#/)
 
 COMPOSER DEPENDENCIES:
 1. [m4mvc](https://github.com/Matoo125/M4Admin) (M4MVC Framework)
 2. [Image intervention](http://image.intervention.io/) (Image Manipulation)
 
+
+Administration is using VueJS, so to run in on localhost, you need to have nodejs with npm installed, then go to admin folder and `npm install` and `npm run dev`
+
+
+I will probably rewrite administration, so it can be independent of build process, because it't hard to work with extensions this way.
 
 
 to clone repo
