@@ -20,15 +20,18 @@ $app->useTwig();
 
 $app->paths = [
 	'controllers'	=>	APP . DS . 'controllers',
-	'views'			=> WEB . DS . 'themes' . DS . 'default' // APP . DS . 'view' //  
+	'views'			  => [
+    'public'  =>  WEB . DS . 'themes' . DS . 'default' ,
+    'admin'   =>  WEB . DS . 'admin' . DS . 'admin'
+  ]
 ];
 
 Response::$errorCode = 200;
-
+/*
 if (isset($_GET['url']) && substr($_GET['url'], 0, 5)  === 'admin') {
   $app->response = 'json';
 }
-
+*/
 $app->module = 'web';
 
 $config = parse_ini_file(APP . DS . 'config' . DS . 'App.ini');

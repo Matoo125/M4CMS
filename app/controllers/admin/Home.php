@@ -13,7 +13,7 @@ class Home extends IndexApiController
     $this->data['numberOfPosts'] = $this->model->countTable('posts');
     $this->data['numberOfCategories'] = $this->model->countTable('categories');
 
-    Response::success('Response from home arrived', $this->data);
+   // Response::success('Response from home arrived ...', $this->data);
 
   }
 }
