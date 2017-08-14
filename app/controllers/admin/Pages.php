@@ -16,12 +16,23 @@ use m4\m4cms\controllers\api\Pages as PagesApi;
 class Pages extends PagesApi implements Crud
 {
 
+    public function index ()
+    {
+      //echo 'welcome to pages';die;     
+      $this->list();
+    }
+
     public function save ()
     {
       isset($_POST['id']) ? $this->update() : $this->create();
     }
 
     public function create ()
+    {
+      
+    }
+
+    public function createAjax ()
     {
       Request::forceMethod('post');
       Request::required('title', 'is_published');

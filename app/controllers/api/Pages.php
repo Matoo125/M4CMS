@@ -16,7 +16,7 @@ class Pages extends Controller
 
     public function list ()
     {
-        $this->data = $this->model->getAll() ?: [];
+        $this->data['pages'] = $this->model->getAll() ?: [];
     }
 
     public function listBasic ()

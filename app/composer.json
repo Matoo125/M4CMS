@@ -2,7 +2,9 @@
     "require": {
         "twig/twig": "^2.0",
         "intervention/image": "^2.3",
-        "m4/m4mvc": "dev-master"
+        "m4/m4mvc": "dev-master",
+        "filp/whoops": "^2.1",
+        "symfony/var-dumper": "^3.3"
     },
 
     "autoload": {
