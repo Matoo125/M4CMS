@@ -32,6 +32,11 @@ class Pages extends PagesApi implements Crud
       
     }
 
+    public function update ($id = null)
+    {
+      $this->id($id);
+    }
+
     public function createAjax ()
     {
       Request::forceMethod('post');
@@ -44,7 +49,7 @@ class Pages extends PagesApi implements Crud
       Response::error('Page was not created. ');
     }
 
-    public function update()
+    public function updateAjax()
     {
       Request::forceMethod('post');
       Request::required('id');

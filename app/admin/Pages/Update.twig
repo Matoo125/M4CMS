@@ -10,13 +10,13 @@
   
     <!-- Title -->
     <h1 class="section-title" id="services">
-      <span>Create new Page</span>
+      <span>Update Page</span>
     </h1><!-- End Title -->
       
     <!--breadcrum start-->
     <ol class="breadcrumb text-left">
       <li><a href="/admin/pages">Pages</a></li>
-      <li class="active">Create</li>
+      <li class="active">Update</li>
     </ol><!--breadcrum end-->
   
     {% include 'Pages/Form.twig' %}
@@ -35,6 +35,8 @@
     theme: 'snow'
   });
 
+  quill.clipboard.dangerouslyPasteHTML(0, '{{ page.content|raw }}');
+
   $(".fileUploadBrowseButton").click(function () {
     $(".file").click()
   })
@@ -46,6 +48,7 @@
 
   $("form .submit").click(function () {
     formData = {
+      id: '{{ page.id }}',
       title: $("input[name=title]").val(),
       description: $("textarea[name=description").val(),
       content: quill.root.innerHTML,
@@ -55,12 +58,11 @@
     console.log(formData)
     $.ajax({
       type: 'post',
-      url: '/admin/pages/createAjax',
+      url: '/admin/pages/updateAjax',
       data: formData
     }).done(function (response) {
-     //toastr.success('Page was created')
-      window.location = '/admin/pages/update/' + response.id
       console.log(response)
+      toastr.success(response.message)
     }).fail(function (xhr, err) {
       console.log(err)
       console.log(xhr.responseJSON)

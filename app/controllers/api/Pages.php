@@ -21,17 +21,17 @@ class Pages extends Controller
 
     public function listBasic ()
     {
-        return $this->data = $this->model->getAllBasic() ?: [];
+        return $this->data['pages'] = $this->model->getAllBasic() ?: [];
     }
 
     public function id ($id)
     {
-        return $this->data = $this->model->get($id) ?: [];
+        return $this->data['page'] = $this->model->get($id) ?: [];
     }
 
     public function slug ($slug)
     {
-        return $this->data = $this->model->get(null, $slug) ?: [];
+        return $this->data['page'] = $this->model->get(null, $slug) ?: [];
     }
 
 }

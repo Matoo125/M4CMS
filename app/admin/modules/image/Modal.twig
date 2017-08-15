@@ -1,0 +1,19 @@
+<!-- Alert with title bar -->
+<button data-target="#ImageSelector" data-toggle="modal" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">Alert with title bar</button>
+
+<div tabindex="-1" class="modal fade" id="ImageSelector" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="pmd-card-title-text">Select an Image</h2>
+      </div>
+      <div class="modal-body">
+        {% include 'modules/image/Tabs.twig' %}
+      </div>
+      <div class="pmd-modal-action pmd-modal-bordered text-right">
+        <button data-dismiss="modal" class="btn pmd-btn-flat pmd-ripple-effect btn-primary" type="button">Disagree</button>
+        <button data-dismiss="modal" type="button" class="btn pmd-btn-flat pmd-ripple-effect btn-default">Agree</button>
+      </div>
+    </div>
+  </div>
+</div>

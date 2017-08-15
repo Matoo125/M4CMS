@@ -13,8 +13,7 @@ class Page extends Model
     public function insert ($data)
     {
       $data['slug'] = Str::slugify($data['title']); // create slug from title
-      $data['is_published'] = $data['is_published'] ? 1 : 0; // convert boolean to tinyint
-
+      $data['is_published'] = $data['is_published'] === 'true' ? 1 : 0; // convert boolean to tinyint
       $query = $this->query->insert(...array_keys($data))
                            ->into(self::$table)
                            ->build();
@@ -26,7 +25,7 @@ class Page extends Model
     public function update ($data)
     {
       if (isset($data['title'])) { $data['slug'] = Str::slugify($data['title']); }
-      $data['is_published'] = $data['is_published'] ? 1 : 0; // convert boolean to tinyint
+      $data['is_published'] = $data['is_published'] === 'true' ? 1 : 0; // convert boolean to tinyint
 
       $query = $this->query->update(self::$table)
                            ->set(array_keys($data))
