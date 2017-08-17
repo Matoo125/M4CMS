@@ -1,6 +1,3 @@
-<!-- Alert with title bar -->
-<button data-target="#ImageSelector" data-toggle="modal" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">Alert with title bar</button>
-
 <div tabindex="-1" class="modal fade" id="ImageSelector" style="display: none;" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -11,9 +8,76 @@
         {% include 'modules/image/Tabs.twig' %}
       </div>
       <div class="pmd-modal-action pmd-modal-bordered text-right">
-        <button data-dismiss="modal" class="btn pmd-btn-flat pmd-ripple-effect btn-primary" type="button">Disagree</button>
-        <button data-dismiss="modal" type="button" class="btn pmd-btn-flat pmd-ripple-effect btn-default">Agree</button>
+        <button data-dismiss="modal" class="btn pmd-btn-flat pmd-ripple-effect btn-primary" type="button">Close</button>
+        <button type="button" class="btn pmd-btn-flat pmd-ripple-effect btn-default btn-select">Select</button>
       </div>
     </div>
   </div>
 </div>
+
+<script>  
+
+
+var imageSelector = {
+  modal: function (callback) {
+
+    $("#ImageSelector").modal('show');
+
+    $("#ImageSelector button.btn-select").click(function (e) {
+      e.preventDefault()
+     
+      if (activeTab === 1) {
+        imageSelector.upload(function (data) {
+          callback(data)
+        })
+
+      }
+
+      else if (activeTab === 2) {
+          imageSelector.link()
+      }
+
+      else if (activeTab === 3) {
+          imageSelector.gallery()
+      }
+
+      $(this).unbind('click')
+      $("#ImageSelector").modal('hide');
+
+    })
+
+  },
+  upload: function (callback) {
+    //  var imgForm = document.getElementById('imgForm');
+      formData = new FormData();
+      formData.append('file', document.getElementById('imgForm').files[0]);
+
+      $.ajax({
+          type: 'POST',
+          url: '/admin/media/create',
+          data: formData,
+          cache: false,
+          contentType: false,
+          processData: false,
+          success:function(data){
+              console.log("success");
+              console.log(data);
+             // console.log('/public/uploads/' + data.filename)
+              callback(data)
+             // return data.filename
+          },
+          error: function(data){
+              console.log("error");
+              console.log(data);
+          }
+      });
+  },
+  link: function () {
+
+  },
+  gallery: function () {
+
+  }
+}
+
+</script>

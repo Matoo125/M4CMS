@@ -31,25 +31,49 @@
 
 {% block script %}
 <script>
+var toolbar = [
+  [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+  ['bold', 'italic', 'underline', 'strike'], 
+  ['blockquote', 'code-block'],
+
+  [{ 'align': [] }],
+  ['link', 'image'],
+  ['clean']
+]
   var quill = new Quill('#editor', {
-    theme: 'snow'
+    theme: 'snow',
+    modules: {
+      toolbar: {
+        container: toolbar,
+        handlers: {
+          image: imageHandler
+        }
+      }
+    }
   });
 
-  $(".fileUploadBrowseButton").click(function () {
-    $(".file").click()
-  })
 
-  $(".file").change(function () {
-    var val = $(this).val().replace(/C:\\fakepath\\/i,'');
-    $(".filename").val(val);
-  })
+  
+
+  function imageHandler () {
+      imageSelector.modal(function (data) {
+        var range = this.quill.getSelection()
+        var img = '/public/uploads/' + data.filename
+        this.quill.insertEmbed(range.index, 'image', img, Quill.sources.USER)
+    })
+    /*
+    var range = this.quill.getSelection()
+    var value = prompt('What is image url')
+    this.quill.insertEmbed(range.index, 'image', value, Quill.sources.USER);*/
+  }
 
   $("form .submit").click(function () {
     formData = {
       title: $("input[name=title]").val(),
       description: $("textarea[name=description").val(),
       content: quill.root.innerHTML,
-      image: 2,
+      image_id: document.querySelector('#headerImage input').value,
       is_published: $("input[name=is_published]").is(':checked')
     }
     console.log(formData)

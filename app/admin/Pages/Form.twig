@@ -35,15 +35,16 @@
 
       {% include 'modules/image/Modal.twig' %}
 
-      <div class="group-fields clearfix row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <div class="form-group">
-              <input type="file" name="img" class="file" style="display: none">
-              <input type="text" class="filename mat-input form-control" style="display: inline-block; width: auto" disabled placeholder="Upload Image">
-              <button type="button" class="btn btn-info fileUploadBrowseButton">Browse</button>
-          </div>
-        </div>
+      <button data-target="#ImageSelector" onclick="selectHeaderImage()" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">Select Header Image</button>
+
+      <div id="headerImage">
+
+        {% set img = 2 %}
+
+        <img src="/public/uploads/{{ page.image}}" class="img-responsive" alt="">
+        <input type="hidden" value="" name="headerImage">
       </div>
+
 
       <div class="group-fields clearfix row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -64,3 +65,14 @@
   </div> <!-- section content end -->  
   </form>
 </div>
+
+<script>
+  function selectHeaderImage () {
+    imageSelector.modal(function (data) {
+      document.querySelector('#headerImage img').src = '/public/uploads/' + data.filename
+      document.querySelector('#headerImage input').value = data.id
+      toastr.success(data.message)
+    })
+  }
+</script>
+

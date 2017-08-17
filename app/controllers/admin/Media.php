@@ -19,7 +19,7 @@ class Media extends MediaController implements Crud
   {
     Request::forceMethod('post');
 
-    $file = $_FILES['file'];
+    $file = $_FILES['file'] ?? $_FILES['img'];
 
     if ($file['error'] !== 0) {
         Response::error('There was error during upload');

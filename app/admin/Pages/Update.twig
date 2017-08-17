@@ -37,14 +37,6 @@
 
   quill.clipboard.dangerouslyPasteHTML(0, '{{ page.content|raw }}');
 
-  $(".fileUploadBrowseButton").click(function () {
-    $(".file").click()
-  })
-
-  $(".file").change(function () {
-    var val = $(this).val().replace(/C:\\fakepath\\/i,'');
-    $(".filename").val(val);
-  })
 
   $("form .submit").click(function () {
     formData = {
@@ -52,7 +44,7 @@
       title: $("input[name=title]").val(),
       description: $("textarea[name=description").val(),
       content: quill.root.innerHTML,
-      image: 2,
+      image_id: document.querySelector('#headerImage input').value,
       is_published: $("input[name=is_published]").is(':checked')
     }
     console.log(formData)

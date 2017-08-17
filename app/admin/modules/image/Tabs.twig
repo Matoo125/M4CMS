@@ -3,17 +3,17 @@
   <div class="pmd-tabs pmd-tabs-bg">
     <ul class="nav nav-tabs" role="tablist">
       <li role="presentation" class="active">
-        <a href="#home" aria-controls="home" role="tab" data-toggle="tab">
+        <a href="#home" aria-controls="home" data-id="1" role="tab" data-toggle="tab">
           Upload
         </a>
       </li>
       <li role="presentation">
-        <a href="#about" aria-controls="about" role="tab" data-toggle="tab">
+        <a href="#about" aria-controls="about" data-id="2" role="tab" data-toggle="tab">
           Link
         </a>
       </li>
       <li role="presentation">
-        <a href="#work" aria-controls="work" role="tab" data-toggle="tab">
+        <a href="#work" aria-controls="work" data-id="3" role="tab" data-toggle="tab">
           Gallery
         </a>
       </li>
@@ -21,9 +21,36 @@
   </div>
   <div class="pmd-card-body">
     <div class="tab-content">
-      <div role="tabpanel" class="tab-pane active" id="home">A tab provides the affordance for displaying grouped content. A tab label succinctly describes the tab’s associated grouping of content.</div>
-      <div role="tabpanel" class="tab-pane" id="about">Fixed tabs have equal width, calculated either as the view width divided by the number of tabs, or based on the widest tab label. To navigate between fixed tabs, touch the tab or swipe the content area left or right.</div>
-      <div role="tabpanel" class="tab-pane" id="work">To navigate between scrollable tabs, touch the tab or swipe the content area left or right. To scroll the tabs without navigating, swipe the tabs left or right.</div>
+      <div role="tabpanel" class="tab-pane active" id="home">
+          <div class="form-group">
+
+                <input type="file" name="img" id="imgForm" class="file" style="display: none">
+                <input type="text" class="filename mat-input form-control" style="display: inline-block; width: auto" disabled placeholder="Upload Image">
+                <button type="button" class="btn btn-info fileUploadBrowseButton">Browse</button>
+          </div>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="about">
+
+      </div>
+      <div role="tabpanel" class="tab-pane" id="work">
+
+      </div>
     </div>
   </div>
 </div> <!--Default tab example end-->
+
+<script>  
+var activeTab = 1
+$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+  activeTab = $(e.target).data('id')
+})
+
+$(".fileUploadBrowseButton").click(function () {
+  $(".file").click()
+})
+
+$(".file").change(function () {
+  var val = $(this).val().replace(/C:\\fakepath\\/i,'');
+  $(".filename").val(val);
+})
+</script>
