@@ -2,36 +2,21 @@
 
 {% block body %}
 <!--content area start-->
-<div id="content" class="pmd-content content-area dashboard">
+<div id="content" class="content-area inner-page ">
 
   <div class="container-fluid">
     <div class="row" id="card-masonry">
-     
- 
-        <!-- Card table -->
-      <section class="row component-section">
-      
-        <!-- Card table title and description -->
-        <div class="col-md-3">
-          <div id="card-table">
-            <h2>Pages</h2>
-          </div>
-                    <p>Here you can see all your pages, manage them and add new.
-                    </p>  
-                    <a href="/admin/pages/create">
-                      <button class="btn pmd-btn-fab pmd-btn-raised pmd-ripple-effect btn-primary" type="button">
-                        <i class="material-icons pmd-sm">
-                          add
-                        </i>
-                      </button>
-                    </a>
-        </div><!-- Card table title and description end-->
-        
-        <!-- Card table code and example -->
-        <div class="col-md-9">
-          <div class="component-box">
-          
-            <!-- Card table example -->
+           
+        <div class="col-md-10 col-md-offset-1">
+
+          <h1 class="text-center">Pages</h1>
+          <a href="/admin/pages/create" class="btn pmd-btn-fab pmd-ripple-effect pmd-floating-action btn-primary">
+            <i class="material-icons pmd-sm">
+              add
+            </i>
+          </a>
+
+
             <div class="pmd-card pmd-z-depth pmd-card-custom-view">
               <div class="pmd-table-card">
                 <table class="table pmd-table table-hover">
@@ -67,9 +52,7 @@
             </div> <!-- Card table example end -->
           
           </div>
-        </div> <!-- Card table code and example end -->
-        
-      </section><!-- Card table end -->   
+
      
     
   </div>

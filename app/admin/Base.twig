@@ -1,3 +1,5 @@
+
+
 <!doctype html>
 <html lang="">
 <head>
@@ -29,28 +31,22 @@
 <!-- Propeller admin theme css-->
 <link rel="stylesheet" type="text/css" href="/app/admin/assets/css/propeller-admin.css">
 
-<link href="//cdn.quilljs.com/1.3.1/quill.snow.css" rel="stylesheet">
+<link href="https://cdn.quilljs.com/1.3.1/quill.snow.css" rel="stylesheet">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
+<link rel="stylesheet" href="/app/admin/assets/css/m4.css">
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="/app/admin/assets/js/bootstrap.min.js"></script>
+<script src="/app/admin/assets/js/propeller.min.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js'></script>
+<script src="//cdn.quilljs.com/1.3.1/quill.min.js"></script>
+<script src="/app/admin/assets/js/m4.js"></script>
 
 {% block head %}{% endblock %}
 {% block css %}{% endblock %}
-<style>
-  .ql-editor {
-    min-height: 300px;
-  }
-  .statistics-content i {
-    color: white;
-    margin: 20%;
-  }
 
-  .statistics-content .statistics i {
-    color: #3cad44;
-    font-size: 2rem;
-    margin: 20% 0;
-  }
-</style>
 
 </head>
 
@@ -59,14 +55,14 @@
 {% include 'navbar.twig' %}
 {% include 'aside.twig' %}
 
-{% block body %} {% endblock %}
+<div id="app" class="pmd-content">
+  {% block body %} {% endblock %}
+</div>
 
 {% block script %}{% endblock %}
 
 </body>
 
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script src="/app/admin/assets/js/bootstrap.min.js"></script>
-<script src="/app/admin/assets/js/propeller.min.js"></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js'></script>
-<script src="//cdn.quilljs.com/1.3.1/quill.min.js"></script>
+</html>
+
+<!-- where is this -->

@@ -14,6 +14,7 @@ class Page extends Model
     {
       $data['slug'] = Str::slugify($data['title']); // create slug from title
       $data['is_published'] = $data['is_published'] === 'true' ? 1 : 0; // convert boolean to tinyint
+      $data['image_id'] = $data['image_id'] === '' ? null : $data['image_id']; 
       $query = $this->query->insert(...array_keys($data))
                            ->into(self::$table)
                            ->build();
@@ -26,6 +27,7 @@ class Page extends Model
     {
       if (isset($data['title'])) { $data['slug'] = Str::slugify($data['title']); }
       $data['is_published'] = $data['is_published'] === 'true' ? 1 : 0; // convert boolean to tinyint
+      $data['image_id'] = $data['image_id'] === '' ? null : $data['image_id']; 
 
       $query = $this->query->update(self::$table)
                            ->set(array_keys($data))
@@ -43,6 +45,7 @@ class Page extends Model
                                     'p.description', 
                                     'p.content', 
                                     'p.is_published', 
+                                    'p.image_id',
                                     'IF(p.image_id IS NOT NULL, CONCAT(i.folder, "/", i.filename), false) AS image', 
                                     'p.created_at', 
                                     'p.updated_at')

@@ -1,9 +1,9 @@
-{% include 'Base.twig' %}
+{% extends 'Base.twig' %}
 
 
 {% block body %}
 <!--content area start-->
-<div id="content" class="pmd-content inner-page">
+<div id="content" class="inner-page">
 
   <!--tab start-->
   <div class="container-fluid full-width-container">
@@ -19,7 +19,11 @@
       <li class="active">Update</li>
     </ol><!--breadcrum end-->
   
-    {% include 'Pages/Form.twig' %}
+    {% embed 'Pages/Form.twig' %}
+      {% block formButtons %}
+        <a href="javascript:void(0);" class="btn btn-danger">Delete</a>
+      {% endblock %}
+    {% endembed %}
  
       
   </div><!-- tab end -->
@@ -30,38 +34,20 @@
 {% endblock %}
 
 {% block script %}
-<script>
-  var quill = new Quill('#editor', {
-    theme: 'snow'
-  });
-
-  quill.clipboard.dangerouslyPasteHTML(0, '{{ page.content|raw }}');
+<script id="customScript">
 
 
-  $("form .submit").click(function () {
-    formData = {
-      id: '{{ page.id }}',
-      title: $("input[name=title]").val(),
-      description: $("textarea[name=description").val(),
-      content: quill.root.innerHTML,
-      image_id: document.querySelector('#headerImage input').value,
-      is_published: $("input[name=is_published]").is(':checked')
-    }
-    console.log(formData)
-    $.ajax({
-      type: 'post',
-      url: '/admin/pages/updateAjax',
-      data: formData
-    }).done(function (response) {
-      console.log(response)
-      toastr.success(response.message)
-    }).fail(function (xhr, err) {
-      console.log(err)
-      console.log(xhr.responseJSON)
-      toastr.error(xhr.responseJSON.message)
-    })
-  })
+document.addEventListener('DOMContentLoaded', function () {
 
+    runThisOnLoad()
+
+
+})
+
+function runThisOnLoad () {
+  var quill = setupQuill(quill, '{{ page.content|raw }}')
+  page('updateAjax', quill);
+}
 
 
 </script>

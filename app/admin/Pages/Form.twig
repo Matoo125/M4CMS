@@ -42,7 +42,7 @@
         {% set img = 2 %}
 
         <img src="/public/uploads/{{ page.image}}" class="img-responsive" alt="">
-        <input type="hidden" value="" name="headerImage">
+        <input type="hidden" value="{{ page.image_id }}" name="headerImage">
       </div>
 
 
@@ -57,10 +57,13 @@
         </div>
       </div>
 
+      <input type="hidden" name="id" value="{{ page.id }}">
+
     </div>   <!-- card body end -->    
     <div class="pmd-card-actions">
       <a href="javascript:void(0);" class="btn btn-primary nex submit">Submit</a>
-      <a href="javascript:void(0);" class="btn btn-default">Cancel</a>
+      <!--<a href="javascript:void(0);" class="btn btn-default">Cancel</a> -->
+      {% block formButtons %}{% endblock %}
     </div>
   </div> <!-- section content end -->  
   </form>

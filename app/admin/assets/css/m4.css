@@ -1,0 +1,27 @@
+#content {
+  animation:fadeIn cubic-bezier(0.55, 0, 0.1, 1) 0.8s; 
+  -webkit-animation:fadeIn cubic-bezier(0.55, 0, 0.1, 1) 0.8s; 
+  -ms-animation:fadeIn cubic-bezier(0.55, 0, 0.1, 1) 0.8s; 
+  -o-animation:fadeIn cubic-bezier(0.55, 0, 0.1, 1) 0.8s; 
+  -moz-animation:fadeIn cubic-bezier(0.55, 0, 0.1, 1) 0.8s; 
+
+}
+
+.dashboard {
+  margin-top: 15px;
+  padding: 15px 15px;
+}
+
+.ql-editor {
+  min-height: 300px;
+}
+.statistics-content i {
+  color: white;
+  margin: 20%;
+}
+
+.statistics-content .statistics i {
+  color: #3cad44;
+  font-size: 2rem;
+  margin: 20% 0;
+}
