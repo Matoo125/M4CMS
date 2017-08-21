@@ -9,16 +9,16 @@
   
     <!-- Title -->
     <h1 class="section-title" id="services">
-      <span>Update Page</span>
+      <span>Update Category</span>
     </h1><!-- End Title -->
       
     <!--breadcrum start-->
     <ol class="breadcrumb text-left">
-      <li><a href="/admin/pages">Pages</a></li>
+      <li><a href="/admin/category">Category</a></li>
       <li class="active">Update</li>
     </ol><!--breadcrum end-->
   
-    {% embed 'Pages/Form.twig' %}
+    {% embed 'Categories/Form.twig' %}
       {% block formButtons %}
         <a href="javascript:void(0);" class="btn btn-danger delete">Delete</a>
       {% endblock %}
@@ -38,22 +38,20 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 
 function runThisOnLoad () {
-  var quill = setupQuill(`{{ page.content|raw }}`)
-  // create form submitter
-  page('updateAjax', quill);
+  category('updateAjax');
 
   document.querySelector("a.delete").addEventListener('click', function () {
     $("#delete-dialog").modal('show')
     document.querySelector('#delete-dialog button[data-action=delete]').addEventListener('click', function () {
       $.ajax({
         type: 'POST',
-        url: '/admin/pages/delete',
+        url: '/admin/category/delete',
         data: {
-          id: {{ page.id }}
+          id: {{ category.id }}
         }
       }).done(function (r) {
         console.log(r)
-        router.go('/admin/pages')
+        router.go('/admin/categories')
       }).fail(function (err) {
         console.log('error')
         console.log(err)

@@ -39,18 +39,3 @@
   </div>
 </div> <!--Default tab example end-->
 
-<script>  
-var activeTab = 1
-$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-  activeTab = $(e.target).data('id')
-})
-
-$(".fileUploadBrowseButton").click(function () {
-  $(".file").click()
-})
-
-$(".file").change(function () {
-  var val = $(this).val().replace(/C:\\fakepath\\/i,'');
-  $(".filename").val(val);
-})
-</script>

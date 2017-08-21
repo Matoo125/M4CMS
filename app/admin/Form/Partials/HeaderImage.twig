@@ -1,0 +1,9 @@
+    <button data-target="#ImageSelector" onclick="selectHeaderImage()" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">Select Header Image</button>
+
+      <div id="headerImage">
+
+        {% set img = 2 %}
+
+        <img src="/public/uploads/{{ page.image}}" class="img-responsive" alt="">
+        <input type="hidden" value="{{ page.image_id }}" name="headerImage">
+      </div>

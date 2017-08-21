@@ -7,12 +7,23 @@
     
     {% include 'Form/Partials/Title.twig' %}
     {% include 'Form/Partials/Description.twig' %}
-    {% include 'Form/Partials/Content.twig' %}
+
+
+    <!-- Select page-->
+    <div class="form-group pmd-textfield pmd-textfield-label">       
+      <label>Select Page</label>
+      <select class="select-page form-control">
+        {% for page in pages %}
+          <option value="{{ page.value }}">{{ page.label }}</option>
+        {% endfor %}
+        </select>
+    </div>
+
+
     {% include 'Form/Partials/HeaderImage.twig' %}
-    {% include 'Form/Partials/Publish.twig' %}
 
 
-     <input type="hidden" name="id" value="{{ page.id }}">
+     <input type="hidden" name="id" value="{{ category.id }}">
 
     </div>   <!-- card body end -->    
 
@@ -27,6 +38,5 @@
 
     {% include 'modules/image/Modal.twig' %}
     {% include 'Form/Partials/DeleteModal.twig' %}
-
 
 

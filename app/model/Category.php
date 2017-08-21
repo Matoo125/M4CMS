@@ -13,6 +13,7 @@ class Category extends Model
   public function insert ($data)
   {
     $data['slug'] = Str::slugify($data['title']);
+    $data['image_id'] = $data['image_id'] === '' ? null : $data['image_id']; 
 
     $query = $this->query->insert(...array_keys($data))
                          ->into(self::$table)
@@ -27,6 +28,8 @@ class Category extends Model
     if (isset($data['title'])) {
       $data['slug'] = Str::slugify($data['title']);
     }
+    $data['image_id'] = $data['image_id'] === '' ? null : $data['image_id']; 
+
 
     $query = $this->query->update(self::$table)
                          ->set(array_keys($data))

@@ -9,16 +9,16 @@
   
     <!-- Title -->
     <h1 class="section-title" id="services">
-      <span>Update Page</span>
+      <span>Update Post</span>
     </h1><!-- End Title -->
       
     <!--breadcrum start-->
     <ol class="breadcrumb text-left">
-      <li><a href="/admin/pages">Pages</a></li>
+      <li><a href="/admin/pages">Posts</a></li>
       <li class="active">Update</li>
     </ol><!--breadcrum end-->
   
-    {% embed 'Pages/Form.twig' %}
+    {% embed 'Posts/Form.twig' %}
       {% block formButtons %}
         <a href="javascript:void(0);" class="btn btn-danger delete">Delete</a>
       {% endblock %}
@@ -38,9 +38,9 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 
 function runThisOnLoad () {
-  var quill = setupQuill(`{{ page.content|raw }}`)
+  var quill = setupQuill(`{{ post.content|raw }}`)
   // create form submitter
-  page('updateAjax', quill);
+  post('updateAjax', quill);
 
   document.querySelector("a.delete").addEventListener('click', function () {
     $("#delete-dialog").modal('show')
@@ -49,10 +49,10 @@ function runThisOnLoad () {
         type: 'POST',
         url: '/admin/pages/delete',
         data: {
-          id: {{ page.id }}
+          id: '{{ post.id }}'
         }
-      }).done(function (r) {
-        console.log(r)
+      }).done(function (response) {
+        console.log(response)
         router.go('/admin/pages')
       }).fail(function (err) {
         console.log('error')

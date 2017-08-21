@@ -13,12 +13,44 @@ class Posts extends Controller implements Crud
 {
     public static $fields = ['title', 'description', 'content', 'tags', 'page_id', 'category_id', 'is_published', 'author_id', 'image_id'];
 
+    public function index ()
+    {
+        $this->list();
+    }
+
     public function save ()
     {
       isset($_POST['id']) ? $this->update() : $this->create();
     }
 
     public function create ()
+    {
+        // get pages
+        $pages = new Pages;
+        $this->data['pages'] = $pages->listBasic();
+    }
+
+    public function update ($id = null)
+    {
+        // get post
+        $this->id($id);
+
+        // get pages
+        $pages = new Pages;
+        $this->data['pages'] = $pages->listBasic();
+
+        // get categories if page selected
+        if ($this->data['post']['page_id']) {
+            $categories = new Categories;
+            $this->data['categories'] = $categories->listBasic($this->data['post']['page_id']);
+
+        }
+
+
+
+    }
+
+    public function createAjax ()
     {
         Request::forceMethod('post');
         Request::required('title');
@@ -30,7 +62,7 @@ class Posts extends Controller implements Crud
         Response::error('Post was not created. ');
     }
 
-    public function update ()
+    public function updateAjax ()
     {
         Request::forceMethod('post');
         Request::required('id');

@@ -9,7 +9,7 @@
            
         <div class="col-md-10 col-md-offset-1">
 
-          <h1 class="text-center">Pages</h1>
+          <h1 class="text-center">Categories</h1>
 
             <div class="pmd-card pmd-z-depth pmd-card-custom-view">
               <div class="pmd-table-card">
@@ -18,26 +18,25 @@
                   <tr>
                     <th>#id</th>
                     <th>Title</th>
-                    <th>Published</th>
+                    <th>Page</th>
+                    <th>Posts</th>
                     <th>Created at</th>
                     <th>Updated at</th>
-                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {% for page in pages %}
-                  <tr onclick="router.go('/admin/pages/update/{{ page.id }}')">
+                  {% for category in categories %}
+                  <tr onclick="router.go('/admin/categories/update/{{ category.id }}')">
                     <td data-title="#id">
-                       <a href="/admin/pages/update/{{ page.id }}">
-                        {{ page.id }}
+                       <a href="/admin/categories/update/{{ category.id }}">
+                        {{ category.id }}
                        </a>
                     </td>
-                    <td data-title="Title">{{ page.title }}</td>
-                    <td data-title="Published">{{ page.is_published }}</td>
-                    <td data-title="Created at">{{ page.created_at }}</td>
-                    <td data-title="Updated at">{{ page.updated_at }}</td>
-                    <td data-title="Action"></td>
-                    <td data-title=""><a href="javascript:void(0);"><i class="material-icons md-dark pmd-sm">more_vert</i></a></td>
+                    <td data-title="Title">{{ category.title }}</td>
+                    <td data-title="Page">{{ category.page }}</td>
+                    <td data-title="Published">{{ category.posts }}</td>
+                    <td data-title="Created at">{{ category.created_at }}</td>
+                    <td data-title="Updated at">{{ category.updated_at }}</td>
                   </tr>
                   {% endfor %}
                 </tbody>
@@ -53,10 +52,11 @@
 
 </div><!--end content area-->
 
-<a onclick="router.go('/admin/pages/create')" role="button" class="btn pmd-btn-fab pmd-ripple-effect pmd-floating-action btn-primary">
+<a onclick="router.go('/admin/categories/create')" role="button" class="btn pmd-btn-fab pmd-ripple-effect pmd-floating-action btn-primary">
   <i class="material-icons pmd-sm">
     add
   </i>
 </a>
+
 
 {% endblock %}

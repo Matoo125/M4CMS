@@ -9,16 +9,16 @@
   
     <!-- Title -->
     <h1 class="section-title" id="services">
-      <span>Create new Page</span>
+      <span>Create new Category</span>
     </h1><!-- End Title -->
       
     <!--breadcrum start-->
     <ol class="breadcrumb text-left">
-      <li><a href="/admin/pages">Pages</a></li>
+      <li><a href="/admin/categories">Categories</a></li>
       <li class="active">Create</li>
     </ol><!--breadcrum end-->
   
-    {% include 'Pages/Form.twig' %}
+    {% include 'Categories/Form.twig' %}
  
   </div><!-- tab end -->
   
@@ -33,9 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 
 function runThisOnLoad () {
-  var quill = setupQuill()
-  // form submitter
-  page('createAjax');
+  category('createAjax');
 }
 
 </script>

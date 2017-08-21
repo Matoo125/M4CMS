@@ -15,32 +15,32 @@ class Posts extends Controller
 
     public function list ()
     {
-        $this->data = $this->model->getAll() ?: [];
+        $this->data['posts'] = $this->model->getAll() ?: [];
     }
 
     public function listByCategory ($categoryId) 
     {
-        return $this->data = $this->model->getAllByCategory($categoryId) ?: [];
+        return $this->data['posts'] = $this->model->getAllByCategory($categoryId) ?: [];
     }
 
     public function listByPage ($pageId) 
     {
-        return $this->data = $this->model->getAllByPage($pageId) ?: [];
+        return $this->data['posts'] = $this->model->getAllByPage($pageId) ?: [];
     }
 
     public function listByPageWC ($pageId)
     {
-        return $this->data = $this->model->getAllByPageWithoutCategory($pageId) ?: [];
+        return $this->data['posts'] = $this->model->getAllByPageWithoutCategory($pageId) ?: [];
     }
 
     public function id ($id)
     {
-        return $this->data = $this->model->get($id) ?: [];
+        return $this->data['post'] = $this->model->get($id) ?: [];
     }
 
     public function slug ($slug)
     {
-        return $this->data = $this->model->get(null, $slug) ?: [];
+        return $this->data['post'] = $this->model->get(null, $slug) ?: [];
     }
 
 }

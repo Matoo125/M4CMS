@@ -9,12 +9,34 @@ use m4\m4cms\interfaces\Crud;
 class Categories extends Controller implements Crud 
 {
 
+  public function index ()
+  {
+    $this->list();
+  }
+
   public function save () 
   {
 	  isset($_POST['id']) ? $this->update() : $this->create(); 
   }
 
-  public function create () 
+  public function create ()
+  {
+    // get list of pages
+    $pages = new Pages;
+    $this->data['pages'] = $pages->listBasic();
+
+  }
+
+  public function update ($id = null)
+  {
+    $this->id($id);
+
+    // get list of pages
+    $pages = new Pages;
+    $this->data['pages'] = $pages->listBasic();
+  }
+
+  public function createAjax () 
   {
     Request::forceMethod('post');
     Request::required('title', 'page_id');
@@ -26,7 +48,7 @@ class Categories extends Controller implements Crud
     Response::error('Category has not created. ');
   }
 
-  public function update ()
+  public function updateAjax ()
   {
     Request::forceMethod('post');
     Request::required('id');

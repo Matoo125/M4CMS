@@ -39,7 +39,34 @@ class Setting extends Model
                              ->from(self::$table)
                              ->build();
 
-        return $this->fetchAll($query, []);
+        $stmt = self::getDb()->prepare($query);
+        $stmt->execute();
+
+        $result = [];
+
+        while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+            $result[$row['name']] = $row;
+        }
+
+        return $result; //$this->fetchAll($query, []);
+    }
+
+    public function getValues ()
+    {
+        $query = $this->query->select('name, value')
+                             ->from(self::$table)
+                             ->build();
+
+        $stmt = self::getDb()->prepare($query);
+        $stmt->execute();
+
+        $result = [];
+
+        while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+            $result[$row['name']] = $row['value'];
+        }
+
+        return $result;
     }
 
 }

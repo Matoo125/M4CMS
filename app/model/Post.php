@@ -14,7 +14,11 @@ class Post extends Model
   public function insert ($data)
   {
       $data['slug'] = Str::slugify($data['title']); // create slug from title
-      $data['is_published'] = $data['is_published'] ? 1 : 0; // convert boolean to tinyint
+      $data['is_published'] = $data['is_published'] === 'true' ? 1 : 0; // convert boolean to tinyint
+      $data['image_id'] = $data['image_id'] === '' ? null : $data['image_id']; 
+      $data['author_id'] = $data['author_id'] ?? 1;
+      $data['page_id'] = $data['page_id'] ?: null;
+      $data['category_id'] = $data['category_id'] ?: null;
 
       $query = $this->query->insert(...array_keys($data))
                            ->into(self::$table)
@@ -26,7 +30,10 @@ class Post extends Model
   public function update ($data)
   {
       isset($data['title']) ? $data['slug'] = Str::slugify($data['title']) : false;
-      $data['is_published'] = $data['is_published'] ? 1 : 0; // convert boolean to tinyint
+      $data['is_published'] = $data['is_published'] === 'true' ? 1 : 0; // convert boolean to tinyint
+      $data['image_id'] = $data['image_id'] === '' ? null : $data['image_id']; 
+      $data['page_id'] = $data['page_id'] ?: null;
+      $data['category_id'] = $data['category_id'] ?: null;
 
       $query = $this->query->update(self::$table)
                            ->set(array_keys($data))

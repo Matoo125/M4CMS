@@ -15,22 +15,22 @@ class Categories extends Controller
 
     public function list ($pageId = null)
     {
-        return $this->data = $pageId ? $this->model->getForPage($pageId) ?? [] : ($this->model->getAll() ?: []);
+        return $this->data['categories'] = $pageId ? $this->model->getForPage($pageId) ?? [] : ($this->model->getAll() ?: []);
     }
 
     public function id ($id)
     {
-      $this->data = $this->model->get($id) ?: [];
+      $this->data['category'] = $this->model->get($id) ?: [];
     }
 
     public function slug ($slug) 
     {
-        $this->data = $this->model->get(null, $slug) ?: [];
+        $this->data['category'] = $this->model->get(null, $slug) ?: [];
     }
 
     public function listBasic ($pageId)
     {
-      $this->data = $this->model->getForPageBasic($pageId) ?: [];
+      return $this->data['categories'] = $this->model->getForPageBasic($pageId) ?: [];
     }
 
 }
