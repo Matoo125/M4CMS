@@ -6,10 +6,9 @@ COMPOSER DEPENDENCIES:
 2. [Image intervention](http://image.intervention.io/) (Image Manipulation)
 
 
-Administration is using VueJS, so to run in on localhost, you need to have nodejs with npm installed, then go to admin folder and `npm install` and `npm run dev`
+Whole application was rewritten again, this time from VueJS to twig templates.I made page lodating in administration asynchronic, so UX is not worse, than in Vue. The biggest advantage is, that now it will be much easier to create plugins. 
 
-
-I will probably rewrite administration, so it can be independent of build process, because it't hard to work with extensions this way.
+I hope to finish plugin system in September and publish beta version till the end of year, easily usable, extendable and themeable.
 
 
 to clone repo

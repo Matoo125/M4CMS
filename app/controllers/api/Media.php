@@ -11,11 +11,13 @@ class Media extends Controller
         $this->model = $this->getModel('Media');
     }
 
-    public function index () {}
+    public function index () {
+        $this->data['media'] = $this->list();
+    }
 
     public function list ($pageId = null)
     {
-        $this->data = $pageId ? $this->model->getForPage($pageId) ?? [] : ($this->model->getAll() ?: []);
+        return $this->data['media'] = $pageId ? $this->model->getForPage($pageId) ?? [] : ($this->model->getAll() ?: []);
     }
 
     public function id ($id)

@@ -1,0 +1,27 @@
+<div class="section billinfo"> 
+  <!-- section content start-->
+  <form id="validationForm" action="" method="post">
+  <div class="pmd-card pmd-z-depth">
+    <!-- card body start -->
+    <div class="pmd-card-body">
+      
+      <pre>
+        {{ dump(settings) }}
+      </pre>
+    
+    </div>   <!-- card body end -->    
+
+    <div class="pmd-card-actions">
+      <a href="javascript:void(0);" class="btn btn-primary nex submit">Submit</a>
+      {% block formButtons %}{% endblock %}
+    </div>
+
+  </div> <!-- section content end -->  
+  </form>
+</div>
+
+    {% include 'modules/image/Modal.twig' %}
+    {% include 'Form/Partials/DeleteModal.twig' %}
+
+
+

@@ -27,7 +27,7 @@ $app->paths = [
   ]
 ];
 
-if (substr(isset($_GET['url']) AND $_GET['url'], 0, 3) === 'api') {
+if (isset($_GET['url']) AND substr($_GET['url'], 0, 3) === 'api') {
   $app->response = 'json';
 }
 

@@ -13,7 +13,9 @@ class Settings extends Controller
 
   }
 
-  public function index () {}
+  public function index () {
+    $this->data['settings'] = $this->model->getAll();
+  }
 
   public function load () 
   {
@@ -22,7 +24,7 @@ class Settings extends Controller
       $this->data[$d['name']] = $d;
       unset($this->data[$d['name']]['name']);
     }
-    return;
+    return $data;
   }
 
   public function update ()

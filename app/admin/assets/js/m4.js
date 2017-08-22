@@ -290,13 +290,14 @@ router = {
  * This redirects user to correct page
  * if she uses hash in url
  */
+/*
 if (window.location.pathname === '/admin/') {
   var location = '/admin' + window.location.hash.substr(1)
   router.go(location)
   console.log('i should go here: ' + location)
   history.pushState(null, null, location)
 }
-
+*/
 
 
 window.onpopstate = function(event) {
