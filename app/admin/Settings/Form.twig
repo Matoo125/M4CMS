@@ -5,9 +5,42 @@
     <!-- card body start -->
     <div class="pmd-card-body">
       
+      <div class="group-fields clearfix row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="form-group pmd-textfield">
+            <label for="title" class="control-label">
+              Title
+            </label>
+            <input type="text" 
+                   id="title" 
+                   name="title" 
+                   class="form-control" 
+                   value="{{ settings.title.value }}">
+          </div>
+        </div>
+      </div>
+
+
+      <div class="group-fields clearfix row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="form-group pmd-textfield">
+            <label for="title" class="control-label">
+              Description
+            </label>
+            <input type="text" 
+                   id="title" 
+                   name="title" 
+                   class="form-control" 
+                   value="{{ settings.description.value }}">
+          </div>
+        </div>
+      </div>
+
+{#
       <pre>
         {{ dump(settings) }}
-      </pre>
+
+      </pre> #}
     
     </div>   <!-- card body end -->    
 

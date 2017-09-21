@@ -23,16 +23,5 @@ class Home extends Controller
        }
     }
 
-    // used for uploading images
-    // with ajax or any POST request
-    public function uploadImage()
-    {
-      $data = array(
-        'message' => 'uploadSuccess',
-        'file'    => '$file',
-    );
-      echo json_encode($data);
-    }
-
 
 }

@@ -1,4 +1,16 @@
+var activeTab = 1
 document.addEventListener("DOMContentLoaded", function(event) {
+
+
+  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    activeTab = $(e.target).data('id')
+  })
+
+  $(document).on('change','.file', function () {
+    console.log('file selected ')
+    var val = $(this).val().replace(/C:\\fakepath\\/i,'');
+    $(".filename").val(val);
+  })
 
     /*
      * setup quill handler
@@ -284,22 +296,6 @@ router = {
   }
 }
 
-
-
-/* 
- * This redirects user to correct page
- * if she uses hash in url
- */
-/*
-if (window.location.pathname === '/admin/') {
-  var location = '/admin' + window.location.hash.substr(1)
-  router.go(location)
-  console.log('i should go here: ' + location)
-  history.pushState(null, null, location)
-}
-*/
-
-
 window.onpopstate = function(event) {
   router.go(window.location)
 };
@@ -375,16 +371,3 @@ var imageSelector = {
   }
 }
 
-var activeTab = 1
-$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-  activeTab = $(e.target).data('id')
-})
-
-$(".fileUploadBrowseButton").click(function () {
-  $(".file").click()
-})
-
-$(".file").change(function () {
-  var val = $(this).val().replace(/C:\\fakepath\\/i,'');
-  $(".filename").val(val);
-})

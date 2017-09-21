@@ -7,6 +7,14 @@
 
 }
 
+.table-hover > tbody > tr:hover {
+  background-color: #D2D2D2 !important;
+}
+
+.table-pointer > tbody > tr > td {
+  cursor: pointer;
+}
+
 .dashboard {
   margin-top: 15px;
   padding: 15px 15px;

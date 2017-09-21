@@ -26,7 +26,11 @@
 
                 <input type="file" name="img" id="imgForm" class="file" style="display: none">
                 <input type="text" class="filename mat-input form-control" style="display: inline-block; width: auto" disabled placeholder="Upload Image">
-                <button type="button" class="btn btn-info fileUploadBrowseButton">Browse</button>
+                <button type="button" 
+                        onclick="$('.file').click()" 
+                        class="btn btn-info fileUploadBrowseButton">
+                  Browse
+                </button>
           </div>
       </div>
       <div role="tabpanel" class="tab-pane" id="about">
