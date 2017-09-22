@@ -2,46 +2,88 @@
 
 {% block body %}
 <!--content area start-->
-<div id="content" class="content-area inner-post ">
+<div id="content" class="content-area 
+                         inner-post ">
 
   <div class="container-fluid">
     <div class="row" id="card-masonry">
            
-        <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-10 
+                    col-md-offset-1">
 
-          <h1 class="text-center">Media Gallery</h1>
-
+          <h1 class="text-center">
+            Media Gallery
+          </h1>
             {% for item in media %}
-
               <!--Media and Action area -->
-              <div class="pmd-card pmd-card-default pmd-z-depth col-md-6 col-lg-3">
+              <div class="pmd-card 
+                          pmd-card-default 
+                          pmd-z-depth 
+                          col-md-6 
+                          col-lg-3">
                 <!-- Card media -->
                   <div class="pmd-card-media">
-                      <img class="img-responsive" src="/public/uploads/{{ item.filename }}">
+                      <img class="img-responsive" 
+                           src="/public/uploads/{{ item.filename }}">
                   </div>
                   
                   <!-- Card media actions -->
                   <div class="pmd-card-actions">
                       <span>
-                          <button type="button" class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-primary"><i class="material-icons pmd-sm">share</i></button>
-                          <button type="button" class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-primary"><i class="material-icons pmd-sm">thumb_up</i></button>
-                          <button type="button" class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-primary"><i class="material-icons pmd-sm">drafts</i></button>
+                          <button type="button" 
+                                  class="btn 
+                                         btn-sm 
+                                         pmd-btn-fab 
+                                         pmd-btn-flat 
+                                         pmd-ripple-effect 
+                                         btn-primary">
+                            <i class="material-icons 
+                                      pmd-sm">
+                              share
+                            </i>
+                          </button>
+                          <button type="button" 
+                                  class="btn 
+                                         btn-sm 
+                                         pmd-btn-fab 
+                                         pmd-btn-flat 
+                                         pmd-ripple-effect 
+                                         btn-primary">
+                            <i class="material-icons 
+                                      pmd-sm">
+                              thumb_up
+                            </i>
+                          </button>
+                          <button type="button" 
+                                  class="btn 
+                                         btn-sm 
+                                         pmd-btn-fab 
+                                         pmd-btn-flat 
+                                         pmd-ripple-effect 
+                                         btn-primary">
+                            <i class="material-icons 
+                                      pmd-sm">
+                              drafts
+                            </i>
+                          </button>
                       </span>
                   </div>
               </div>
 
             {% endfor %}
-
-
-
+    </div>
   </div>
-    
-</div>
-
 </div><!--end content area-->
 
-<a onclick="router.go('/admin/media/create')" role="button" class="btn pmd-btn-fab pmd-ripple-effect pmd-floating-action btn-primary">
-  <i class="material-icons pmd-sm">
+<a  onclick="//router.go('/admin/media/create')" 
+   role="button" 
+   class="btn 
+          pmd-btn-fab 
+          pmd-ripple-effect 
+          pmd-floating-action 
+          btn-primary">
+  <i class="material-icons 
+            pmd-sm">
     add
   </i>
 </a>

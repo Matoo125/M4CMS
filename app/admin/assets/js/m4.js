@@ -2,218 +2,218 @@ var activeTab = 1
 document.addEventListener("DOMContentLoaded", function(event) {
 
 
-  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-    activeTab = $(e.target).data('id')
+$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+  activeTab = $(e.target).data('id')
+})
+
+$(document).on('change','.file', function () {
+  console.log('file selected ')
+  var val = $(this).val().replace(/C:\\fakepath\\/i,'');
+  $(".filename").val(val);
+})
+
+/*
+* setup quill handler
+* @param   {String}  content to start with
+* @return  {Object}  quill instance
+*/
+setupQuill = function(content) {
+
+  console.log('setup quill function called');
+
+  // toolbar definition
+  var toolbar = [
+  [{
+    'header': [1, 2, 3, 4, 5, 6, false]
+  }],
+
+  ['bold', 'italic', 'underline', 'strike'],
+  ['blockquote', 'code-block'],
+
+  [{
+    'align': []
+  }],
+  ['link', 'image'],
+  ['clean']
+  ];
+
+  // image handler
+  function quillImageHandler() {
+  imageSelector.modal(function(data) {
+    var range = quill.getSelection()
+    var img = '/public/uploads/' + data.filename
+    quill.insertEmbed(range.index, 'image', img, Quill.sources.USER)
   })
+  }
 
-  $(document).on('change','.file', function () {
-    console.log('file selected ')
-    var val = $(this).val().replace(/C:\\fakepath\\/i,'');
-    $(".filename").val(val);
-  })
-
-    /*
-     * setup quill handler
-     * @param   {String}  content to start with
-     * @return  {Object}  quill instance
-     */
-    setupQuill = function(content) {
-
-      console.log('setup quill function called');
-
-      // toolbar definition
-      var toolbar = [
-        [{
-          'header': [1, 2, 3, 4, 5, 6, false]
-        }],
-
-        ['bold', 'italic', 'underline', 'strike'],
-        ['blockquote', 'code-block'],
-
-        [{
-          'align': []
-        }],
-        ['link', 'image'],
-        ['clean']
-      ];
-
-      // image handler
-      function quillImageHandler() {
-        imageSelector.modal(function(data) {
-          var range = page.quill.getSelection()
-          var img = '/public/uploads/' + data.filename
-          page.quill.insertEmbed(range.index, 'image', img, Quill.sources.USER)
-        })
+  // quill instance
+  var quill = new Quill('#editor', {
+  theme: 'snow',
+  modules: {
+    toolbar: {
+      container: toolbar,
+      handlers: {
+        image: quillImageHandler
       }
-
-      // quill instance
-      var quill = new Quill('#editor', {
-        theme: 'snow',
-        modules: {
-          toolbar: {
-            container: toolbar,
-            handlers: {
-              image: quillImageHandler
-            }
-          }
-        }
-      });
-
-      // paste content
-      quill.clipboard.dangerouslyPasteHTML(0, content);
-
-      // return instance
-      return quill;
-
     }
+  }
+  });
 
-    /*
-     *  Page form initialization
-     *  @param  {String}  method  Method to be called.              Required
-     *  @param  {Object}  quill   Quill object to get content from
-     */
-    page = function(method, quill) {
+  // paste content
+  quill.clipboard.dangerouslyPasteHTML(0, content);
 
-        console.log('page function called')
+  // return instance
+  return quill;
 
-        $("form .submit").click(function() {
-          formData = {
-            id: document.querySelector('input[name=id]').value,
-            title: $("input[name=title]").val(),
-            description: $("textarea[name=description").val(),
-            content: quill.root.innerHTML,
-            image_id: document.querySelector('#headerImage input').value,
-            is_published: $("input[name=is_published]").is(':checked')
-          }
-          console.log(formData)
-          $.ajax({
-            type: 'post',
-            url: '/admin/pages/' + method,
-            data: formData
-          }).done(function(response) {
-            console.log(response)
-            toastr.success(response.message)
-          }).fail(function(xhr, err) {
-            console.log(err)
-            console.log(xhr.responseJSON)
-            toastr.error(xhr.responseJSON.message)
-          })
-        })
+}
 
-        return true;
+/*
+*  Page form initialization
+*  @param  {String}  method  Method to be called.              Required
+*  @param  {Object}  quill   Quill object to get content from
+*/
+page = function(method, quill) {
 
+console.log('page function called')
+
+$("form .submit").click(function() {
+  formData = {
+    id: document.querySelector('input[name=id]').value,
+    title: $("input[name=title]").val(),
+    description: $("textarea[name=description").val(),
+    content: quill.root.innerHTML,
+    image_id: document.querySelector('#headerImage input').value,
+    is_published: $("input[name=is_published]").is(':checked')
+  }
+  console.log(formData)
+  $.ajax({
+    type: 'post',
+    url: '/admin/pages/' + method,
+    data: formData
+  }).done(function(response) {
+    console.log(response)
+    toastr.success(response.message)
+  }).fail(function(xhr, err) {
+    console.log(err)
+    console.log(xhr.responseJSON)
+    toastr.error(xhr.responseJSON.message)
+  })
+})
+
+return true;
+
+}
+
+
+/*
+*    Category form initialization
+*    @param  {String}  Method to be called.  Required
+*/
+category = function(method) {
+console.log('category function called')
+
+$(".select-page").select2({
+  theme: "bootstrap",
+  minimumResultsForSearch: Infinity,
+});
+
+$('form .submit').click(function() {
+  formData = {
+    id: document.querySelector('input[name=id]').value,
+    page_id: document.querySelector('.select-page').value,
+    title: $("input[name=title]").val(),
+    description: $("textarea[name=description").val(),
+    image_id: document.querySelector('#headerImage input').value,
+  }
+  console.log(formData)
+  $.ajax({
+    type: 'post',
+    url: '/admin/categories/' + method,
+    data: formData
+  }).done(function(response) {
+    console.log(response)
+    toastr.success(response.message)
+  }).fail(function(xhr, err) {
+    console.log(err)
+    console.log(xhr.responseJSON)
+    toastr.error(xhr.responseJSON.message)
+  })
+})
+}
+
+
+/*
+*  Post form initialization
+*  @param  {String}  method  Method to be called.              Required
+*  @param  {Object}  quill   Quill object to get content from
+*/
+post = function(method, quill) {
+
+  console.log('post function called')
+
+  $(".select-page").select2({
+    theme: "bootstrap",
+    minimumResultsForSearch: Infinity,
+  });
+
+  $(".select-category").select2({
+    theme: "bootstrap",
+    minimumResultsForSearch: Infinity,
+  });
+
+  $(".select-page").change(function () {
+    console.log('page was selected ' + $(this).val())
+    $.get('/api/categories/listBasic/' + $(this).val(), {})
+    .done(function (r) {
+      console.log(r.categories)
+      var c_select = document.querySelector('.select-category')
+      if (r.categories.length > 0) {
+        document.querySelector('.select-category').parentElement.setAttribute('style','display:block')
+        document.querySelector('.select-category').innerHTML = '<option value=""></option>'
+      } else {
+        document.querySelector('.select-category').parentElement.setAttribute('style','display:none')
+        document.querySelector('.select-category').value = null
       }
-
-
-      /*
-       *    Category form initialization
-       *    @param  {String}  Method to be called.  Required
-       */
-      category = function(method) {
-        console.log('category function called')
-
-        $(".select-page").select2({
-          theme: "bootstrap",
-          minimumResultsForSearch: Infinity,
-        });
-
-        $('form .submit').click(function() {
-          formData = {
-            id: document.querySelector('input[name=id]').value,
-            page_id: document.querySelector('.select-page').value,
-            title: $("input[name=title]").val(),
-            description: $("textarea[name=description").val(),
-            image_id: document.querySelector('#headerImage input').value,
-          }
-          console.log(formData)
-          $.ajax({
-            type: 'post',
-            url: '/admin/categories/' + method,
-            data: formData
-          }).done(function(response) {
-            console.log(response)
-            toastr.success(response.message)
-          }).fail(function(xhr, err) {
-            console.log(err)
-            console.log(xhr.responseJSON)
-            toastr.error(xhr.responseJSON.message)
-          })
-        })
+      for (i = r.categories.length - 1; i >= 0; i--) {
+        var o = document.createElement('OPTION')
+        o.setAttribute('value', r.categories[i].value)
+        o.innerHTML = r.categories[i].label
+        document.querySelector('.select-category').append(o)
+        console.log(r.categories[i])
       }
+    }).fail(function(err) { console.log(err) })
+  })
 
+  $("form .submit").click(function() {
+    formData = {
+      id: document.querySelector('input[name=id]').value,
+      title: $("input[name=title]").val(),
+      description: $("textarea[name=description").val(),
+      content: quill.root.innerHTML,
+      image_id: document.querySelector('#headerImage input').value,
+      page_id: document.querySelector('.select-page').value,
+      category_id: document.querySelector('.select-category').value,
+      is_published: $("input[name=is_published]").is(':checked')
+    }
+    console.log(formData)
+    $.ajax({
+      type: 'post',
+      url: '/admin/posts/' + method,
+      data: formData
+    }).done(function(response) {
+      console.log(response)
+      toastr.success(response.message)
+    }).fail(function(xhr, err) {
+      console.log(err)
+      console.log(xhr)
+      console.log(xhr.responseJSON)
+      toastr.error(xhr.responseJSON.message)
+    })
+  })
 
-      /*
-       *  Post form initialization
-       *  @param  {String}  method  Method to be called.              Required
-       *  @param  {Object}  quill   Quill object to get content from
-       */
-      post = function(method, quill) {
+  return true;
 
-          console.log('post function called')
-
-          $(".select-page").select2({
-            theme: "bootstrap",
-            minimumResultsForSearch: Infinity,
-          });
-
-          $(".select-category").select2({
-            theme: "bootstrap",
-            minimumResultsForSearch: Infinity,
-          });
-
-          $(".select-page").change(function () {
-            console.log('page was selected ' + $(this).val())
-            $.get('/api/categories/listBasic/' + $(this).val(), {})
-            .done(function (r) {
-              console.log(r.categories)
-              var c_select = document.querySelector('.select-category')
-              if (r.categories.length > 0) {
-                document.querySelector('.select-category').parentElement.setAttribute('style','display:block')
-                document.querySelector('.select-category').innerHTML = '<option value=""></option>'
-              } else {
-                document.querySelector('.select-category').parentElement.setAttribute('style','display:none')
-                document.querySelector('.select-category').value = null
-              }
-              for (i = r.categories.length - 1; i >= 0; i--) {
-                var o = document.createElement('OPTION')
-                o.setAttribute('value', r.categories[i].value)
-                o.innerHTML = r.categories[i].label
-                document.querySelector('.select-category').append(o)
-                console.log(r.categories[i])
-              }
-            }).fail(function(err) { console.log(err) })
-          })
-
-          $("form .submit").click(function() {
-            formData = {
-              id: document.querySelector('input[name=id]').value,
-              title: $("input[name=title]").val(),
-              description: $("textarea[name=description").val(),
-              content: quill.root.innerHTML,
-              image_id: document.querySelector('#headerImage input').value,
-              page_id: document.querySelector('.select-page').value,
-              category_id: document.querySelector('.select-category').value,
-              is_published: $("input[name=is_published]").is(':checked')
-            }
-            console.log(formData)
-            $.ajax({
-              type: 'post',
-              url: '/admin/posts/' + method,
-              data: formData
-            }).done(function(response) {
-              console.log(response)
-              toastr.success(response.message)
-            }).fail(function(xhr, err) {
-              console.log(err)
-              console.log(xhr)
-              console.log(xhr.responseJSON)
-              toastr.error(xhr.responseJSON.message)
-            })
-          })
-
-          return true;
-
-        }
+}
 
 
 

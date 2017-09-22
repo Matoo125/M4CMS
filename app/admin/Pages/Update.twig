@@ -32,13 +32,13 @@
 
 {% block script %}
 <script id="customScript">
-
+var quill;
 document.addEventListener('DOMContentLoaded', function () {
     runThisOnLoad()
 })
 
 function runThisOnLoad () {
-  var quill = setupQuill(`{{ page.content|raw }}`)
+  quill = setupQuill(`{{ page.content|raw }}`)
   // create form submitter
   page('updateAjax', quill);
 

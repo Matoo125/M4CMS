@@ -20,4 +20,13 @@ body {
   display: flex;
   flex-direction: column; }
 
+nav {
+  background-color: #232f40; }
+
+.secondary {
+  background-color: #1f7792 !important; }
+
+.secondary-text {
+  color: #1f7792 !important; }
+
 /*# sourceMappingURL=style.css.map */
