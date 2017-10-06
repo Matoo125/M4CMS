@@ -3,25 +3,26 @@
   <div class="pmd-tabs pmd-tabs-bg">
     <ul class="nav nav-tabs" role="tablist">
       <li role="presentation" class="active">
-        <a href="#home" aria-controls="home" data-id="1" role="tab" data-toggle="tab">
+        <a href="#upload" aria-controls="upload" data-id="1" role="tab" data-toggle="tab">
           Upload
         </a>
       </li>
       <li role="presentation">
-        <a href="#about" aria-controls="about" data-id="2" role="tab" data-toggle="tab">
+        <a href="#link" aria-controls="link" data-id="2" role="tab" data-toggle="tab">
           Link
         </a>
       </li>
       <li role="presentation">
-        <a href="#work" aria-controls="work" data-id="3" role="tab" data-toggle="tab">
+        <a href="#gallery" onclick="loadGallery()" aria-controls="gallery" data-id="3" role="tab" data-toggle="tab">
           Gallery
         </a>
       </li>
     </ul>
   </div>
   <div class="pmd-card-body">
+
     <div class="tab-content">
-      <div role="tabpanel" class="tab-pane active" id="home">
+      <div role="tabpanel" class="tab-pane active" id="upload">
           <div class="form-group">
 
                 <input type="file" name="img" id="imgForm" class="file" style="display: none">
@@ -33,13 +34,38 @@
                 </button>
           </div>
       </div>
-      <div role="tabpanel" class="tab-pane" id="about">
-
+      <div role="tabpanel" class="tab-pane" id="link">
+        <input type="text" name="link">
       </div>
-      <div role="tabpanel" class="tab-pane" id="work">
-
+      <div role="tabpanel" class="tab-pane" id="gallery">
+        <img src="/app/admin/assets/images/loader.svg" class="loader">
       </div>
     </div>
+
   </div>
 </div> <!--Default tab example end-->
+
+<script>
+var galleryModalSelectedImage = null
+
+function loadGallery() {
+  console.log('loading gallery')
+  $.get('/api/media/list').done(function(r) {
+    var gallery = document.querySelector('#gallery')
+    for (x = 0; x < r.media.length; x++) {
+      var el = document.createElement('img')
+      el.src = '/public/uploads/' + r.media[x].filename
+      el.width = 100
+      el.setAttribute('data-id', r.media[x].id)
+      el.onclick = function () {
+        galleryModalSelectedImage = this.dataset.id
+      }
+      console.log(r.media[x])
+      console.log(el)
+      gallery.appendChild(el)
+    }
+    document.querySelector('#gallery .loader').style = "display:none"
+  }).fail(function(e) { console.log(e) }) 
+}
+</script>
 

@@ -33,4 +33,8 @@ class Users extends UsersApi
       Response::error('User was not created. ');
   }
 
+  public function login () {
+    if ($_POST) self::login();
+  }
+
 }

@@ -74,33 +74,33 @@ setupQuill = function(content) {
 */
 page = function(method, quill) {
 
-console.log('page function called')
+  console.log('page function called')
 
-$("form .submit").click(function() {
-  formData = {
-    id: document.querySelector('input[name=id]').value,
-    title: $("input[name=title]").val(),
-    description: $("textarea[name=description").val(),
-    content: quill.root.innerHTML,
-    image_id: document.querySelector('#headerImage input').value,
-    is_published: $("input[name=is_published]").is(':checked')
-  }
-  console.log(formData)
-  $.ajax({
-    type: 'post',
-    url: '/admin/pages/' + method,
-    data: formData
-  }).done(function(response) {
-    console.log(response)
-    toastr.success(response.message)
-  }).fail(function(xhr, err) {
-    console.log(err)
-    console.log(xhr.responseJSON)
-    toastr.error(xhr.responseJSON.message)
+  $("form .submit").click(function() {
+    formData = {
+      id: document.querySelector('input[name=id]').value,
+      title: $("input[name=title]").val(),
+      description: $("textarea[name=description").val(),
+      content: quill.root.innerHTML,
+      image_id: document.querySelector('#headerImage input').value,
+      is_published: $("input[name=is_published]").is(':checked')
+    }
+    console.log(formData)
+    $.ajax({
+      type: 'post',
+      url: '/admin/pages/' + method,
+      data: formData
+    }).done(function(response) {
+      console.log(response)
+      toastr.success(response.message)
+    }).fail(function(xhr, err) {
+      console.log(err)
+      console.log(xhr.responseJSON)
+      toastr.error(xhr.responseJSON.message)
+    })
   })
-})
 
-return true;
+  return true;
 
 }
 
@@ -110,35 +110,35 @@ return true;
 *    @param  {String}  Method to be called.  Required
 */
 category = function(method) {
-console.log('category function called')
+  console.log('category function called')
 
-$(".select-page").select2({
-  theme: "bootstrap",
-  minimumResultsForSearch: Infinity,
-});
+  $(".select-page").select2({
+    theme: "bootstrap",
+    minimumResultsForSearch: Infinity,
+  });
 
-$('form .submit').click(function() {
-  formData = {
-    id: document.querySelector('input[name=id]').value,
-    page_id: document.querySelector('.select-page').value,
-    title: $("input[name=title]").val(),
-    description: $("textarea[name=description").val(),
-    image_id: document.querySelector('#headerImage input').value,
-  }
-  console.log(formData)
-  $.ajax({
-    type: 'post',
-    url: '/admin/categories/' + method,
-    data: formData
-  }).done(function(response) {
-    console.log(response)
-    toastr.success(response.message)
-  }).fail(function(xhr, err) {
-    console.log(err)
-    console.log(xhr.responseJSON)
-    toastr.error(xhr.responseJSON.message)
+  $('form .submit').click(function() {
+    formData = {
+      id: document.querySelector('input[name=id]').value,
+      page_id: document.querySelector('.select-page').value,
+      title: $("input[name=title]").val(),
+      description: $("textarea[name=description").val(),
+      image_id: document.querySelector('#headerImage input').value,
+    }
+    console.log(formData)
+    $.ajax({
+      type: 'post',
+      url: '/admin/categories/' + method,
+      data: formData
+    }).done(function(response) {
+      console.log(response)
+      toastr.success(response.message)
+    }).fail(function(xhr, err) {
+      console.log(err)
+      console.log(xhr.responseJSON)
+      toastr.error(xhr.responseJSON.message)
+    })
   })
-})
 }
 
 
@@ -215,7 +215,29 @@ post = function(method, quill) {
 
 }
 
+settings = function () {
+  console.log('settings function has been called. ')
 
+  $('form .submit').click(function () {
+    formData = {
+      title: $('input[name=title]').val(),
+      description: $('input[name=desc]').val()
+    }
+
+    console.log($('input#title').val())
+
+    $.post('/admin/settings/update', formData)
+    .done(function (response) {
+      console.log(response)
+      toastr.success(response.message)
+    }).fail (function (xhr, error) {
+      console.log(error)
+      toastr.error(xhr.responseJSON.message)
+    })
+  })
+
+  return true;
+}
 
 
 }); // end of onload
@@ -325,11 +347,15 @@ var imageSelector = {
       }
 
       else if (activeTab === 2) {
-          imageSelector.link()
+          imageSelector.link(function(data) {
+            callback(data)
+          })
       }
 
       else if (activeTab === 3) {
-          imageSelector.gallery()
+          imageSelector.gallery(function(data) {
+            callback(data)
+          })
       }
 
       $(this).unbind('click')
@@ -345,7 +371,7 @@ var imageSelector = {
 
       $.ajax({
           type: 'POST',
-          url: '/admin/media/create',
+          url: '/admin/media/upload',
           data: formData,
           cache: false,
           contentType: false,
@@ -363,11 +389,28 @@ var imageSelector = {
           }
       });
   },
-  link: function () {
+  link: function (callback) {
+    var link = document.querySelector('input[name=link]').value
+    console.log(link)
+    $.post('/admin/media/downloadLink', {
+      link: link
+    }).done(function (r) {
+      console.log(r)
+      callback(r)
+    }).fail(function (e) {
+      console.log(e)
+    })
 
   },
-  gallery: function () {
-
+  gallery: function (callback) {
+    $.get('/admin/media/chooseFromGallery', {
+      id: galleryModalSelectedImage
+    }).done(function(r) {
+      console.log(r)
+      callback(r)
+    }).fail(function(e) {
+      console.log(e)
+    })
   }
 }
 

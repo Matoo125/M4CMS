@@ -1,8 +1,9 @@
 <?php
 use m4\m4mvc\core\App;
 use m4\m4mvc\core\Module;
-use m4\m4mvc\helper\Response;
 use m4\m4mvc\core\Model;
+use m4\m4mvc\helper\Response;
+use m4\m4mvc\helper\Redirect;
 use m4\m4cms\model\Setting;
 use m4\m4cms\core\Plugin;
 
@@ -10,26 +11,31 @@ require_once 'app/config/bootstrap.php';
 
 $whoops = new \Whoops\Run;
 $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+$whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler);
 $whoops->register();
 
-Module::register(['web', 'admin', 'api']);
+Module::register([
+  'web' => [
+    'render'  =>  'view',
+    'folder'  =>  '../public/themes/default'
+  ], 
+  'admin' => [
+    'render'  =>  'view',
+    'folder'  =>  'admin',
+    'beforeStart' =>  function () {
+      if (!isset($_SESSION['user_id'])) {
+        if ($_GET['url'] == 'admin/users/login') return;
+        Redirect::to('/admin/users/login');
+      }
+    }
+  ], 
+  'api' => [ 'render' =>  'json' ]
+]);
 
 $app = new App;
 $app->settings['namespace'] = 'm4\m4cms';
-$app->useTwig();
-
-$app->paths = [
-	'controllers'	=> 'controllers',
-  'app'         =>  'app',
-	'theme'			  => [
-    'web'  =>  WEB . DS . 'themes' . DS . 'default' ,
-    'admin'   =>  APP . DS . 'admin' 
-  ]
-];
-
-if (isset($_GET['url']) AND substr($_GET['url'], 0, 3) === 'api') {
-  $app->response = 'json';
-}
+$app->settings['viewExtension'] = 'twig';
+$app->settings['renderFunction'] = 'renderTwig';
 
 $area = 'public';
 

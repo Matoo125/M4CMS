@@ -7,7 +7,7 @@ use m4\m4mvc\helper\Request;
 use m4\m4cms\interfaces\Crud;
 use m4\m4mvc\helper\Str;
 
-class Media extends MediaController implements Crud 
+class Media extends MediaController 
 {
 
   public function save () 
@@ -15,41 +15,80 @@ class Media extends MediaController implements Crud
     isset($_POST['id']) ? $this->update() : $this->create(); 
   }
 
-  public function create () 
+  public function downloadLink ()
   {
     Request::forceMethod('post');
+    $link = $_POST['link'];
+    $file = fopen($link, 'r');
+    $targetPath = $this->createTargetPath(basename($link));
+    file_put_contents($targetPath, $file);
+    $this->create($targetPath);
+  }
 
-    $file = $_FILES['file'] ?? $_FILES['img'];
+  public function upload ()
+  {
+    Request::forceMethod('post');
+    
+    $file = $_FILES['file'];
 
     if ($file['error'] !== 0) {
         Response::error('There was error during upload');
     }
 
-    $folder = isset($_POST['folder']) ? DS . $_POST['folder'] : '';
-    $targetDir = UPLOADS . $folder;
-    file_exists($targetDir) ?: mkdir($targetDir, 0755, true);
-
-    $targetPath = $targetDir . DS . $file['name'];
-    $info = pathinfo($targetPath);
-    $targetPath = $info['dirname'] . DS . Str::slugify($info['filename']) . '.' . $info['extension'];
-
-    $targetPath = file_exists($targetPath) ? $this->getNewTargetPath($targetPath) : $targetPath;
-
+    $targetPath = $this->createTargetPath($file['name']);
     $upload = move_uploaded_file($file['tmp_name'], $targetPath);
+    if (!$upload) { Response::error('We could not move the uploaded file. '); }
+    $this->create($targetPath);
+  }
 
-    !$upload ?? Response::error('We could not move the uploaded file. ');
+  public function createTargetPath ($filename)
+  {
+    $info = pathinfo($filename);
+    $path = UPLOADS . DIRECTORY_SEPARATOR;
+    if(isset($_POST['folder'])) {
+      $path .= $_POST['folder'] . DIRECTORY_SEPARATOR;
+    }
+
+    file_exists($path) ?: mkdir($path, 0755, true);
+
+    $path .= Str::slugify($info['filename']) . '.' . $info['extension'];
+
+    if (file_exists($path)) { $path = $this->getNewTargetPath($path); }
+
+    return $path;
+  }
+
+  public function chooseFromGallery ()
+  {
+    $img = $this->model->get($_GET['id']);
+    if ($img) {
+      Response::success('Image has been selected', [
+        'id'  =>  $img['id'],
+        'folder'  =>  $img['folder'],
+        'filename'  =>  $img['filename']
+      ]);
+    } else {
+      Response::error('Image not found');
+    }
+  }
+
+  public function create ($targetPath) 
+  {
     $data = [
         'filename' => basename($targetPath),
         'alt'      => $_POST['alt'] ?? '',
         'folder'   => $_POST['folder'] ?? '',
-        'type'     => $file['type'],
-        'size'     => $file['size'],
-
+        'type'     => mime_content_type($targetPath),
+        'size'     => filesize($targetPath),
     ];
 
     $id = $this->model->insert($data);
     $id ? 
-    Response::success('Media has been added. ', ['id' => $id, 'folder' => $folder, 'filename' => basename($targetPath)]) : 
+    Response::success('Media has been added. ', [
+      'id' => $id, 
+      'folder' => $_POST['folder'] ?? '', 
+      'filename' => basename($targetPath)
+    ]) : 
     Response::error('Media has not been added. ');
   }
 

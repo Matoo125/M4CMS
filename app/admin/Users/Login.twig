@@ -1,0 +1,70 @@
+{% include 'Top.twig'%}
+
+<body>
+  <div class="logincard">
+      <div class="pmd-card card-default pmd-z-depth">
+      <div class="login-card">
+        <form>  
+          <div class="pmd-card-title card-header-border text-center">
+            <div class="loginlogo">
+              <a href="javascript:void(0);"><img src="themes/images/logo-icon.png" alt="M4CMS"></a>
+            </div>
+            <h3>Sign In </h3>
+          </div>
+          
+          <div class="pmd-card-body">
+            <div class="alert alert-success" role="alert"> Oh snap! Change a few things up and try submitting again. </div>
+                      <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                          <label for="inputError1" class="control-label pmd-input-group-label">Email</label>
+                          <div class="input-group">
+                              <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">perm_identity</i></div>
+                              <input type="email" class="form-control" id="loginEmail">
+                          </div>
+                      </div>
+                      
+                      <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                          <label for="inputError1" class="control-label pmd-input-group-label">Password</label>
+                          <div class="input-group">
+                              <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">lock_outline</i></div>
+                              <input type="password" class="form-control" id="loginPassword">
+                          </div>
+                      </div>
+                  </div>
+          <div class="pmd-card-footer card-footer-no-border card-footer-p16 text-center">
+            <div class="form-group clearfix">
+              <div class="checkbox pull-left">
+                <label class="pmd-checkbox checkbox-pmd-ripple-effect">
+                  <input type="checkbox" checked="" value="">
+                  <span class="pmd-checkbox"> Remember me</span>
+                </label>
+              </div>
+
+            </div>
+            <a type="button" id="loginButton" class="btn btn-primary btn-block">Login</a>
+                    <br>
+          </div>
+          
+        </form>
+      </div>
+    </div>
+  </div>
+<script>
+$('#loginButton').on('click', function () {
+  $.post('/api/users/login', {
+    'email':     $('#loginEmail').val(),
+    'password':  $('#loginPassword').val()
+  })
+  .done(function (r) {
+    console.log(r)
+    if (r.status === 'SUCCESS') {
+      window.location = '/admin'
+    }
+  })
+  .fail(function (e) {
+    console.log(e)
+  })
+})
+
+</script>
+
+</body>
