@@ -7,9 +7,14 @@ Plugin::runInPublic(function () {
 });
 
 Plugin::runInAdmin(function () {
- // echo 'testman admin';
  // 
  // register menu item
+  Plugin::addNavItem([
+    'icon' => 'settings',
+    'title' =>  'To Do List',
+    'link'  =>  '/admin'
+  ]);
+
  // register path
  // create widget
 });

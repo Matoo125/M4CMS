@@ -35,6 +35,20 @@
         </div>
       </div>
 
+    <div class="form-group pmd-textfield pmd-textfield-label">       
+      <label>Theme</label>
+      <select class="form-control" name="theme">
+        {% for theme in themes %}
+          <option {{ settings.theme.value == theme ? 'selected' : ''}} 
+                  value="{{ theme }}">
+            {{ theme }}
+          </option>
+        {% endfor %}
+        </select>
+    </div>
+
+
+
 {#
       <pre>
         {{ dump(settings) }}

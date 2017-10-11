@@ -41,7 +41,7 @@ setupQuill = function(content) {
   function quillImageHandler() {
   imageSelector.modal(function(data) {
     var range = quill.getSelection()
-    var img = '/public/uploads/' + data.filename
+    var img = '/public/uploads/' + data.folder + '/' + data.filename
     quill.insertEmbed(range.index, 'image', img, Quill.sources.USER)
   })
   }
@@ -83,7 +83,8 @@ page = function(method, quill) {
       description: $("textarea[name=description").val(),
       content: quill.root.innerHTML,
       image_id: document.querySelector('#headerImage input').value,
-      is_published: $("input[name=is_published]").is(':checked')
+      is_published: $("input[name=is_published]").is(':checked'),
+      tmp_id: document.querySelector('input[name=tmp_id]').value
     }
     console.log(formData)
     $.ajax({
@@ -124,6 +125,7 @@ category = function(method) {
       title: $("input[name=title]").val(),
       description: $("textarea[name=description").val(),
       image_id: document.querySelector('#headerImage input').value,
+      tmp_id: document.querySelector('input[name=tmp_id]').value      
     }
     console.log(formData)
     $.ajax({
@@ -193,7 +195,8 @@ post = function(method, quill) {
       image_id: document.querySelector('#headerImage input').value,
       page_id: document.querySelector('.select-page').value,
       category_id: document.querySelector('.select-category').value,
-      is_published: $("input[name=is_published]").is(':checked')
+      is_published: $("input[name=is_published]").is(':checked'),
+      tmp_id: document.querySelector('input[name=tmp_id]').value      
     }
     console.log(formData)
     $.ajax({
@@ -221,7 +224,8 @@ settings = function () {
   $('form .submit').click(function () {
     formData = {
       title: $('input[name=title]').val(),
-      description: $('input[name=desc]').val()
+      description: $('input[name=desc]').val(),
+      theme: $('select[name=theme]').val()
     }
 
     console.log($('input#title').val())
@@ -325,7 +329,9 @@ window.onpopstate = function(event) {
 
 function selectHeaderImage () {
   imageSelector.modal(function (data) {
-    document.querySelector('#headerImage img').src = '/public/uploads/' + data.filename
+    document.querySelector('#headerImage img').src = (
+      '/public/uploads/' + data.folder + '/' + data.filename
+    )
     document.querySelector('#headerImage input').value = data.id
     toastr.success(data.message)
   })
@@ -364,16 +370,27 @@ var imageSelector = {
     })
 
   },
+  folder: function () {
+    var id = document.querySelector('input[name=id]').value
+    var folder = document.querySelector('input[name=folder]').value;
+    if (typeof parseInt(id) === 'number' && isFinite(parseInt(id))) {
+      folder += '/' +id;
+    } else {
+      folder += '/' + document.querySelector('input[name=tmp_id]').value;
+    }
+    return folder
+  },
   upload: function (callback) {
     //  var imgForm = document.getElementById('imgForm');
       formData = new FormData();
       formData.append('file', document.getElementById('imgForm').files[0]);
+      formData.append('folder', imageSelector.folder());
+      console.log(formData);
 
       $.ajax({
           type: 'POST',
           url: '/admin/media/upload',
           data: formData,
-          cache: false,
           contentType: false,
           processData: false,
           success:function(data){
@@ -393,7 +410,8 @@ var imageSelector = {
     var link = document.querySelector('input[name=link]').value
     console.log(link)
     $.post('/admin/media/downloadLink', {
-      link: link
+      link: link,
+      folder: imageSelector.folder()
     }).done(function (r) {
       console.log(r)
       callback(r)
@@ -403,8 +421,10 @@ var imageSelector = {
 
   },
   gallery: function (callback) {
+    console.log('getting image id '+ galleryModalSelectedImage)
     $.get('/admin/media/chooseFromGallery', {
-      id: galleryModalSelectedImage
+      id: galleryModalSelectedImage,
+      folder: imageSelector.folder()
     }).done(function(r) {
       console.log(r)
       callback(r)
@@ -412,5 +432,28 @@ var imageSelector = {
       console.log(e)
     })
   }
+
+ 
 }
 
+var galleryModalSelectedImage = null
+
+function loadGallery() {
+  console.log('loading gallery')
+  $.get('/api/media/list').done(function(r) {
+    var gallery = document.querySelector('#gallery')
+    for (x = 0; x < r.media.length; x++) {
+      var el = document.createElement('img')
+      el.src = '/public/uploads/' + r.media[x].folder + '/' + r.media[x].filename
+      el.width = 100
+      el.setAttribute('data-id', r.media[x].id)
+      el.onclick = function () {
+        galleryModalSelectedImage = this.dataset.id
+      }
+      console.log(r.media[x])
+      console.log(el)
+      gallery.appendChild(el)
+    }
+    document.querySelector('#gallery .loader').style = "display:none"
+  }).fail(function(e) { console.log(e) }) 
+}

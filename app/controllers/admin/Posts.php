@@ -66,6 +66,16 @@ class Posts extends Controller implements Crud
     $data = Request::select(...self::$fields);
 
     $id = $this->model->insert($data);
+    if ($id) {
+      ($this->getModel('Media'))->renameFolder(
+        'posts', $_POST['tmp_id'], $id
+      );
+      $data['id'] = $id;
+      $data['content'] = str_replace(
+        $_POST['tmp_id'], (string) $id, $data['content']
+      );
+      $this->model->update($data);
+    }
     $id ? 
     Response::success('Post was created ', ['id' => $id]) : 
     Response::error('Post was not created. ');

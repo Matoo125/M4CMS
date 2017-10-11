@@ -7,7 +7,20 @@ class Plugin
 
   public static $admin = [];
   public static $public = [];
+  public static $hooks = [
+    'navbar'
+  ];
+  private static $navItems = [];
 
+  public static function getNavItems ()
+  {
+    return self::$navItems;
+  }
+
+  public static function addNavItem ($item)
+  {
+    array_push(self::$navItems, $item);
+  }
 
   public static function runInAdmin ($function)
   {

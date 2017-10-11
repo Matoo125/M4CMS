@@ -82,6 +82,17 @@
         <span class="media-body">Settings</span>
       </a> 
     </li>
+
+    {% for navItem in navItems %}
+    <li> 
+      <a class="pmd-ripple-effect" role="button" onclick="router.go('{{ navItem.link }}')"> 
+        <i class="media-left media-middle material-icons">
+          {{ navItem.icon }}
+        </i> 
+        <span class="media-body">{{ navItem.title }}</span>
+      </a> 
+    </li>
+    {% endfor %}
     
   </ul>
 </aside><!-- End Left sidebar -->

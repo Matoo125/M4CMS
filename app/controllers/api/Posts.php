@@ -1,7 +1,7 @@
 <?php
 namespace m4\m4cms\controllers\api;
 
-use m4\m4mvc\core\Controller;
+use m4\m4cms\core\Controller;
 
 class Posts extends Controller
 {

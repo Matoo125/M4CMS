@@ -1,7 +1,7 @@
 <?php
 namespace m4\m4cms\controllers\admin;
 
-use m4\m4mvc\core\Controller;
+use m4\m4cms\core\Controller;
 use m4\m4mvc\helper\Request;
 use m4\m4mvc\helper\Response;
 
@@ -15,6 +15,7 @@ class Settings extends Controller
 
   public function index () {
     $this->data['settings'] = $this->model->getAll();
+    $this->data['themes'] = array_diff(scandir(WEB . DS . 'themes'), ['.','..']);
   }
 
   public function load () 
@@ -30,7 +31,9 @@ class Settings extends Controller
   public function update ()
   {
     Request::forceMethod('post');
-    $data = Request::select('title', 'description', 'tags', 'online', 'navigation');
+    $data = Request::select(
+      'title', 'description', 'tags', 'online', 'navigation', 'theme'
+    );
 
     foreach ($data as $key => $value) {
       $name = $key;

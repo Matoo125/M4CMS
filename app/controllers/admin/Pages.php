@@ -44,6 +44,16 @@ class Pages extends PagesApi implements Crud
       $data = Request::select('title', 'description', 'content', 'is_published', 'image_id');
 
       $id = $this->model->insert($data); 
+      if ($id) {
+        ($this->getModel('Media'))->renameFolder(
+          'pages', $_POST['tmp_id'], $id
+        );
+        $data['id'] = $id;
+        $data['content'] = str_replace(
+          $_POST['tmp_id'], (string) $id, $data['content']
+        );
+        $this->model->update($data);
+      }
       $id ? 
       Response::success('Page was created ', ['id' => $id]) : 
       Response::error('Page was not created. ');

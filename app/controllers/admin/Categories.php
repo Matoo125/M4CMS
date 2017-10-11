@@ -43,6 +43,12 @@ class Categories extends Controller implements Crud
     $data = Request::select('title', 'description', 'page_id', 'image_id');
 
     $id = $this->model->insert($data);
+    if ($id) {
+      ($this->getModel('Media'))->renameFolder(
+        'categories', $_POST['tmp_id'], $id
+      );
+      
+    }
     $id ? 
     Response::success('Category has been created. ', ['id' => $id]) : 
     Response::error('Category has not created. ');

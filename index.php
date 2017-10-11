@@ -14,36 +14,10 @@ $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
 $whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler);
 $whoops->register();
 
-Module::register([
-  'web' => [
-    'render'  =>  'view',
-    'folder'  =>  '../public/themes/default'
-  ], 
-  'admin' => [
-    'render'  =>  'view',
-    'folder'  =>  'admin',
-    'beforeStart' =>  function () {
-      if (!isset($_SESSION['user_id'])) {
-        if ($_GET['url'] == 'admin/users/login') return;
-        Redirect::to('/admin/users/login');
-      }
-    }
-  ], 
-  'api' => [ 'render' =>  'json' ]
-]);
-
 $app = new App;
 $app->settings['namespace'] = 'm4\m4cms';
 $app->settings['viewExtension'] = 'twig';
 $app->settings['renderFunction'] = 'renderTwig';
-
-$area = 'public';
-
-if (isset($_GET['url'])) {
-  if (substr($_GET['url'], 0, 5) === 'admin') {
-    $area = 'admin';
-  }
-}
 
 Response::$errorCode = 200;
 
@@ -57,20 +31,34 @@ $app->db([
 ]);
 
 // get settings from database
-$settings = new Setting;
-$settings = $settings->getValues();
+$settings = (new Setting)->getValues();
 
+Module::register([
+  'web' => [
+    'render'  =>  'view',
+    'folder'  =>  '../public/themes/' . $settings['theme'],
+    'beforeStart' =>  function () {
+      Plugin::runPublicNow();
+    }
+  ], 
+  'admin' => [
+    'render'  =>  'view',
+    'folder'  =>  'admin',
+    'beforeStart' =>  function () {
+      if (!isset($_SESSION['user_id'])) {
+        if ($_GET['url'] == 'admin/users/login') return;
+        Redirect::to('/admin/users/login');
+      }
+      Plugin::runAdminNow();
+    }
+  ], 
+  'api' => [ 'render' =>  'json' ]
+]);
+/*
 $plugins = explode(';', $settings['plugins']);
 
 foreach ($plugins as $plugin) {
   include_once(APP . DS . 'plugins' . DS . $plugin . DS . 'index.php');
 }
-
-if ($area == 'admin') {
-  Plugin::runAdminNow();
-} else {
-  Plugin::runPublicNow();
-}
-
-
+*/
 $app->run();

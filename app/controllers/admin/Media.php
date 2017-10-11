@@ -62,9 +62,22 @@ class Media extends MediaController
   {
     $img = $this->model->get($_GET['id']);
     if ($img) {
+      $original = UPLOADS . DS . $img['folder'] . DS . $img['filename'];
+      $copy = UPLOADS . DS . $_GET['folder'] . DS . $img['filename'];
+      if (!file_exists(UPLOADS . DS . $_GET['folder'])) {
+        mkdir(UPLOADS . DS . $_GET['folder'], 0755, true);
+      }
+      copy($original, $copy);
+      $id = $this->model->insert([
+        'filename'  =>  $img['filename'],
+        'alt'       =>  $img['alt'],
+        'folder'    =>  $_GET['folder'],
+        'type'      =>  $img['type'],
+        'size'      =>  $img['size']
+      ]);
       Response::success('Image has been selected', [
-        'id'  =>  $img['id'],
-        'folder'  =>  $img['folder'],
+        'id'  =>  $id,
+        'folder'  =>  $_GET['folder'],
         'filename'  =>  $img['filename']
       ]);
     } else {

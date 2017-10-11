@@ -21,15 +21,25 @@
             {% endfor %}
           </ul>
         -->
-        <div class="card">
-            <img class="card-img-top img-fluid" src="http://via.placeholder.com/450x350" alt="Card image cap">
+        <div class="card-columns">
+        {% for post in category.posts %}
+        <div class="">
+          <div class="card">
+            <img class="card-img-top img-fluid" src="/public/uploads/{{ post.image }}" alt="alt">
             <div class="card-block">
-              <h4 class="card-title">Card title</h4>
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <h4 class="card-title">
+                <a href="{{ page.slug }}/{{ category.slug }}/{{ post.slug }}">
+                  {{ post.title }}
+                </a>
+              </h4>
+              <p class="card-text">{{ post.description }}</p>
             </div>
             <div class="card-footer">
-              <small class="text-muted">Last updated 3 mins ago</small>
+              <small class="text-muted">Last updated {{ post.updated_at|date("m/d/Y") }}</small>
             </div>
+          </div>
+        </div>
+        {% endfor %}
           </div>
         {% endif %}
     {% endfor %}
