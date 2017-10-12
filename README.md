@@ -1,6 +1,6 @@
 [OFFICIAL WEBSITE WITH TUTORIALS AND DEMO](http://m4cms.6f.sk/)
 
-![screenshot](https://lh3.googleusercontent.com/xS31axSeIIiXvOAfRuZ8FNpC41dEMya4fcInUesWKAdsgYlNpezR5W5TFZu6L3a51MwUfBgKCGV05h4=w1856-h940-rw)
+![screenshot](https://cdn.pbrd.co/images/GOroDEZ.png "Create new Page Screenshot")
 
 
 COMPOSER DEPENDENCIES:
