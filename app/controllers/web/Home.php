@@ -3,25 +3,27 @@
 namespace m4\m4cms\controllers\web;
 
 use m4\m4cms\controllers\api\Home as IndexApiController;
+use m4\m4cms\controllers\api\Pages;
+use m4\m4cms\model\Setting;
 
 
 class Home extends IndexApiController
 {
   public function index ($page = null, $category = null, $post = null)
   {
-    $pages = new \m4\m4cms\controllers\api\Pages;
+    $pages = new Pages;
     $this->data['navbar'] = $pages->listBasic();
 
-    $settings = new \m4\m4cms\model\Setting;
-    $settings = $settings->getAll();
-    foreach($settings as $setting) {
-      $this->data['settings'][$setting['name']] = $setting['value'];
-    }
+    $this->loadSettings();
 
     if ($page && !$category && !$post) {
       $this->data['page'] = $pages->slug($page);
       $this->getCategories($this->data['page']['id']);
       $this->view = 'Home/Page.twig';
+    }
+
+    if ($page && $category && !$post) {
+      // not done yet
     }
 
     else if ($page && $category && $post) {
@@ -37,6 +39,15 @@ class Home extends IndexApiController
     }
   }
 
+  protected function loadSettings ()
+  {
+    $settings = new Setting;
+    $settings = $settings->getAll();
+    foreach($settings as $setting) {
+      $this->data['settings'][$setting['name']] = $setting['value'];
+    }
+  }
+
   protected function getCategories($pageId)
   {
     $categories = new \m4\m4cms\controllers\api\Categories;
@@ -49,6 +60,7 @@ class Home extends IndexApiController
       $categoriesWithIdAsKey[$category['id']] = $category;
     }
 
+    // list posts without category
     $wc = $posts->listByPageWC($pageId);
     if ($wc) {
       array_push($categoriesWithIdAsKey, [

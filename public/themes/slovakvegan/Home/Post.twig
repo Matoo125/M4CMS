@@ -1,5 +1,10 @@
 {% extends 'Skeleton.twig' %}
 
+{% block type %}article{% endblock %}
+{% block title %}{{ post.title }}{% endblock %}
+{% block description %}{{ post.description }}{% endblock %}
+{% block image %}/public/uploads/{{ post.image }}{% endblock %}
+
 {% block content %}
   <div class="header">
     <h1>{{ post.title}} </h1>

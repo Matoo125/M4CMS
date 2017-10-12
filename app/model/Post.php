@@ -60,6 +60,7 @@ class Post extends Model
                                   'post.is_published',
                                   'page.title AS page', 
                                   'page.id AS page_id', 
+                                  'post.image_id',
                                   'cat.title AS category',
                                   'post.category_id',  
                                   'auth.username AS author', 
@@ -113,17 +114,22 @@ class Post extends Model
 
   public function getAllByPageWithoutCategory ($pageId)
   {
-    return $this->getAll('page.id = :id AND post.category_id IS NULL', ['id' => $pageId]);
+    return $this->getAll(
+      'page.id = :id AND post.category_id IS NULL AND post.is_published = 1', 
+      ['id' => $pageId]
+    );
   }
 
   public function getAllByCategory ($categoryId)
   {
-    return $this->getAll('cat.id = :id', ['id' => $categoryId]);
+    return $this->getAll('cat.id = :id and post.is_published = 1', ['id' => $categoryId]);
   }
 
   public function getNewest ()
   {
-    return $this->getAll(null, null, ['post.updated_at', 'DESC'], 10);
+    return $this->getAll(
+      'post.is_published = 1', null, ['post.updated_at', 'DESC'], 10
+    );
   }
 
 

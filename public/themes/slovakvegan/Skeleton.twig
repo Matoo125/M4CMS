@@ -9,7 +9,10 @@
     <title>{% block title %}{{ settings.title }}{% endblock %}</title>
 
     <meta name="description" content="{% block description %}{{ settings.description}}{% endblock %}">
-
+    <meta property="og:type"         content="{% block type %}{% endblock %}" />
+    <meta property="og:title"        content="{{ block('title') }}" />
+    <meta property="og:description"  content="{{ block('description') }}" />
+    <meta property="og:image"        content="{% block image %}{% endblock %}" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
 

@@ -1,8 +1,12 @@
 var activeTab = 1
+
 document.addEventListener("DOMContentLoaded", function(event) {
 
+$(document).on('shown.bs.modal', function (e) {
+  activeTab = 1
+})
 
-$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+$(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
   activeTab = $(e.target).data('id')
 })
 
@@ -23,40 +27,40 @@ setupQuill = function(content) {
 
   // toolbar definition
   var toolbar = [
-  [{
-    'header': [1, 2, 3, 4, 5, 6, false]
-  }],
+    [{
+      'header': [1, 2, 3, 4, 5, 6, false]
+    }],
 
-  ['bold', 'italic', 'underline', 'strike'],
-  ['blockquote', 'code-block'],
+    ['bold', 'italic', 'underline', 'strike'],
+    ['blockquote', 'code-block'],
 
-  [{
-    'align': []
-  }],
-  ['link', 'image'],
-  ['clean']
+    [{
+      'align': []
+    }],
+    ['link', 'image'],
+    ['clean']
   ];
 
   // image handler
   function quillImageHandler() {
-  imageSelector.modal(function(data) {
-    var range = quill.getSelection()
-    var img = '/public/uploads/' + data.folder + '/' + data.filename
-    quill.insertEmbed(range.index, 'image', img, Quill.sources.USER)
-  })
+    imageSelector.modal(function(data) {
+      var range = quill.getSelection()
+      var img = '/public/uploads/' + data.folder + '/' + data.filename
+      quill.insertEmbed(range.index, 'image', img, Quill.sources.USER)
+    })
   }
 
   // quill instance
   var quill = new Quill('#editor', {
-  theme: 'snow',
-  modules: {
-    toolbar: {
-      container: toolbar,
-      handlers: {
-        image: quillImageHandler
+    theme: 'snow',
+    modules: {
+      toolbar: {
+        container: toolbar,
+        handlers: {
+          image: quillImageHandler
+        }
       }
     }
-  }
   });
 
   // paste content
@@ -68,7 +72,7 @@ setupQuill = function(content) {
 }
 
 /*
-*  Page form initialization
+*  Page
 *  @param  {String}  method  Method to be called.              Required
 *  @param  {Object}  quill   Quill object to get content from
 */
@@ -78,13 +82,13 @@ page = function(method, quill) {
 
   $("form .submit").click(function() {
     formData = {
-      id: document.querySelector('input[name=id]').value,
+      id: $('input[name=id]').val(),
       title: $("input[name=title]").val(),
       description: $("textarea[name=description").val(),
       content: quill.root.innerHTML,
-      image_id: document.querySelector('#headerImage input').value,
+      image_id: $('#headerImage input').val(),
       is_published: $("input[name=is_published]").is(':checked'),
-      tmp_id: document.querySelector('input[name=tmp_id]').value
+      tmp_id: $('input[name=tmp_id]').val()
     }
     console.log(formData)
     $.ajax({
@@ -101,16 +105,14 @@ page = function(method, quill) {
     })
   })
 
-  return true;
-
 }
 
-
 /*
-*    Category form initialization
+*    Category
 *    @param  {String}  Method to be called.  Required
 */
 category = function(method) {
+
   console.log('category function called')
 
   $(".select-page").select2({
@@ -163,6 +165,7 @@ post = function(method, quill) {
     minimumResultsForSearch: Infinity,
   });
 
+  // show categories of selected page
   $(".select-page").change(function () {
     console.log('page was selected ' + $(this).val())
     $.get('/api/categories/listBasic/' + $(this).val(), {})
@@ -219,6 +222,7 @@ post = function(method, quill) {
 }
 
 settings = function () {
+
   console.log('settings function has been called. ')
 
   $('form .submit').click(function () {
@@ -279,10 +283,9 @@ getHTML = function(url, callback) {
 router = {
   /*
    *  Method go
-   *  @param  {String}  url   URL to visit.
+   *  @param  {String}  URL to visit.
    */
   go: function(url) {
-
 
     getHTML(url, function(response) {
 
@@ -374,7 +377,7 @@ var imageSelector = {
     var id = document.querySelector('input[name=id]').value
     var folder = document.querySelector('input[name=folder]').value;
     if (typeof parseInt(id) === 'number' && isFinite(parseInt(id))) {
-      folder += '/' +id;
+      folder += '/' + id;
     } else {
       folder += '/' + document.querySelector('input[name=tmp_id]').value;
     }

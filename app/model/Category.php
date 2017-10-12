@@ -53,6 +53,7 @@ class Category extends Model
                                   'c.slug', 
                                   'c.page_id', 
                                   'c.description', 
+                                  'c.image_id',
                                   'CONCAT(i.folder, "/", i.filename) AS image', 
                                   'c.created_at', 
                                   'c.updated_at'
