@@ -1,5 +1,5 @@
 <?php
-use m4\m4mvc\core\App;
+use m4\m4cms\core\App;
 use m4\m4mvc\core\Module;
 use m4\m4mvc\core\Model;
 use m4\m4mvc\helper\Response;
@@ -54,11 +54,12 @@ Module::register([
   ], 
   'api' => [ 'render' =>  'json' ]
 ]);
-/*
+
 $plugins = explode(';', $settings['plugins']);
 
 foreach ($plugins as $plugin) {
-  include_once(APP . DS . 'plugins' . DS . $plugin . DS . 'index.php');
+  include_once(WEB . DS . 'plugins' . DS . $plugin . DS . 'index.php');
 }
-*/
+
+
 $app->run();

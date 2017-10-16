@@ -9,7 +9,8 @@
 
     "autoload": {
       "psr-4": {
-        "m4\\m4cms\\":""
+        "m4\\m4cms\\":"app/",
+        "m4\\m4cms\\Plugin\\": "public/plugins/"
       }
     }
 

@@ -21,7 +21,7 @@ if (DEVELOPMENT) {
 	ini_set('display_errors', 1); // display them
 }
 
-require_once APP . DS . 'vendor/autoload.php';
+require_once ROOT . DS . 'vendor/autoload.php';
 
 
 \m4\m4mvc\helper\Str::$lang = json_decode(file_get_contents(APP . DS . "string" . DS . "lang" . DS . "en.json"));

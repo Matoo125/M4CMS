@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "filp/whoops",
-            "version": "2.1.10",
+            "version": "2.1.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "ffbbd2c06c64b08fb47974eed5dbce4ca2bb0eec"
+                "reference": "a99f0b151846021ba7a73b4e3cba3ebc9f14f03e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/ffbbd2c06c64b08fb47974eed5dbce4ca2bb0eec",
-                "reference": "ffbbd2c06c64b08fb47974eed5dbce4ca2bb0eec",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/a99f0b151846021ba7a73b4e3cba3ebc9f14f03e",
+                "reference": "a99f0b151846021ba7a73b4e3cba3ebc9f14f03e",
                 "shasum": ""
             },
             "require": {
@@ -62,10 +62,10 @@
                 "exception",
                 "handling",
                 "library",
-                "whoops",
-                "zf2"
+                "throwable",
+                "whoops"
             ],
-            "time": "2017-08-03T18:23:40+00:00"
+            "time": "2017-10-15T13:05:10+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -208,12 +208,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Matoo125/m4mvc.git",
-                "reference": "a2bba574ffe63e169486a461c2c5b0616164177f"
+                "reference": "cb172cb07ade8fbed0bb7b16325f437fdb649939"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Matoo125/m4mvc/zipball/a2bba574ffe63e169486a461c2c5b0616164177f",
-                "reference": "a2bba574ffe63e169486a461c2c5b0616164177f",
+                "url": "https://api.github.com/repos/Matoo125/m4mvc/zipball/cb172cb07ade8fbed0bb7b16325f437fdb649939",
+                "reference": "cb172cb07ade8fbed0bb7b16325f437fdb649939",
                 "shasum": ""
             },
             "require": {
@@ -236,7 +236,7 @@
                 }
             ],
             "description": "Simple php framework",
-            "time": "2017-10-05 13:18:46"
+            "time": "2017-10-13 11:04:53"
         },
         {
             "name": "psr/http-message",

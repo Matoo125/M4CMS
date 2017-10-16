@@ -1,0 +1,19 @@
+{% extends 'Base.twig' %}
+
+{% block body %}
+<!--content area start-->
+<div id="content" class="content-area dashboard ">
+
+  <div class="container-fluid full-width-container">
+    <div class="row" id="card-masonry">
+     
+    {{ include(template_from_string(view)) }}
+
+
+  </div>
+    
+</div>
+
+</div><!--end content area-->
+
+{% endblock %}
