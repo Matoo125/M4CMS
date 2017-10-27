@@ -1,0 +1,76 @@
+<br>
+<div class="section">
+  <div class="pmd-card pmd-z-depth">
+    <div class="pmd-card-title">
+     <h2 class="pmd-card-title-text">Plugins</h2>
+    </div>	
+    <div class="pmd-card-body">
+      {% if pluginsNew %}
+      <p>We found some not installed plugins</p>
+      <ul>
+        {% for plugin in pluginsNew %}
+          {{ plugin }} - <a href="/admin/settings/installPlugin/{{ plugin }}">Install</a>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      {% for plugin in plugins %}
+        <!-- Bordered Table -->
+          <div class="table-responsive" style="overflow-x: initial">
+              <table class="table pmd-table table-bordered">
+                <thead>
+                  <tr>
+                    <th>id</th>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Last Update</th>
+                    <td></td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td data-title="id">{{ plugin.id }}</td>
+                    <td data-title="title">{{ plugin.title }}</td>
+                    <td data-title="active">{{ plugin.active ? 'Active' : 'Not Active' }}</td>
+                    <td data-title="updated">{{ plugin.updated_at }}</td>
+                    <td data-title="actions">
+
+                      <span class="dropdown clearfix">
+                          <button class="btn 
+                                          btn-sm 
+                                          pmd-btn-fab 
+                                          pmd-btn-flat 
+                                          btn-primary
+                                          dropdown-toggle" 
+                                  type="button" 
+                                  id="dropdownMenuBottomRight" 
+                                  data-toggle="dropdown" 
+                                  aria-expanded="true">
+                              <i class="material-icons pmd-sm">more_vert</i>
+                          </button>
+                          <ul aria-labelledby="dropdownMenu2" 
+                              role="menu" 
+                              class="dropdown-menu 
+                                     dropdown-menu-right">
+                              <li role="presentation">
+                                <a href="/admin/settings/togglePluginStatus/{{ plugin.id }}" tabindex="-1" role="menuitem">
+                                  {{ plugin.active ? 'Deactivate' : 'Activate'}}
+                                </a>
+                              </li>
+                              <li role="presentation">
+                                <a href="/admin/settings/uninstallPlugin/{{ plugin.id }}" tabindex="-1" role="menuitem">
+                                  Uninstall
+                                </a>
+                              </li>
+                          </ul>
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+      {% endfor %}
+
+    </div>
+  </div>
+</div>
+

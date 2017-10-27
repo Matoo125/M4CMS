@@ -19,7 +19,7 @@
             <label class="pmd-checkbox 
                           checkbox-pmd-ripple-effect 
                           "
-                    onclick="toggleMe({{ item.id }})">
+                    onclick="m4.plugins.todolist.toggleMe({{ item.id }})">
               <input type="checkbox" {{ item.state > 0 ? 'checked' }}> 
               <span class="pmd-checkbox-label"></span>
               <span>{{ item.title }}</span>
@@ -34,29 +34,31 @@
   </div>
 </div>
 
-
-<script>
-var todoAjaxActive = false
-
-function toggleMe (id)
-{
-  if (todoAjaxActive) {
-    return false;
+<script id="customScript">
+runThisOnLoad()
+function runThisOnLoad () {
+  m4.plugins['todolist'] = { ajaxActive: false}
+  
+  m4.plugins.todolist['toggleMe'] = function (id)
+  {
+    if (m4.plugins.todolist.ajaxActive) {
+      return false;
+    }
+    m4.plugins.todolist.ajaxActive = true
+    console.log(id)
+    $.post('/admin/todolist/toggle', {
+      id: id
+    }).done(function (r) {
+      console.log(r)
+    }).fail(function (e) {
+      console.log(e)
+    })
+  
+    setTimeout(function () { // to avoid double click
+      m4.plugins.todolist.ajaxActive = false;
+    }  
+    , 100)
+  
   }
-  todoAjaxActive = true
-  console.log(id)
-  $.post('/admin/todolist/toggle', {
-    id: id
-  }).done(function (r) {
-    console.log(r)
-  }).fail(function (e) {
-    console.log(e)
-  })
-
-  setTimeout(function () { // to avoid double click
-     todoAjaxActive = false;
-  }  
-  , 100)
-
 }
 </script>

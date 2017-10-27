@@ -1,5 +1,14 @@
 var activeTab = 1
 
+var m4 = {
+  data: {
+
+  },
+  plugins: {
+    
+  }
+}
+
 document.addEventListener("DOMContentLoaded", function(event) {
 
 $(document).on('shown.bs.modal', function (e) {

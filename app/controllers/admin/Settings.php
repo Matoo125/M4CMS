@@ -4,6 +4,7 @@ namespace m4\m4cms\controllers\admin;
 use m4\m4cms\core\Controller;
 use m4\m4mvc\helper\Request;
 use m4\m4mvc\helper\Response;
+use m4\m4mvc\helper\Redirect;
 
 class Settings extends Controller
 {
@@ -16,6 +17,13 @@ class Settings extends Controller
   public function index () {
     $this->data['settings'] = $this->model->getAll();
     $this->data['themes'] = array_diff(scandir(WEB . DS . 'themes'), ['.','..']);
+
+    $plugin = $this->getModel('Plugin');
+    $this->data['plugins'] = $plugin->getAll() ?: [];
+    $this->data['pluginsNew'] = array_diff(
+      scandir(WEB . DS . 'plugins'), ['.','..'],
+      array_column($this->data['plugins'], 'title')
+    );
   }
 
   public function load () 
@@ -45,6 +53,31 @@ class Settings extends Controller
     Response::success('Settings were updated');
   }
 
+  public function installPlugin ($plugin)
+  {
+    $model = $this->getModel('Plugin');
+    $model->insert([
+      'title' => $plugin,
+    ]);
+
+    Redirect::to('/admin/settings');
+  }
+
+  public function togglePluginStatus ($id)
+  {
+    $model = $this->getModel('Plugin');
+    $model->toggle($id, 'active');
+
+    Redirect::to('/admin/settings');
+  }
+
+  public function uninstallPlugin ($id)
+  {
+    $model = $this->getModel('Plugin');
+    $model->delete($id);
+
+    Redirect::to('/admin/settings');
+  }
 
 
 

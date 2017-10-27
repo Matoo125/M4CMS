@@ -12,7 +12,7 @@ class Home extends IndexApiController
 
     if (Plugin::is_active()) {
       $this->data = Plugin::$data;
-      $this->view = 'Plugin/Index.twig';
+      $this->view = 'Plugin/Frame.twig';
       return true;
     }
 
