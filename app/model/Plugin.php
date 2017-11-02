@@ -50,13 +50,15 @@ class Plugin extends Model
 
     }
 
-    public function getAll ()
+    public function getAll ($active = false)
     {
+      $bind = [];
       $query = $this->query->select('*')
-                           ->from(self::$table)
-                           ->build();
-
-      return $this->fetchAll($query, []);
+                           ->from(self::$table);
+      if ($active) {
+        $query->where('active = 1');
+      }
+      return $this->fetchAll($query->build(), $bind);
     }
 
 }

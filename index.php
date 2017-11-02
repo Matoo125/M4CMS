@@ -5,6 +5,7 @@ use m4\m4mvc\core\Model;
 use m4\m4mvc\helper\Response;
 use m4\m4mvc\helper\Redirect;
 use m4\m4cms\model\Setting;
+use m4\m4cms\model\Plugin as PluginModel;
 use m4\m4cms\core\Plugin;
 
 require_once 'app/config/bootstrap.php';
@@ -29,6 +30,9 @@ $app->db([
 	'DB_NAME'		=>	$config['DB_NAME'],
 	'DB_USER'		=>	$config['DB_USER']
 ]);
+
+// get plugins from database
+$plugins = (new PluginModel)->getAll(true) ?: [];
 
 // get settings from database
 $settings = (new Setting)->getValues();
@@ -55,10 +59,8 @@ Module::register([
   'api' => [ 'render' =>  'json' ]
 ]);
 
-$plugins = explode(';', $settings['plugins']);
-
 foreach ($plugins as $plugin) {
-  include_once(WEB . DS . 'plugins' . DS . $plugin . DS . 'index.php');
+  include_once(WEB . DS . 'plugins' . DS . $plugin['title'] . DS . 'index.php');
 }
 
 

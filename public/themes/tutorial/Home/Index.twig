@@ -1,0 +1,33 @@
+{% extends 'Base.twig' %}
+
+{% block body %}
+    <!-- Page Content -->
+    <div class="container">
+
+      <!-- Page Heading -->
+      <h1 class="my-4">Newest Posts
+        <small>we wrote</small>
+      </h1>
+
+      <div class="row">
+        {% for post in posts %}
+        <div class="col-lg-6 portfolio-item">
+          <div class="card h-100">
+            <a href="#"><img class="card-img-top" src="/public/uploads/{{ post.image }}" alt=""></a>
+            <div class="card-body">
+              <h4 class="card-title">
+                <a href="{{ post.page|slugify }}/{{ post.category|slugify ?: 'uncategorized' }}/{{ post.slug }}">{{ post.title }}</a>
+              </h4>
+              <p class="card-text">{{ post.description }}</p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <!-- /.row -->
+
+
+    </div>
+    <!-- /.container -->
+
+  {% endblock %}
