@@ -47,7 +47,7 @@ function runThisOnLoad () {
     document.querySelector('#delete-dialog button[data-action=delete]').addEventListener('click', function () {
       $.ajax({
         type: 'POST',
-        url: '/admin/pages/delete',
+        url: '/admin/posts/delete',
         data: {
           id: '{{ post.id }}'
         }
