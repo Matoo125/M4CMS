@@ -20,7 +20,9 @@
   
     {% embed 'Pages/Form.twig' %}
       {% block formButtons %}
-        <a href="javascript:void(0);" class="btn btn-danger delete">Delete</a>
+      <a href="javascript:void(0);" class="btn btn-danger delete">Delete</a>
+      <a href="{{ post.page|slugify }}/{{ post.category|slugify ?: 'uncategorized' }}/{{ post.slug }}" target="_blank" class="btn btn-info info">Preview</a>
+        
       {% endblock %}
     {% endembed %}
  

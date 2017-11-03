@@ -21,6 +21,10 @@
     {% embed 'Posts/Form.twig' %}
       {% block formButtons %}
         <a href="javascript:void(0);" class="btn btn-danger delete">Delete</a>
+        <a href="/{{ post.page }}" target="_blank" class="btn btn-info info">Preview</a>
+        <pre>
+          {{ dump() }}
+        </pre>
       {% endblock %}
     {% endembed %}
  
