@@ -59,8 +59,10 @@ class Page extends Model
       return $data;
     }
 
-    public function getAll ()
+    public function getAll ($filters = null)
     {
+      $published = $filters['published'] ?? null;
+
       $query = $this->query->select('p.id', 
                                     'p.title', 
                                     'p.slug', 
@@ -71,17 +73,27 @@ class Page extends Model
                                     'p.created_at', 
                                     'p.updated_at')
                            ->from(self::$table . " AS p")
-                           ->join('left', 'media as i', 'i.id = p.image_id')
-                           ->build();
-      return $this->fetchAll($query, []);
+                           ->join('left', 'media as i', 'i.id = p.image_id');
+
+      if ($published) {
+        $query->where('is_published = 1');
+      }
+
+      return $this->fetchAll($query->build(), []);
     }
 
-    public function getAllBasic ()
+    public function getAllBasic ($filters = null)
     {
+      $published = $filters['published'] ?? null;
+
       $query = $this->query->select('id as value', 'title as label')
-                           ->from(self::$table)
-                           ->build();
-      return $this->fetchAll($query);
+                           ->from(self::$table);
+
+      if ($published) {
+        $query->where('is_published = 1');
+      }
+                           
+      return $this->fetchAll($query->build());
     }
 
     public function delete ($id) 

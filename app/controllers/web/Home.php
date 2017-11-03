@@ -12,7 +12,7 @@ class Home extends IndexApiController
   public function index ($page = null, $category = null, $post = null)
   {
     $pages = new Pages;
-    $this->data['navbar'] = $pages->listBasic();
+    $this->data['navbar'] = $pages->listBasic(['published' => true]);
 
     $this->loadSettings();
 

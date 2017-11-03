@@ -16,7 +16,7 @@ class Controller extends BaseController
 		if ($this->view) {
 			$view = $this->view;
 		}
-		///////////////// DECLARE TWIG INSTANCE /////////////////
+		// Declare twig instance
 		$loader = new \Twig_Loader_Filesystem($this->pathToTheme);
 		$twig = new \Twig_Environment(
 			$loader, 
@@ -25,9 +25,9 @@ class Controller extends BaseController
 			)
 		);
 		$twig->addExtension(new \Twig_Extension_Debug());
-		///////////////// ADD GLOBALS /////////////////
+		// Add Globals
 		$twig->addGlobal("session", $_SESSION);
-		///////////////// Create filters /////////////////
+		// Create filters 
 		$slugifilter = new \Twig_Filter(
 			'slugify', 
 			'\\m4\\m4mvc\\helper\\Str::slugify'
@@ -35,9 +35,10 @@ class Controller extends BaseController
 		$twig->addFilter($slugifilter);
 		$twig->addExtension(new \Twig_Extension_StringLoader());
 		
-		///////////////// ADD DATA TO ARRAY /////////////////
+		// Add data to array
 		$this->data['sessionclass'] = new \m4\m4mvc\helper\Session;
-		// pass lang and url arrays
+		
+		// Pass lang and url arrays
 		$this->data['lang'] = \m4\m4mvc\helper\Str::getLang();
 		$this->data['url']  = \m4\m4mvc\helper\Str::getUrl();
 

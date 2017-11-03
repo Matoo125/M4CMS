@@ -19,9 +19,9 @@ class Pages extends Controller
         $this->data['pages'] = $this->model->getAll() ?: [];
     }
 
-    public function listBasic ()
+    public function listBasic ($filters)
     {
-        return $this->data['pages'] = $this->model->getAllBasic() ?: [];
+        return $this->data['pages'] = $this->model->getAllBasic($filters) ?: [];
     }
 
     public function id ($id)

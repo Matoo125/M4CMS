@@ -1,4 +1,5 @@
 <?php
+use m4\m4mvc\helper\Str;
 
 session_start();
 
@@ -24,5 +25,5 @@ if (DEVELOPMENT) {
 require_once ROOT . DS . 'vendor/autoload.php';
 
 
-\m4\m4mvc\helper\Str::$lang = json_decode(file_get_contents(APP . DS . "string" . DS . "lang" . DS . "en.json"));
-\m4\m4mvc\helper\Str::$url = json_decode(file_get_contents(APP . DS . "string" . DS . "url.json"));
+Str::$lang = json_decode(file_get_contents(APP . DS . "string" . DS . "lang" . DS . "en.json"));
+Str::$url = json_decode(file_get_contents(APP . DS . "string" . DS . "url.json"));
