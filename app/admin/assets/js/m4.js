@@ -107,6 +107,9 @@ page = function(method, quill) {
     }).done(function(response) {
       console.log(response)
       toastr.success(response.message)
+      if (method == 'createAjax') {
+        router.go('/admin/pages/update/' + response.id)
+      }
     }).fail(function(xhr, err) {
       console.log(err)
       console.log(xhr.responseJSON)
@@ -146,6 +149,9 @@ category = function(method) {
     }).done(function(response) {
       console.log(response)
       toastr.success(response.message)
+      if (method == 'createAjax') {
+        router.go('/admin/categories/update/' + response.id)
+      }
     }).fail(function(xhr, err) {
       console.log(err)
       console.log(xhr.responseJSON)
@@ -218,6 +224,9 @@ post = function(method, quill) {
     }).done(function(response) {
       console.log(response)
       toastr.success(response.message)
+      if (method == 'createAjax') {
+        router.go('/admin/posts/update/' + response.id)
+      }
     }).fail(function(xhr, err) {
       console.log(err)
       console.log(xhr)

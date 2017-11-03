@@ -19,7 +19,7 @@ class Pages extends Controller
         $this->data['pages'] = $this->model->getAll() ?: [];
     }
 
-    public function listBasic ($filters)
+    public function listBasic ($filters = null)
     {
         return $this->data['pages'] = $this->model->getAllBasic($filters) ?: [];
     }
