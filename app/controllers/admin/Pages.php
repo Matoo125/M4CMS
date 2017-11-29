@@ -41,7 +41,7 @@ class Pages extends PagesApi implements Crud
     {
       Request::forceMethod('post');
       Request::required('title', 'is_published');
-      $data = Request::select('title', 'description', 'content', 'is_published', 'image_id');
+      $data = Request::select('title', 'description', 'content', 'content_delta', 'is_published', 'image_id');
 
       $id = $this->model->insert($data); 
       if ($id) {
@@ -63,7 +63,7 @@ class Pages extends PagesApi implements Crud
     {
       Request::forceMethod('post');
       Request::required('id');
-      $data = Request::select('id', 'description', 'title', 'content', 'is_published', 'image_id');
+      $data = Request::select('id', 'description', 'title', 'content', 'content_delta', 'is_published', 'image_id');
 
       $this->model->update($data) ? 
       Response::success('Page was updated ') : 

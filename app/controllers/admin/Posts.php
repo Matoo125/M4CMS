@@ -15,6 +15,7 @@ class Posts extends Controller implements Crud
     'title', 
     'description', 
     'content', 
+    'content_delta',
     'tags', 
     'page_id', 
     'category_id', 

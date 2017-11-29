@@ -56,6 +56,7 @@ class Post extends Model
                                   'post.slug',
                                   'post.description', 
                                   'post.content', 
+                                  'post.content_delta',
                                   'post.tags',
                                   'post.is_published',
                                   'page.title AS page', 

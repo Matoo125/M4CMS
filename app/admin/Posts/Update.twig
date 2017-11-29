@@ -39,7 +39,13 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 
 function runThisOnLoad () {
-  var quill = setupQuill(`{{ post.content|raw }}`)
+
+  {% if post.content_delta %} // check if is delta in use
+   quill = setupQuill(`{{ post.content_delta|raw|escape('js') }}`)
+  {% else %}
+   quill = setupQuill(`{{ post.content|raw }}`)
+  {% endif %}
+
   // create form submitter
   post('updateAjax', quill);
 

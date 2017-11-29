@@ -72,8 +72,14 @@ setupQuill = function(content) {
     }
   });
 
-  // paste content
-  quill.clipboard.dangerouslyPasteHTML(0, content);
+  // paste content ** check if is delta in use **
+  if (content.indexOf('{') !== 0) {
+    quill.clipboard.dangerouslyPasteHTML(0, content);
+
+  } else {
+    console.log(content)
+    quill.setContents(JSON.parse(content));
+  }
 
   // return instance
   return quill;
@@ -95,6 +101,7 @@ page = function(method, quill) {
       title: $("input[name=title]").val(),
       description: $("textarea[name=description").val(),
       content: quill.root.innerHTML,
+      content_delta: JSON.stringify(quill.getContents()),
       image_id: $('#headerImage input').val(),
       is_published: $("input[name=is_published]").is(':checked'),
       tmp_id: $('input[name=tmp_id]').val()
@@ -210,6 +217,7 @@ post = function(method, quill) {
       title: $("input[name=title]").val(),
       description: $("textarea[name=description").val(),
       content: quill.root.innerHTML,
+      content_delta: JSON.stringify(quill.getContents()),
       image_id: document.querySelector('#headerImage input').value,
       page_id: document.querySelector('.select-page').value,
       category_id: document.querySelector('.select-category').value,

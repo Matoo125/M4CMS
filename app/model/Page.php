@@ -44,6 +44,7 @@ class Page extends Model
                                     'p.slug', 
                                     'p.description', 
                                     'p.content', 
+                                    'p.content_delta',
                                     'p.is_published', 
                                     'p.image_id',
                                     'IF(p.image_id IS NOT NULL, CONCAT(i.folder, "/", i.filename), false) AS image', 
