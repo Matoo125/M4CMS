@@ -1,5 +1,7 @@
-<!--Default tab example -->
+<!--Tabs Card wrapper -->
 <div class="pmd-card pmd-z-depth"> 
+
+  <!-- Tab links -->
   <div class="pmd-tabs pmd-tabs-bg">
     <ul class="nav nav-tabs" role="tablist">
       <li role="presentation" class="active">
@@ -13,15 +15,21 @@
         </a>
       </li>
       <li role="presentation">
-        <a href="#gallery" onclick="loadGallery()" aria-controls="gallery" data-id="3" role="tab" data-toggle="tab">
-          Gallery
+        <a href="#mediaSelect" onclick="loadMedia()" aria-controls="mediaSelect" data-id="3" role="tab" data-toggle="tab">
+          Select
+        </a>
+      </li>
+      <li role="presentation">
+        <a href="#uploadGallery" aria-controls="link" data-id="4" role="tab" data-toggle="tab">
+          Upload Gallery
         </a>
       </li>
     </ul>
   </div>
-  <div class="pmd-card-body">
 
-    <div class="tab-content">
+  <div class="pmd-card-body">
+    <div class="tab-content"> 
+      <!-- Upload image tab #1 Start -->
       <div role="tabpanel" class="tab-pane active" id="upload">
           <div class="form-group">
 
@@ -33,19 +41,28 @@
                   Browse
                 </button>
           </div>
-      </div>
+      </div><!-- Upload image tab #1 End -->
+
+      <!-- Image from link #2 Start -->
       <div role="tabpanel" class="tab-pane" id="link">
         <input type="text" name="link">
       </div>
-      <div role="tabpanel" class="tab-pane" id="gallery">
-        <img src="/app/admin/assets/images/loader.svg" class="loader">
+      <!-- Image from link #2 End -->
+
+      <!-- Select from media #3 Start -->
+      <div role="tabpanel" class="tab-pane" id="mediaSelect">
+        <img src="/app/admin/assets/m4/img/loader.svg" class="loader">
       </div>
-    </div>
+      <!-- Select from media #3 End -->
 
-  </div>
-</div> <!--Default tab example end-->
+      <!-- Upload Gallery #4 Start -->
+      <div role="tabpanel" class="tab-pane" id="uploadGallery">
+        hello
+      </div>
+      <!-- Upload Gallery #4 Start -->
 
-<script>
+    </div> <!-- tab content -->
+  </div> <!-- card body -->
+</div> <!-- card wrapper --> 
 
-</script>
 

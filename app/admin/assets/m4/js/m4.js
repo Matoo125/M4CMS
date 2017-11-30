@@ -1,6 +1,6 @@
 var activeTab = 1
 var galleryModalSelectedImage = null
-var loadGallery = null
+var loadMedia = null
 
 var m4 = {
   data: {
@@ -275,10 +275,9 @@ settings = function () {
   return true;
 }
 
-loadGallery = function () {
-  console.log('loading gallery')
+loadMedia = function () {
   $.get('/api/media/list').done(function(r) {
-    var gallery = document.querySelector('#gallery')
+    var media = document.querySelector('#mediaSelect')
     for (x = 0; x < r.media.length; x++) {
       var el = document.createElement('img')
       el.src = '/public/uploads/' + r.media[x].folder + '/' + r.media[x].filename
@@ -293,9 +292,9 @@ loadGallery = function () {
       }
       console.log(r.media[x])
       console.log(el)
-      gallery.appendChild(el)
+      media.appendChild(el)
     }
-    document.querySelector('#gallery .loader').style = "display:none"
+    document.querySelector('#mediaSelect .loader').style = "display:none"
   }).fail(function(e) { console.log(e) }) 
 }
 
@@ -380,7 +379,6 @@ window.onpopstate = function(event) {
   router.go(window.location)
 };
 
-
 function selectHeaderImage () {
   imageSelector.modal(function (data) {
     document.querySelector('#headerImage img').src = (
@@ -393,36 +391,27 @@ function selectHeaderImage () {
 
 var imageSelector = {
   modal: function (callback) {
-
     $("#ImageSelector").modal('show');
-
     $("#ImageSelector button.btn-select").click(function (e) {
       e.preventDefault()
-     
       if (activeTab === 1) {
         imageSelector.upload(function (data) {
           callback(data)
         })
-
       }
-
       else if (activeTab === 2) {
           imageSelector.link(function(data) {
             callback(data)
           })
       }
-
       else if (activeTab === 3) {
           imageSelector.gallery(function(data) {
             callback(data)
           })
       }
-
       $(this).unbind('click')
       $("#ImageSelector").modal('hide');
-
     })
-
   },
   folder: function () {
     var id = document.querySelector('input[name=id]').value
@@ -440,7 +429,6 @@ var imageSelector = {
       formData.append('file', document.getElementById('imgForm').files[0]);
       formData.append('folder', imageSelector.folder());
       console.log(formData);
-
       $.ajax({
           type: 'POST',
           url: '/admin/media/upload',
