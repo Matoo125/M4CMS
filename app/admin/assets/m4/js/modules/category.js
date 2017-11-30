@@ -2,7 +2,7 @@
 *    Category
 *    @param  {String}  Method to be called.  Required
 */
-self.category = function(method) {
+var category = function(method) {
 
   console.log('category function called')
 
@@ -38,3 +38,5 @@ self.category = function(method) {
     })
   })
 }
+
+module.exports = category

@@ -3,7 +3,7 @@
 *  @param  {String}  method  Method to be called.              Required
 *  @param  {Object}  quill   Quill object to get content from
 */
-self.page = function(method, quill) {
+var page = function(method, quill) {
 
   console.log('page function called')
 
@@ -37,3 +37,5 @@ self.page = function(method, quill) {
   })
 
 }
+
+module.exports = page

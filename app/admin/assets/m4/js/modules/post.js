@@ -3,7 +3,7 @@
 *  @param  {String}  method  Method to be called.              Required
 *  @param  {Object}  quill   Quill object to get content from
 */
-self.post = function(method, quill) {
+var post = function(method, quill) {
 
   console.log('post function called')
 
@@ -76,3 +76,5 @@ self.post = function(method, quill) {
   return true;
 
 }
+
+module.exports = post

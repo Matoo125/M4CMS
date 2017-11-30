@@ -1,4 +1,4 @@
-self.settings = function () {
+var settings = function () {
 
   console.log('settings function has been called. ')
 
@@ -23,3 +23,5 @@ self.settings = function () {
 
   return true;
 }
+
+module.exports = settings

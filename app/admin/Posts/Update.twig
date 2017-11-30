@@ -41,13 +41,13 @@ document.addEventListener('DOMContentLoaded', function () {
 function runThisOnLoad () {
 
   {% if post.content_delta %} // check if is delta in use
-   quill = setupQuill(`{{ post.content_delta|raw|escape('js') }}`)
+   quill = m4.setupQuill(`{{ post.content_delta|raw|escape('js') }}`)
   {% else %}
-   quill = setupQuill(`{{ post.content|raw }}`)
+   quill = m4.setupQuill(`{{ post.content|raw }}`)
   {% endif %}
 
   // create form submitter
-  post('updateAjax', quill);
+  m4.post('updateAjax', quill);
 
   document.querySelector("a.delete").addEventListener('click', function () {
     $("#delete-dialog").modal('show')

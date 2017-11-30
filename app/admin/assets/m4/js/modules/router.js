@@ -1,14 +1,14 @@
 /*
  * Router object
  */
-self.router = {
+var router = {
   /*
    *  Method go
    *  @param  {String}  URL to visit.
    */
   go: function(url) {
 
-    getHTML(url, function(response) {
+    this.getHTML(url, function(response) {
 
       console.log('response is delivered')
       var customScript = document.getElementById('customScript')
@@ -42,6 +42,22 @@ self.router = {
 
     history.pushState(null, null, url)
     console.log(url)
+  },
 
+  getHTML: function (url, callback) {
+    // Create new request
+    var xhr = new XMLHttpRequest();
+    // Setup callback
+    xhr.onload = function() {
+      if (callback && typeof(callback) === 'function') {
+        callback(this.responseXML);
+      }
+    }
+    // Get the HTML
+    xhr.open('GET', url);
+    xhr.responseType = 'document';
+    xhr.send();
   }
 }
+
+module.exports = router

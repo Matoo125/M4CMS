@@ -1,24 +1,30 @@
-self.activeTab = 1
-self.galleryModalSelectedImage = null
-self.loadMedia = null
+import setupQuill from './modules/setupQuill'
+import settings from './modules/settings'
+import router from './modules/router'
+import post from './modules/post'
+import page from './modules/page'
+import imageSelector from './modules/imageSelector'
+import category from './modules/category'
+import storage from './modules/storage'
+
 self.runThisOnLoad = null
 
-self.m4 = {
-  data: {
-
-  },
-  plugins: {
-    
-  }
+module.exports = {
+ data: storage, // storage
+ plugins: {}, // for plugins
+ router: router,
+ post: post,
+ page: page,
+ category: category,
+ settings: settings,
+ setupQuill: setupQuill,
+ imageSelector: imageSelector,
 }
 
-
-$(document).on('shown.bs.modal', function (e) {
-  activeTab = 1
-})
+self.router = router
 
 $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
-  activeTab = $(e.target).data('id')
+  storage.activeTab = $(e.target).data('id')
 })
 
 $(document).on('change','.file', function () {
@@ -26,18 +32,6 @@ $(document).on('change','.file', function () {
   var val = $(this).val().replace(/C:\\fakepath\\/i,'');
   $(".filename").val(val);
 })
-
-require('./modules/setupQuill.js')
-require('./modules/page.js')
-require('./modules/post.js')
-require('./modules/category.js')
-require('./modules/settings.js')
-require('./modules/loadMedia.js')
-require('./modules/getHTML.js')
-require('./modules/router.js')
-require('./modules/imageSelector.js')
-require('./modules/selectHeaderImage.js')
-
 
 window.onpopstate = function(event) {
   router.go(window.location)

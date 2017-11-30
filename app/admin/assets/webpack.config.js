@@ -1,7 +1,9 @@
 module.exports = {
     entry: './m4/js/m4.js',
     output: {
-        filename: './bundle.js'
+        filename: './bundle.js',
+        library: 'm4',
+        libraryTarget: 'var'
     },
     devtool: 'source-map',
     module: {

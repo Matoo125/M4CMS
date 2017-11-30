@@ -1,9 +1,11 @@
+import imageSelector from './imageSelector'
+
 /*
 * setup quill handler
 * @param   {String}  content to start with
 * @return  {Object}  quill instance
 */
-self.setupQuill = function (content) {
+var setupQuill = function (content) {
 
   console.log('setup quill function called');
 
@@ -58,3 +60,6 @@ self.setupQuill = function (content) {
   return quill;
 
 }
+
+
+module.exports = setupQuill
