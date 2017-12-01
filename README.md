@@ -12,6 +12,9 @@ Whole application was rewritten again, this time from VueJS to twig templates.I 
 
 For now, it is possible to use CMS and create custom themes easily with twig. I'm still working on good plugin management.
 
+TODO
+- gallery needs some settings for classes and structure so it can work with different templates
+
 
 to clone repo
 ```

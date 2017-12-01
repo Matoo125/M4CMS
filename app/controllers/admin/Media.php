@@ -41,6 +41,52 @@ class Media extends MediaController
     $this->create($targetPath);
   }
 
+  public function uploadMultiple ()
+  {
+    Request::forceMethod('post');
+    //print_r($_FILES);die; 
+    $count = count($_FILES['files']['name']);
+    $files = $_FILES['files'];
+
+    // add gallery
+    $galleryModel = new \m4\m4cms\model\Gallery;
+    $galleryId = $galleryModel->insert(['title' => $_POST['galleryTitle']]);
+    if (!$galleryId) Response::error('Error while creating gallery');
+
+    $matcherModal = new \m4\m4cms\model\Matcher;
+
+    foreach ($files['name'] as $key => $name) {
+      $targetPath = $this->createTargetPath($name);
+      $upload = move_uploaded_file($files['tmp_name'][$key], $targetPath);
+      if (!$upload) { Response::error('We could not move the uploaded file. '); }
+      $data = [
+        'filename' => basename($targetPath),
+        'alt'      => '',
+        'folder'   => $_POST['folder'],
+        'type'     => mime_content_type($targetPath),
+        'size'     => filesize($targetPath)
+      ];
+      $mediaId = $this->model->insert($data);
+      if (!$mediaId) Response::error('Error while creating media');
+
+      $matcherId = $matcherModal->insert([
+        'table1' => 'gallery',
+        'table2' => 'media',
+        'id1'    => $galleryId,
+        'id2'    => $mediaId
+      ]);
+      if (!$matcherId) Response::error('Error while creating matcher');
+    } // end foreach
+
+    $gallery = $galleryModel->get($galleryId);
+   // print_r($gallery);die;
+    Response::success(
+      'Gallery has been created and images uploaded', 
+      ['gallery' => $gallery]
+    );
+
+  }
+
   public function createTargetPath ($filename)
   {
     $info = pathinfo($filename);

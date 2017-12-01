@@ -12,7 +12,7 @@ require_once 'app/config/bootstrap.php';
 
 $whoops = new \Whoops\Run;
 $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
-//$whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler);
+$whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler);
 $whoops->register();
 
 $app = new App;

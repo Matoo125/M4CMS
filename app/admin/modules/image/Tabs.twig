@@ -5,7 +5,7 @@
   <div class="pmd-tabs pmd-tabs-bg">
     <ul class="nav nav-tabs" role="tablist">
       <li role="presentation" class="active">
-        <a href="#upload" aria-controls="upload" data-id="1" role="tab" data-toggle="tab">
+        <a href="#uploadFile" aria-controls="upload" data-id="1" role="tab" data-toggle="tab">
           Upload
         </a>
       </li>
@@ -19,7 +19,9 @@
           Select
         </a>
       </li>
-      <li role="presentation">
+      <li role="presentation" 
+          id="uploadGalleryLink" 
+          style="display: none">
         <a href="#uploadGallery" aria-controls="link" data-id="4" role="tab" data-toggle="tab">
           Upload Gallery
         </a>
@@ -30,13 +32,22 @@
   <div class="pmd-card-body">
     <div class="tab-content"> 
       <!-- Upload image tab #1 Start -->
-      <div role="tabpanel" class="tab-pane active" id="upload">
+      <div role="tabpanel" 
+           class="tab-pane active" 
+           id="uploadFile">
           <div class="form-group">
-
-                <input type="file" name="img" id="imgForm" class="file" style="display: none">
-                <input type="text" class="filename mat-input form-control" style="display: inline-block; width: auto" disabled placeholder="Upload Image">
+                <input type="file" 
+                       name="img" 
+                       id="imgInput" 
+                       class="uploadInput" 
+                       style="display: none">
+                <input type="text" 
+                       class="filename mat-input form-control" 
+                       style="display: inline-block; width: auto" 
+                       disabled 
+                       placeholder="Upload Image">
                 <button type="button" 
-                        onclick="$('.file').click()" 
+                        onclick="$('.uploadInput').click()" 
                         class="btn btn-info fileUploadBrowseButton">
                   Browse
                 </button>
@@ -57,7 +68,35 @@
 
       <!-- Upload Gallery #4 Start -->
       <div role="tabpanel" class="tab-pane" id="uploadGallery">
-        hello
+        <div class="form-group">
+          <label class="label-control">
+            Gallery Title
+          </label>
+          <input type="text" 
+                 class="form-control" 
+                 name="galleryTitle"
+                 placeholder="Gallery Title">
+        </div>
+        <div class="form-group">
+          <label class="label-control">
+            Select Images
+          </label>
+          <input type="file" 
+                 name="gallery[]" 
+                 id="galleryInput"
+                 class="galleryInput" 
+                 style="display: none"
+                 multiple="multiple">
+          <input type="text" 
+                 class="filenames form-control"
+                 disabled="disabled"
+                 placeholder="Upload Images">
+        </div>
+        <button type="button"
+                onclick="$('.galleryInput').click()"
+                class="btn btn-info ">
+          Browse
+        </button>
       </div>
       <!-- Upload Gallery #4 Start -->
 
@@ -66,3 +105,25 @@
 </div> <!-- card wrapper --> 
 
 
+<script>
+  $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
+    m4.data.activeTab = $(e.target).data('id')
+  }) // store activeTab value
+
+  $('#ImageSelector').on('hidden.bs.modal', function () {
+    $('#uploadGalleryLink').hide() // hide gallery tab 
+    $('#ImageSelector a[href="#uploadFile"]').tab('show') // make first tab active
+  }) // modal before close
+
+  $(document).on('change','.uploadInput', function () {
+    console.log('file selected ')
+    var val = $(this).val().replace(/C:\\fakepath\\/i,'');
+    $("#uploadFile .filename").val(val);
+  })
+
+  $(document).on('change','.galleryInput', function () {
+    console.log('files selected ')
+    var val = $(this).val().replace(/C:\\fakepath\\/i,'');
+    $("#uploadGallery .filenames").val(val);
+  })
+</script>
