@@ -3,27 +3,33 @@ import store from './storage'
 var imageSelector = {
   selected: null, // id of image selected from media
   modal: function (callback) {
-    $("#ImageSelector").modal('show');
-    $("#ImageSelector button.btn-select").click(function (e) {
+    $("#ImageSelector").modal('show'); // show modal
+    // add click function to select button
+    $("#ImageSelector button.btn-select")
+    .click((e) => {
       e.preventDefault()
       if (store.activeTab === 1) {
-        imageSelector.upload(function (data) {
+        this.uploadSingle(function (data) {
           callback(data)
         })
       }
       else if (store.activeTab === 2) {
-          imageSelector.link(function(data) {
-            callback(data)
-          })
+        this.link(function(data) {
+          callback(data)
+        })
       }
       else if (store.activeTab === 3) {
-          imageSelector.gallery(function(data) {
-            callback(data)
-          })
+        this.media(function(data) {
+          callback(data)
+        })
       }
-      $(this).unbind('click')
-      $("#ImageSelector").modal('hide');
-    })
+      else if (store.activeTab === 4) {
+        this.uploadMultiple(function(data) {
+          callback(data)
+        })
+      }
+      $("#ImageSelector button.btn-select").unbind('click')
+    }) // end of click function
   },
   folder: function () {
     var id = document.querySelector('input[name=id]').value
@@ -35,10 +41,10 @@ var imageSelector = {
     }
     return folder
   },
-  upload: function (callback) {
-      formData = new FormData();
-      formData.append('file', document.getElementById('imgForm').files[0]);
-      formData.append('folder', imageSelector.folder());
+  uploadSingle: function (callback) {
+      var formData = new FormData();
+      formData.append('file', document.getElementById('imgInput').files[0])
+      formData.append('folder', this.folder());
       console.log(formData);
       $.ajax({
           type: 'POST',
@@ -47,22 +53,47 @@ var imageSelector = {
           contentType: false,
           processData: false,
           success:function(data){
-              console.log("success");
-              console.log(data);
+              console.log("success")
+              console.log(data)
               callback(data)
           },
           error: function(data){
-              console.log("error");
-              console.log(data);
+              console.log("error")
+              console.log(data)
           }
-      });
+      })
+  },
+  uploadMultiple: function (callback) {
+    var formData = new FormData()
+    var files = document.getElementById('galleryInput').files
+    for (var i = files.length - 1; i >= 0; i--) {
+      formData.append('files[]', files[i])
+    }
+    formData.append('folder', this.folder())
+    formData.append('galleryTitle', $('input[name=galleryTitle]').val())
+    $.ajax({
+      type: 'POST',
+      url: '/admin/media/uploadMultiple',
+      data: formData,
+      contentType: false,
+      processData: false,
+      success: function (data) {
+        console.log('upload multiple success')
+        console.log(data)
+        callback(data)
+      },
+      error: function (data) {
+        console.log('error')
+        console.log(data)
+      }
+    })
   },
   link: function (callback) {
     var link = document.querySelector('input[name=link]').value
     console.log(link)
     $.post('/admin/media/downloadLink', {
       link: link,
-      folder: imageSelector.folder()
+      folder: this.folder()
     }).done(function (r) {
       console.log(r)
       callback(r)
@@ -71,11 +102,11 @@ var imageSelector = {
     })
 
   },
-  gallery: function (callback) {
+  media: function (callback) {
     console.log('getting image id '+ this.selected)
     $.get('/admin/media/chooseFromGallery', {
       id: this.selected,
-      folder: imageSelector.folder()
+      folder: this.folder()
     }).done(function(r) {
       console.log(r)
       callback(r)
@@ -106,12 +137,13 @@ var imageSelector = {
     }).fail(function(e) { console.log(e) }) 
   },
   selectHeaderImage: function () {
-    imageSelector.modal(function (data) {
+    this.modal(function (data) {
       document.querySelector('#headerImage img').src = (
         '/public/uploads/' + data.folder + '/' + data.filename
       )
       document.querySelector('#headerImage input').value = data.id
       toastr.success(data.message)
+      $("#ImageSelector").modal('hide');
     })
   }
  

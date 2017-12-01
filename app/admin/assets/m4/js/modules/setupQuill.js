@@ -27,10 +27,18 @@ var setupQuill = function (content) {
 
   // image handler
   function quillImageHandler() {
+    var range = quill.getSelection()
+    if (!range) { return alert('Please select your position in editor') }
+    $('#uploadGalleryLink').show()
     imageSelector.modal(function(data) {
-      var range = quill.getSelection()
-      var img = '/public/uploads/' + data.folder + '/' + data.filename
-      quill.insertEmbed(range.index, 'image', img, Quill.sources.USER)
+      if (m4.data.activeTab === 4) {
+        var gallery = '[' + 'gallery id="' + data.gallery.id + '"]'
+        quill.insertText(range.index, gallery)
+      } else {
+        var img = '/public/uploads/' + data.folder + '/' + data.filename
+        quill.insertEmbed(range.index, 'image', img, Quill.sources.USER)
+      }
+      $("#ImageSelector").modal('hide');
     })
   }
 

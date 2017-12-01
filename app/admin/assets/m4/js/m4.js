@@ -23,15 +23,6 @@ module.exports = {
 
 self.router = router
 
-$(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
-  storage.activeTab = $(e.target).data('id')
-})
-
-$(document).on('change','.file', function () {
-  console.log('file selected ')
-  var val = $(this).val().replace(/C:\\fakepath\\/i,'');
-  $(".filename").val(val);
-})
 
 window.onpopstate = function(event) {
   router.go(window.location)
