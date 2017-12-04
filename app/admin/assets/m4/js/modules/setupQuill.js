@@ -9,22 +9,6 @@ var setupQuill = function (content) {
 
   console.log('setup quill function called');
 
-  // toolbar definition
-  var toolbar = [
-    [{
-      'header': [1, 2, 3, 4, 5, 6, false]
-    }],
-
-    ['bold', 'italic', 'underline', 'strike'],
-    ['blockquote', 'code-block'],
-
-    [{
-      'align': []
-    }],
-    ['link', 'image'],
-    ['clean']
-  ];
-
   // image handler
   function quillImageHandler() {
     var range = quill.getSelection()
@@ -47,7 +31,7 @@ var setupQuill = function (content) {
     theme: 'snow',
     modules: {
       toolbar: {
-        container: toolbar,
+        container: '#quillToolbar',
         handlers: {
           image: quillImageHandler
         }

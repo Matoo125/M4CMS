@@ -1,8 +1,54 @@
-      <div class="group-fields clearfix row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <div class="form-group pmd-textfield">
-            <label class="control-label"  style="transform: none; -webkit-transform: none; -ms-transform: none; margin-bottom: 12px;">Content</label>
-            <div id="editor"></div>
-          </div>
-        </div>
+<div class="group-fields clearfix row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group pmd-textfield">
+      <label class="control-label"  style="transform: none; -webkit-transform: none; -ms-transform: none; margin-bottom: 12px;">Content</label>
+      <div id="quillToolbar">
+        <!-- Add font size dropdown -->
+        <span class="ql-formats">
+          <select class="ql-size">
+            <option value="small"></option>
+            <option selected></option>
+            <option value="large"></option>
+            <option value="huge"></option>
+          </select>
+        </span>
+
+        <span class="ql-formats">
+          <button class="ql-bold"></button>
+          <button class="ql-italic"></button>
+          <button class="ql-underline"></button>
+          <button class="ql-strike"></button>
+        </span>
+
+        <span class="ql-formats">
+          <button class="ql-blockquote"></button>
+          <button class="ql-code-block"></button>
+          <button class="ql-formula"></button>
+        </span>
+
+        <span class="ql-formats">
+          <button class="ql-link"></button>
+          <button class="ql-image"></button>
+          <button class="ql-video"></button>
+        </span>
+
+        <span class="ql-formats">
+          <button class="ql-list" value="ordered"></button>
+          <button class="ql-list" value="bullet"></button>
+          <select class="ql-align">
+            <option selected></option>
+            <option value="center"></option>
+            <option value="right"></option>
+            <option value="justify"></option>
+          </select>
+        </span>
+
+        <span class="ql-formats">
+          <button class="ql-clean"></button>
+        </span>
       </div>
+      <div style="height: 500px;" id="editor"></div>
+    </div>
+  </div>
+</div>
+

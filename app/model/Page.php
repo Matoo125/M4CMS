@@ -57,7 +57,6 @@ class Page extends Model
 
       $data = $this->fetch($query, $id ? ['id' => $id] : ['slug' => $slug]);
       $data['is_published'] = $data['is_published'] == 1 ? true : false;
-      $data['content'] = (new \m4\m4cms\core\Shortcode)->handle($data['content']);
       return $data;
     }
 

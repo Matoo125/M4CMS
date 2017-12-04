@@ -5,7 +5,9 @@ namespace m4\m4cms\controllers\web;
 use m4\m4cms\controllers\api\Home as IndexApiController;
 use m4\m4cms\controllers\api\Pages;
 use m4\m4cms\model\Setting;
-
+use m4\m4cms\controllers\api\Posts;
+use m4\m4cms\controllers\api\Categories;
+use m4\m4cms\core\Shortcode;
 
 class Home extends IndexApiController
 {
@@ -18,6 +20,10 @@ class Home extends IndexApiController
 
     if ($page && !$category && !$post) {
       $this->data['page'] = $pages->slug($page);
+      $this->data['page']['content'] = (new Shortcode)->handle(
+        $this->data['page']['content']
+      );
+
       $this->getCategories($this->data['page']['id']);
       $this->view = 'Home/Page.twig';
     }
@@ -27,8 +33,11 @@ class Home extends IndexApiController
     }
 
     else if ($page && $category && $post) {
-      $posts = new \m4\m4cms\controllers\api\Posts;
+      $posts = new Posts;
       $this->data['post'] = $posts->slug($post);
+      $this->data['post']['content'] = (new Shortcode)->handle(
+        $this->data['post']['content']
+      );
       $this->data['page']['id'] = $this->data['post']['page_id'];
       $this->view = 'Home/Post.twig';
     }
@@ -50,8 +59,8 @@ class Home extends IndexApiController
 
   protected function getCategories($pageId)
   {
-    $categories = new \m4\m4cms\controllers\api\Categories;
-    $posts = new \m4\m4cms\controllers\api\Posts;
+    $categories = new Categories;
+    $posts = new Posts;
     $this->data['categories'] = $categories->list($pageId);
 
     $categoriesWithIdAsKey = [];

@@ -3,6 +3,7 @@
 namespace m4\m4cms\core;
 use Maiorano\Shortcodes\Manager;
 use Maiorano\Shortcodes\Library;
+use m4\m4cms\model\Gallery;
 class Shortcode
 {
   public $list = array();
@@ -17,20 +18,21 @@ class Shortcode
       'gallery', 
       null, 
       function ($content=null, array $attr=[]){
+        global $settings;
         if (!$attr) return '';
         $id = $attr['id'];
-        $items = (new \m4\m4cms\model\Gallery)->get($id)['items'];
-        //return json_encode($items);
-        //$items = array_diff(scandir(UPLOADS.DS.'pages'.DS.'29'), ['.', '..']);
-        $html = '<div class="row text-center text-lg-left">';
-        foreach ($items as $item) {
-          $html .= '<div class="col-lg-3 col-md-4 col-xs-6">';
-          $html .= '<a href="#" class="d-block mb-4 h-100">';
-          $html .= '<img class="img-fluid img-thumbnail" src="/public/uploads/'. $item['folder'] .'/'.$item['filename'].'">';
-          $html .= '</a></div>';
+        $items = (new Gallery)->get($id)['items'];
+        
+        ob_start();
+        $themeSpecific = WEB.DS.'themes'.DS.$settings['theme'].DS.'shortcode'.DS.'Gallery.php';
+        if (file_exists($themeSpecific)) {
+          require_once $themeSpecific;
+        } else {
+          require_once(WEB.DS.'shortcode'.DS.'Gallery.php');
         }
-        $html .= '</div>';
-        return $html;
+        $buffer = ob_get_contents();
+        ob_clean();
+        return $buffer;
     });
 
   }
