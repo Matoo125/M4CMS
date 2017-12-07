@@ -1,0 +1,24 @@
+<nav class="navbar">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../">
+        {{ settings.title }}
+      </a>
+      <span class="navbar-burger burger nav-toggle" data-target="navbarMenu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </div>
+    <div id="navbarMenu" class="navbar-menu nav-menu">
+      <div class="navbar-end">
+        {% for item in navbar %}
+        <a class="navbar-item {{ item.value == page.id ? 'is-active' }}" 
+           href="/{{ item.label|slugify }}">
+          {{ item.label }}
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</nav>

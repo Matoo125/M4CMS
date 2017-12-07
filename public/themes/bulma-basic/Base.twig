@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cover - Free Bulma template</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <!-- Bulma Version 0.6.0 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.0/css/bulma.min.css" integrity="sha256-HEtF7HLJZSC3Le1HcsWbz1hDYFPZCqDhZa9QsCgVUdw=" crossorigin="anonymous" />
+  <style type="text/css">
+    html,body {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 14px;
+      background: #F0F2F4;
+    }
+    .navbar.is-white {
+      background: #F0F2F4;
+    }
+
+    .author-image {
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        width: 60px;
+        height: 60px;
+        margin-left: -30px;
+        border: 3px solid #ccc;
+        border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+
+  {% block content %}{% endblock %}
+
+  <script async type="text/javascript">
+    (function() {
+        var burger = document.querySelector('.nav-toggle');
+        var menu = document.querySelector('.nav-menu');
+        burger.addEventListener('click', function() {
+            burger.classList.toggle('is-active');
+            menu.classList.toggle('is-active');
+        });
+    })();
+  </script>
+</body>
+</html>

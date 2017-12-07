@@ -64,9 +64,11 @@ class Home extends IndexApiController
     $this->data['categories'] = $categories->list($pageId);
 
     $categoriesWithIdAsKey = [];
+    $this->data['posts'] = [];
     foreach ($this->data['categories'] as $category) {
       $category['posts'] = $posts->listByCategory($category['id']);
       $categoriesWithIdAsKey[$category['id']] = $category;
+      array_push($this->data['posts'], $category['posts']);
     }
 
     // list posts without category
