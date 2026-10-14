@@ -20,11 +20,20 @@ class Home extends IndexApiController
 
     if ($page && !$category && !$post) {
       $this->data['page'] = $pages->slug($page);
+      if (!$this->data['page']) {
+        http_response_code(404);
+        $this->data['page'] = [
+          'title'   =>  'Page not found',
+          'content' =>  '<p>The page you are looking for does not exist.</p>',
+        ];
+      }
       $this->data['page']['content'] = (new Shortcode)->handle(
         $this->data['page']['content']
       );
 
-      $this->getCategories($this->data['page']['id']);
+      if (isset($this->data['page']['id'])) {
+        $this->getCategories($this->data['page']['id']);
+      }
       $this->view = 'Home/Page.twig';
     }
 
