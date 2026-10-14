@@ -2,17 +2,21 @@
     "require": {
         "twig/twig": "^3.0",
         "intervention/image": "^2.3",
-        "m4/m4mvc": "dev-master",
+        "m4/m4mvc": "dev-php8-twig3-compat",
         "filp/whoops": "^2.1",
         "symfony/var-dumper": "^6.4",
         "maiorano84/shortcodes": "~1.0"
     },
-
     "autoload": {
-      "psr-4": {
-        "m4\\m4cms\\":"app/",
-        "m4\\m4cms\\Plugin\\": "public/plugins/"
-      }
-    }
-
+        "psr-4": {
+            "m4\\m4cms\\": "app/",
+            "m4\\m4cms\\Plugin\\": "public/plugins/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/Matoo125/m4mvc.git"
+        }
+    ]
 }

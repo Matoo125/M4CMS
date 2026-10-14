@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8fdc556adf5afa8984f753b84fe71154",
+    "content-hash": "77895ee77ddef91dc3cc20c23a5011ac",
     "packages": [
         {
             "name": "filp/whoops",
@@ -282,16 +282,16 @@
         },
         {
             "name": "m4/m4mvc",
-            "version": "dev-master",
+            "version": "dev-php8-twig3-compat",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Matoo125/m4mvc.git",
-                "reference": "cb172cb07ade8fbed0bb7b16325f437fdb649939"
+                "reference": "e6d9eb08b992abc7cb8de0f95bc2b13236c517b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Matoo125/m4mvc/zipball/cb172cb07ade8fbed0bb7b16325f437fdb649939",
-                "reference": "cb172cb07ade8fbed0bb7b16325f437fdb649939",
+                "url": "https://api.github.com/repos/Matoo125/m4mvc/zipball/e6d9eb08b992abc7cb8de0f95bc2b13236c517b7",
+                "reference": "e6d9eb08b992abc7cb8de0f95bc2b13236c517b7",
                 "shasum": ""
             },
             "require": {
@@ -303,7 +303,6 @@
                     "m4\\m4mvc\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -314,7 +313,11 @@
                 }
             ],
             "description": "Simple php framework",
-            "time": "2017-10-13T11:04:53+00:00"
+            "support": {
+                "source": "https://github.com/Matoo125/m4mvc/tree/php8-twig3-compat",
+                "issues": "https://github.com/Matoo125/m4mvc/issues"
+            },
+            "time": "2026-10-14T20:38:22+00:00"
         },
         {
             "name": "maiorano84/shortcodes",
