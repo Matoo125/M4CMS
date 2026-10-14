@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "77895ee77ddef91dc3cc20c23a5011ac",
+    "content-hash": "465f4123a8830397eb9b413e2c6ad9d1",
     "packages": [
         {
             "name": "filp/whoops",
@@ -282,21 +282,22 @@
         },
         {
             "name": "m4/m4mvc",
-            "version": "dev-php8-twig3-compat",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Matoo125/m4mvc.git",
-                "reference": "e6d9eb08b992abc7cb8de0f95bc2b13236c517b7"
+                "reference": "bb8e124070ae251398373cafacbb9f594c962d2c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Matoo125/m4mvc/zipball/e6d9eb08b992abc7cb8de0f95bc2b13236c517b7",
-                "reference": "e6d9eb08b992abc7cb8de0f95bc2b13236c517b7",
+                "url": "https://api.github.com/repos/Matoo125/m4mvc/zipball/bb8e124070ae251398373cafacbb9f594c962d2c",
+                "reference": "bb8e124070ae251398373cafacbb9f594c962d2c",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.0.0"
             },
+            "default-branch": true,
             "type": "project",
             "autoload": {
                 "psr-4": {
@@ -314,10 +315,10 @@
             ],
             "description": "Simple php framework",
             "support": {
-                "source": "https://github.com/Matoo125/m4mvc/tree/php8-twig3-compat",
+                "source": "https://github.com/Matoo125/m4mvc/tree/master",
                 "issues": "https://github.com/Matoo125/m4mvc/issues"
             },
-            "time": "2026-10-14T20:38:22+00:00"
+            "time": "2026-10-14T21:20:10+00:00"
         },
         {
             "name": "maiorano84/shortcodes",

@@ -2,7 +2,7 @@
     "require": {
         "twig/twig": "^3.0",
         "intervention/image": "^2.3",
-        "m4/m4mvc": "dev-php8-twig3-compat",
+        "m4/m4mvc": "dev-master",
         "filp/whoops": "^2.1",
         "symfony/var-dumper": "^6.4",
         "maiorano84/shortcodes": "~1.0"
