@@ -10,7 +10,9 @@
          <div class="card-content">
            <div class="media">
              <div class="media-center">
-                 <img src="/public/uploads/{{ page.image }}" class="author-image" alt="Placeholder image">
+                 {% if page.image %}
+                 <img src="/public/uploads/{{ page.image }}" class="author-image" alt="{{ page.title }}">
+                 {% endif %}
              </div>
              <div class="media-content has-text-centered">
                <p class="title page-title">{{ page.title }}</p>
