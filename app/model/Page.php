@@ -56,6 +56,7 @@ class Page extends Model
                             ->build();
 
       $data = $this->fetch($query, $id ? ['id' => $id] : ['slug' => $slug]);
+      if (!$data) return [];
       $data['is_published'] = $data['is_published'] == 1 ? true : false;
       return $data;
     }

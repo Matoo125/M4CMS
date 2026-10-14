@@ -17,23 +17,23 @@ class Controller extends BaseController
 			$view = $this->view;
 		}
 		// Declare twig instance
-		$loader = new \Twig_Loader_Filesystem($this->pathToTheme);
-		$twig = new \Twig_Environment(
+		$loader = new \Twig\Loader\FilesystemLoader($this->pathToTheme);
+		$twig = new \Twig\Environment(
 			$loader, 
 			array(
 		  	'debug' => true,
 			)
 		);
-		$twig->addExtension(new \Twig_Extension_Debug());
+		$twig->addExtension(new \Twig\Extension\DebugExtension());
 		// Add Globals
 		$twig->addGlobal("session", $_SESSION);
 		// Create filters 
-		$slugifilter = new \Twig_Filter(
+		$slugifilter = new \Twig\TwigFilter(
 			'slugify', 
 			'\\m4\\m4mvc\\helper\\Str::slugify'
 		);
 		$twig->addFilter($slugifilter);
-		$twig->addExtension(new \Twig_Extension_StringLoader());
+		$twig->addExtension(new \Twig\Extension\StringLoaderExtension());
 		
 		// Add data to array
 		$this->data['sessionclass'] = new \m4\m4mvc\helper\Session;
