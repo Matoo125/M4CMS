@@ -1,0 +1,6 @@
+{% set gaps = {none: '0', small: '8px', medium: '24px', large: '48px'} %}
+<div class="m4-block m4-block-columns" style="display:flex;flex-wrap:wrap;gap:{{ gaps[props.gap] }}">
+  {% for column in columns_html %}
+  <div class="m4-column" style="flex:1 1 220px;min-width:0">{{ column|raw }}</div>
+  {% endfor %}
+</div>
