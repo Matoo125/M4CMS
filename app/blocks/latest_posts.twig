@@ -1,0 +1,10 @@
+{% if posts %}
+<div class="m4-block m4-block-latest-posts">
+  {% if props.title %}<h3>{{ props.title }}</h3>{% endif %}
+  <ul>
+    {% for post in posts %}
+    <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}

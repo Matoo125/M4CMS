@@ -1,0 +1,6 @@
+{% if src %}
+{% set width = {small: '25%', medium: '50%', full: '100%'}[props.size] %}
+<div class="m4-block m4-block-image" style="text-align:{{ props.align }}">
+  <img src="{{ src }}" alt="{{ props.alt }}" style="max-width:100%;width:{{ width }};height:auto">
+</div>
+{% endif %}

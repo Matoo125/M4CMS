@@ -1,0 +1,2 @@
+{% set pads = {none: '0', small: '8px', medium: '24px', large: '48px'} %}
+<div class="m4-block m4-block-group" style="padding:{{ pads[props.padding] }}{% if props.background %};background:{{ props.background }}{% endif %}">{{ children_html|raw }}</div>

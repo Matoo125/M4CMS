@@ -1,5 +1,9 @@
 {% extends 'Base.twig' %}
 {% block content %}
+{% if homepage %}
+{% include 'Navbar.twig' %}
+<div class="container"><section class="section">{{ homepage|raw }}</section></div>
+{% else %}
 <section class="hero is-fullheight is-default is-bold">
 <div class="hero-head">
  {% include 'Navbar.twig' %}
@@ -40,4 +44,5 @@
     </div>
   </div>
 </section>
+{% endif %}
 {% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'Base.twig' %}
+
+{% block body %}
+<div id="content" class="inner-page">
+  <div class="container-fluid full-width-container">
+    <h1 class="section-title" id="services"><span>Homepage</span></h1>
+    <ol class="breadcrumb text-left">
+      <li class="active">Homepage</li>
+    </ol>
+
+    <div id="blockEditor"></div>
+
+    {# the media picker reads these to decide where uploads go #}
+    <input type="hidden" name="id" value="">
+    <input type="hidden" name="folder" value="homepage">
+    <input type="hidden" name="tmp_id" value="{{ 'now'|date('U') }}">
+
+    <script type="application/json" id="blockSchema">{{ schema|raw }}</script>
+    <script type="application/json" id="blockDocument">{{ document|raw }}</script>
+  </div>
+</div>
+
+{% include 'modules/image/Modal.twig' %}
+{% endblock %}
+
+{% block script %}
+<script id="customScript">
+document.addEventListener('DOMContentLoaded', function () {
+  runThisOnLoad()
+})
+
+function runThisOnLoad () {
+  M4Blocks.mount({
+    root: document.getElementById('blockEditor'),
+    schema: JSON.parse(document.getElementById('blockSchema').textContent),
+    document: JSON.parse(document.getElementById('blockDocument').textContent),
+    urls: {
+      save: '/admin/homepage/save',
+      reset: '/admin/homepage/reset',
+      preview: '/admin/homepage/preview'
+    }
+  })
+}
+</script>
+{% endblock %}

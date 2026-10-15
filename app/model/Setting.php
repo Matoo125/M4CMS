@@ -24,6 +24,27 @@ class Setting extends Model
         return $this->save($query, ['value' => $value, 'name' => $name]);
     }
 
+    public function getValue ($name) {
+        $query = $this->query->select('value')
+                             ->from(self::$table)
+                             ->where('name = :name')
+                             ->build();
+        $row = $this->fetch($query, ['name' => $name]);
+        return $row ? $row['value'] : null;
+    }
+
+    // update the setting, creating it when missing
+    public function set ($name, $value) {
+        $query = $this->query->select('id')
+                             ->from(self::$table)
+                             ->where('name = :name')
+                             ->build();
+        if ($this->fetch($query, ['name' => $name])) {
+            return $this->update($name, $value);
+        }
+        return (bool) $this->insert(['name' => $name, 'value' => $value]);
+    }
+
     public function get ($id) {
         $query = $this->query->select('*')
                              ->from(self::$table)

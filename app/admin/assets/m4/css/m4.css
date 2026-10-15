@@ -41,3 +41,35 @@
 .img-selected {
   border-color: red;
 }
+
+/* homepage block editor */
+.m4be-toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 16px; position: sticky; top: 0; z-index: 5; background: #fff; padding: 8px 0; }
+.m4be-status { flex: 1 1 140px; text-align: right; color: #777; }
+.m4be-status.is-dirty { color: #c0392b; }
+.m4be-grid { display: grid; grid-template-columns: 180px minmax(0, 1fr) 300px; gap: 16px; align-items: start; }
+@media (max-width: 1100px) { .m4be-grid { grid-template-columns: 1fr; } }
+.m4be-col h4 { margin: 0 0 8px; font-size: 14px; text-transform: uppercase; color: #777; }
+.m4be-palette-item { display: block; width: 100%; margin-bottom: 6px; padding: 8px 10px; text-align: left; border: 1px solid #ddd; border-radius: 3px; background: #fff; cursor: grab; }
+.m4be-palette-item:hover { border-color: #4285f4; }
+.m4be-list { min-height: 12px; }
+.m4be-empty { padding: 14px; border: 1px dashed #ccc; border-radius: 3px; color: #999; text-align: center; font-size: 13px; }
+.m4be-card { border: 1px solid #ddd; border-radius: 3px; background: #fff; margin-bottom: 8px; }
+.m4be-card.is-selected { border-color: #4285f4; box-shadow: 0 0 0 1px #4285f4; }
+.m4be-cardhead { display: flex; align-items: center; gap: 8px; padding: 6px 8px; cursor: pointer; }
+.m4be-handle { cursor: grab; color: #999; letter-spacing: -2px; user-select: none; }
+.m4be-summary { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #888; font-size: 13px; }
+.m4be-actions { display: flex; gap: 2px; }
+.m4be-iconbtn { border: 0; background: transparent; padding: 2px 6px; cursor: pointer; color: #666; }
+.m4be-iconbtn:hover { color: #000; background: #eee; }
+.m4be-body { padding: 8px; border-top: 1px solid #eee; background: #fafafa; }
+.m4be-columns { display: flex; gap: 8px; }
+.m4be-column { flex: 1 1 0; min-width: 0; }
+.m4be-add { margin-top: 4px; font-size: 12px; height: 28px; color: #888; }
+.m4be-field { margin-bottom: 12px; }
+.m4be-rich { min-height: 120px; height: auto; overflow: auto; }
+.m4be-richtools { margin-bottom: 4px; }
+.m4be-thumb { display: block; max-width: 100%; max-height: 140px; margin-bottom: 8px; }
+.m4be-hint { margin-left: 8px; color: #888; font-size: 12px; }
+.m4be-preview { position: fixed; inset: 0; z-index: 2000; background: rgba(0, 0, 0, .6); padding: 24px; display: flex; flex-direction: column; gap: 8px; }
+.m4be-preview[hidden] { display: none; }
+.m4be-frame { flex: 1; width: 100%; border: 0; background: #fff; }

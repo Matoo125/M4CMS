@@ -1,6 +1,9 @@
 {% extends 'Skeleton.twig' %}
 
 {% block content %}
+{% if homepage %}
+{{ homepage|raw }}
+{% else %}
   <div class="index-area">
     <h1>Toto je {{ settings.title }} </h1>
     <p class="lead">{{ settings.description }}</p>
@@ -18,4 +21,5 @@
     </ul>
   </div>
 
+{% endif %}
 {% endblock %}
