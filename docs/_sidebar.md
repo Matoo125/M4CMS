@@ -4,6 +4,7 @@
 	- [Categories](General/categories.md)
 	- [Posts](General/posts.md)
 	- [Users](General/users.md)
+	- [Homepage](General/homepage.md)
 	- [Admin Task List](General/admin_tasklist.md)
 	- [Directories](General/directories.md)
 
