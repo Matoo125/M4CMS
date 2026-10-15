@@ -37,7 +37,11 @@
         <textarea id="about_me" name="about_me" class="form-control">{{ user.about_me }}</textarea>
       </div>
 
+      {% include 'Form/Partials/HeaderImage.twig' with {imageLabel: 'Select Profile Picture'} %}
+
       <input type="hidden" name="id" value="{{ user.id }}">
+      <input type="hidden" name="folder" value="users">
+      <input type="hidden" name="tmp_id" value="{{ 'now'|date('U') }}">
     </div>
 
     <div class="pmd-card-actions">
@@ -48,24 +52,5 @@
   </form>
 </div>
 
+{% include 'modules/image/Modal.twig' %}
 {% include 'Form/Partials/DeleteModal.twig' %}
-
-<script>
-function submitUserForm (method, done) {
-  $('form .submit').click(function () {
-    var formData = {}
-    $('#validationForm').serializeArray().forEach(function (f) { formData[f.name] = f.value })
-    $.ajax({
-      type: 'post',
-      url: '/admin/users/' + method,
-      data: formData
-    }).done(function (response) {
-      if (response.status === 'ERROR') return toastr.error(response.message)
-      toastr.success(response.message)
-      if (done) done(response)
-    }).fail(function (xhr) {
-      toastr.error(xhr.responseJSON ? xhr.responseJSON.message : 'Request failed')
-    })
-  })
-}
-</script>

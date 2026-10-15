@@ -10,9 +10,10 @@
     <li class="dropdown pmd-dropdown pmd-user-info visible-xs visible-md visible-sm visible-lg">
       <a aria-expanded="false" data-toggle="dropdown" class="btn-user dropdown-toggle media" data-sidebar="true" aria-expandedhref="javascript:void(0);">
         <div class="media-left">
-          <img src="/app/admin/assets/external/images/user-icon.png" alt="New User">
+          <img src="{{ session.user_image ? '/public/uploads/' ~ session.user_image : '/app/admin/assets/external/images/user-icon.png' }}"
+               alt="{{ session.user_name }}" style="width:40px;height:40px;object-fit:cover;border-radius:50%">
         </div>
-        <div class="media-body media-middle">Matej Vrzala</div>
+        <div class="media-body media-middle">{{ session.user_name }}</div>
         <div class="media-right media-middle"><i class="dic-more-vert dic"></i></div>
       </a>
       <ul class="dropdown-menu">
