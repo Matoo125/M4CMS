@@ -1,0 +1,47 @@
+{% extends 'Base.twig' %}
+
+{% block body %}
+<div id="content" class="inner-page">
+  <div class="container-fluid full-width-container">
+    <h1 class="section-title" id="services"><span>Update User</span></h1>
+    <ol class="breadcrumb text-left">
+      <li><a href="/admin/users">Users</a></li>
+      <li class="active">Update</li>
+    </ol>
+    {% embed 'Users/Form.twig' %}
+      {% block formButtons %}
+        <a href="javascript:void(0);" class="btn btn-danger delete">Delete</a>
+      {% endblock %}
+    {% endembed %}
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script id="customScript">
+document.addEventListener('DOMContentLoaded', function () {
+  runThisOnLoad()
+})
+
+function runThisOnLoad () {
+  submitUserForm('updateAjax')
+
+  document.querySelector('a.delete').addEventListener('click', function () {
+    $('#delete-dialog').modal('show')
+  })
+
+  document.querySelector('#delete-dialog button[data-action=delete]').addEventListener('click', function () {
+    $.ajax({
+      type: 'POST',
+      url: '/admin/users/delete',
+      data: { id: {{ user.id }} }
+    }).done(function (r) {
+      if (r.status === 'ERROR') return toastr.error(r.message)
+      router.go('/admin/users')
+    }).fail(function (xhr) {
+      toastr.error(xhr.responseJSON ? xhr.responseJSON.message : 'Request failed')
+    })
+  })
+}
+</script>
+{% endblock %}

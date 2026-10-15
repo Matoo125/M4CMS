@@ -1,0 +1,28 @@
+{% extends 'Base.twig' %}
+
+{% block body %}
+<div id="content" class="inner-page">
+  <div class="container-fluid full-width-container">
+    <h1 class="section-title" id="services"><span>Create new User</span></h1>
+    <ol class="breadcrumb text-left">
+      <li><a href="/admin/users">Users</a></li>
+      <li class="active">Create</li>
+    </ol>
+    {% include 'Users/Form.twig' %}
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script id="customScript">
+document.addEventListener('DOMContentLoaded', function () {
+  runThisOnLoad()
+})
+
+function runThisOnLoad () {
+  submitUserForm('createAjax', function (r) {
+    router.go('/admin/users/update/' + r.id)
+  })
+}
+</script>
+{% endblock %}

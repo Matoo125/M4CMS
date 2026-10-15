@@ -1,0 +1,71 @@
+<div class="section billinfo">
+  <form id="validationForm" action="" method="post">
+  <div class="pmd-card pmd-z-depth">
+    <div class="pmd-card-body">
+
+      {% set fields = [
+        ['username', 'Username*', 'text'],
+        ['email', 'Email*', 'email'],
+        ['first_name', 'First name', 'text'],
+        ['last_name', 'Last name', 'text']
+      ] %}
+      {% for f in fields %}
+      <div class="form-group pmd-textfield">
+        <label for="{{ f[0] }}" class="control-label">{{ f[1] }}</label>
+        <input type="{{ f[2] }}" id="{{ f[0] }}" name="{{ f[0] }}" class="form-control" value="{{ attribute(user, f[0]) }}">
+      </div>
+      {% endfor %}
+
+      <div class="form-group pmd-textfield">
+        <label for="password" class="control-label">
+          {{ user.id ? 'New password (leave blank to keep current)' : 'Password*' }}
+        </label>
+        <input type="password" id="password" name="password" class="form-control" autocomplete="new-password">
+      </div>
+
+      <div class="form-group pmd-textfield pmd-textfield-label">
+        <label>Role</label>
+        <select name="role" class="form-control">
+          {% for value, label in roles %}
+            <option value="{{ value }}" {{ user.role == value ? 'selected' }}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group pmd-textfield">
+        <label for="about_me" class="control-label">About me</label>
+        <textarea id="about_me" name="about_me" class="form-control">{{ user.about_me }}</textarea>
+      </div>
+
+      <input type="hidden" name="id" value="{{ user.id }}">
+    </div>
+
+    <div class="pmd-card-actions">
+      <a href="javascript:void(0);" class="btn btn-primary nex submit">Submit</a>
+      {% block formButtons %}{% endblock %}
+    </div>
+  </div>
+  </form>
+</div>
+
+{% include 'Form/Partials/DeleteModal.twig' %}
+
+<script>
+function submitUserForm (method, done) {
+  $('form .submit').click(function () {
+    var formData = {}
+    $('#validationForm').serializeArray().forEach(function (f) { formData[f.name] = f.value })
+    $.ajax({
+      type: 'post',
+      url: '/admin/users/' + method,
+      data: formData
+    }).done(function (response) {
+      if (response.status === 'ERROR') return toastr.error(response.message)
+      toastr.success(response.message)
+      if (done) done(response)
+    }).fail(function (xhr) {
+      toastr.error(xhr.responseJSON ? xhr.responseJSON.message : 'Request failed')
+    })
+  })
+}
+</script>
