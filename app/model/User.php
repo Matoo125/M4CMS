@@ -13,37 +13,33 @@ class User extends UserModel
 
     public static $table = 'users';
 
+    // columns prefixed for queries that join media
     public static $columns = 'id, username, slug, first_name, last_name, about_me, email, role, image_id, created_at, updated_at';
 
-    public function getAllBasic ()
+    private function selectWithImage ()
     {
-      $query = $this->query->select('id as value', 'username as label')
-                           ->from(self::$table)
-                           ->build();
-      return $this->fetchAll($query);
+      $columns = array_map(function ($c) { return 'u.' . trim($c); }, explode(',', self::$columns));
+      $columns[] = 'IF(u.image_id IS NOT NULL, CONCAT(i.folder, "/", i.filename), NULL) AS image';
+      return $this->query->select(...$columns)
+                         ->from(self::$table . ' AS u')
+                         ->join('left', 'media AS i', 'i.id = u.image_id');
     }
 
     public function getAll ($items = null)
     {
-      $items = $items ?? self::$columns;
-      $query = $this->query->select($items)
-                           ->from(self::$table)
-                           ->build();
+      $query = $this->selectWithImage()->build();
       return $this->fetchAll($query);
     }
 
     public function getById ($id)
     {
-      $query = $this->query->select(self::$columns)
-                           ->from(self::$table)
-                           ->where('id = :id')
-                           ->build();
-
+      $query = $this->selectWithImage()->where('u.id = :id')->build();
       return $this->fetch($query, ['id' => $id]);
     }
 
     public function update ($data)
     {
+      $data = $this->cleanImage($data);
       if (isset($data['username'])) {
         $data['slug'] = Str::slugify($data['username']);
       }
@@ -65,6 +61,7 @@ class User extends UserModel
 
     public function insert ($data)
     {
+      $data = $this->cleanImage($data);
       $data['slug'] = Str::slugify($data['username']); // create slug from username
       $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
       $query = $this->query->insert(...array_keys($data))
@@ -100,5 +97,14 @@ class User extends UserModel
       return (bool) $this->fetch($query, [
         'email' => $email, 'username' => $username, 'id' => $exceptId
       ]);
+    }
+
+    // empty image id from the form means "no image"
+    private function cleanImage ($data)
+    {
+      if (array_key_exists('image_id', $data) && $data['image_id'] === '') {
+        $data['image_id'] = null;
+      }
+      return $data;
     }
 }

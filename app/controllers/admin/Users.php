@@ -24,7 +24,7 @@ class Users extends UsersApi
   {
     Request::forceMethod('post');
     Request::required('username', 'email', 'password', 'role');
-    $data = Request::select('username', 'email', 'password', 'first_name', 'last_name', 'about_me', 'role');
+    $data = Request::select('username', 'email', 'password', 'first_name', 'last_name', 'about_me', 'role', 'image_id');
 
     $this->validate($data);
     if ($this->model->exists($data['email'], $data['username'])) {
@@ -32,16 +32,19 @@ class Users extends UsersApi
     }
 
     $id = $this->model->insert($data);
-    $id ?
-    Response::success('User was created ', ['id' => $id]) :
-    Response::error('User was not created. ');
+    if (!$id) Response::error('User was not created. ');
+
+    if (isset($_POST['tmp_id'])) {
+      ($this->getModel('Media'))->renameFolder('users', $_POST['tmp_id'], $id);
+    }
+    Response::success('User was created ', ['id' => $id]);
   }
 
   public function updateAjax ()
   {
     Request::forceMethod('post');
     Request::required('id', 'username', 'email', 'role');
-    $data = Request::select('id', 'username', 'email', 'password', 'first_name', 'last_name', 'about_me', 'role');
+    $data = Request::select('id', 'username', 'email', 'password', 'first_name', 'last_name', 'about_me', 'role', 'image_id');
 
     $this->validate($data);
     if ($this->model->exists($data['email'], $data['username'], $data['id'])) {
@@ -56,9 +59,13 @@ class Users extends UsersApi
       Response::error('You cannot demote the last admin. ');
     }
 
-    $this->model->update($data) ?
-    Response::success('User was updated ') :
-    Response::error('User was not updated. ');
+    if (!$this->model->update($data)) Response::error('User was not updated. ');
+
+    // keep the sidebar in sync when editing yourself
+    if ($data['id'] == Session::get('user_id')) {
+      $this->rememberProfile($this->model->getById($data['id']));
+    }
+    Response::success('User was updated ');
   }
 
   public function delete ()
@@ -87,6 +94,12 @@ class Users extends UsersApi
   public function login ()
   {
     if ($_POST) parent::login();
+  }
+
+  private function rememberProfile ($user)
+  {
+    Session::set('user_name', $user['username']);
+    Session::set('user_image', $user['image']);
   }
 
   private function validate ($data)

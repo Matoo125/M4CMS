@@ -55,6 +55,7 @@ class Users extends UserController
 
     Session::set('user_id', $user['id']);
     Session::set('user_name', $user['username']);
+    Session::set('user_image', ($this->model->getById($user['id']))['image'] ?? null);
 
     Response::success('you are logged in');
   }

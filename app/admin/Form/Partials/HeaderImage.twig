@@ -2,17 +2,17 @@
         onclick="m4.imageSelector.selectHeaderImage()" 
         class="btn pmd-ripple-effect btn-primary pmd-z-depth" 
         type="button">
-  Select Header Image
+  {{ imageLabel|default('Select Header Image') }}
 </button>
 
 <div id="headerImage" style="margin: 25px 0;">
 
   {% set img = 2 %}
   {# putting there all values so it works with all forms #}
-  <img src="/public/uploads/{{ page.image}}{{ category.image }}{{ post.image }}" 
+  <img src="/public/uploads/{{ page.image}}{{ category.image }}{{ post.image }}{{ user.image }}" 
        class="img-responsive" 
        alt="">
   <input type="hidden" 
-         value="{{ page.image_id }}{{ category.image_id }}{{ post.image_id }}" 
+         value="{{ page.image_id }}{{ category.image_id }}{{ post.image_id }}{{ user.image_id }}" 
          name="headerImage">
 </div>
