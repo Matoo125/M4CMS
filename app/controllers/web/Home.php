@@ -8,6 +8,7 @@ use m4\m4cms\model\Setting;
 use m4\m4cms\controllers\api\Posts;
 use m4\m4cms\controllers\api\Categories;
 use m4\m4cms\core\Shortcode;
+use m4\m4cms\core\Homepage;
 
 class Home extends IndexApiController
 {
@@ -54,6 +55,13 @@ class Home extends IndexApiController
     else {
       $posts = new \m4\m4cms\model\Post;
       $this->data['posts'] = $posts->getNewest();
+
+      // homepage built with the block editor, if there is one
+      if ($doc = Homepage::load()) {
+        $this->data['homepage'] = Homepage::render(
+          $doc, $this->data['settings']['theme']
+        );
+      }
     }
   }
 

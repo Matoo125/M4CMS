@@ -1,6 +1,9 @@
 {% extends 'Base.twig' %}
 
 {% block body %}
+{% if homepage %}
+<div class="container"><div class="section">{{ homepage|raw }}</div></div>
+{% else %}
 
   <div class="index">
     <div class="section no-pad-bot" id="index-banner">
@@ -58,4 +61,5 @@
   </div>
 
 
+{% endif %}
 {% endblock %}

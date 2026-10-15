@@ -1,6 +1,9 @@
 {% extends 'Base.twig' %}
 
 {% block body %}
+{% if homepage %}
+<div class="container my-4">{{ homepage|raw }}</div>
+{% else %}
     <!-- Page Content -->
     <div class="container">
 
@@ -30,4 +33,5 @@
     </div>
     <!-- /.container -->
 
-  {% endblock %}
+  {% endif %}
+{% endblock %}
